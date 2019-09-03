@@ -4,5 +4,5 @@ Repositorio para Desarrollo de Software UNQ - 2019
 
 |**Integrantes**|**GitHub**|**Email**|
 |---------------|----------|---------|
-|Federico Martinez|||
-|Tomás	Hurrell|HurrellT||
+|Federico Martinez|fedejmartinez|fedejmartinez@gmail.com|
+|Tomás	Hurrell|HurrellT|hurrelltomas@gmail.com|
