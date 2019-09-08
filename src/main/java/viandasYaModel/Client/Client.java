@@ -1,5 +1,6 @@
 package viandasYaModel.Client;
 
+import viandasYaModel.Exceptions.InvalidEmailException;
 import viandasYaModel.Exceptions.InvalidPhoneNumberException;
 
 import java.util.regex.Pattern;
@@ -51,5 +52,22 @@ public class Client {
 
     public void changeNameTo(String newName) {
         this.name = newName;
+    }
+
+    public void changeLastnameTo(String newLastname) {
+        this.lastname = newLastname;
+    }
+
+        //Email
+
+    public void updateEmailTo(String newEmail) throws InvalidEmailException {
+        isAValidEmail(newEmail);
+
+        this.email = newEmail;
+    }
+
+    private void isAValidEmail(String newEmail) {
+        if (!newEmail.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"))
+            throw new InvalidEmailException();
     }
 }
