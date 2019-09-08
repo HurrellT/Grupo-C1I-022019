@@ -1,43 +1,36 @@
-package viandasYaModel.Client;
+package viandasYaModel.User;
 
 import viandasYaModel.Exceptions.InvalidEmailException;
 import viandasYaModel.Exceptions.InvalidPhoneNumberException;
 
-import java.util.regex.Pattern;
-
-public class Client {
+public class User {
 
     //Parameters
 
     public String name;
-    public String lastname;
+    public String state;
     public String address;
-    public String state;    //TODO: change to State ENUM ?
     public String email;
     public String phone;
 
     //Constructor
 
-    public Client(String name, String lastname,
-                  String address, String state,
-                  String email, String phoneNumber) throws InvalidPhoneNumberException {
+    public User(String name, String state, String address, String email, String phone) {
 
-        isAValidPhoneNumber(phoneNumber);
+        isAValidPhoneNumber(phone);
+        isAValidEmail(email);
 
         this.name = name;
-        this.lastname = lastname;
-        this.address = address;
         this.state = state;
+        this.address = address;
         this.email = email;
-        this.phone = phoneNumber;
+        this.phone = phone;
     }
 
     //Methods
 
-        //PhoneNumber
-
     //TODO: Discuss if we preffer to have this functionality in a PhoneNumberValidor / Manager object
-    private void isAValidPhoneNumber(String phoneNumber) throws InvalidPhoneNumberException {
+    protected void isAValidPhoneNumber(String phoneNumber) throws InvalidPhoneNumberException {
         if (!phoneNumber.matches("^(?:(?:00|\\+)?549?)?0?(?:11|[2368]\\d)(?:(?=\\d{0,2}15)\\d{2})??\\d{8}$"))
             throw new InvalidPhoneNumberException();
     }
@@ -48,17 +41,9 @@ public class Client {
         this.phone = newPhoneNumber;
     }
 
-        // Name
-
     public void changeNameTo(String newName) {
         this.name = newName;
     }
-
-    public void changeLastnameTo(String newLastname) {
-        this.lastname = newLastname;
-    }
-
-        //Email
 
     public void updateEmailTo(String newEmail) throws InvalidEmailException {
         isAValidEmail(newEmail);
@@ -71,13 +56,9 @@ public class Client {
             throw new InvalidEmailException();
     }
 
-        //Address
-
     public void updateAddressTo(String address) {
         this.address = address;
     }
-
-        //State
 
     public void updateStateTo(String state) {
         this.state = state;
