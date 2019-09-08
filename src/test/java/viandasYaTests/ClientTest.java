@@ -90,6 +90,28 @@ public class ClientTest {
         client.updateEmailTo("hurrellgmail.com");
     }
 
+    @Test
+    public void testUpdateAddressTo_TomasHurrellChangesHisAddressFromUnq123ToRoqueSaenzPeña352() {
+        Client client = ClientFactory.tomasHurrell();
+
+        assertEquals("Unq 123", client.address);
+
+        client.updateAddressTo("Roque Saenz Peña 352");
+
+        assertEquals("Roque Saenz Peña 352", client.address);
+    }
+
+    @Test
+    public void testUpdateStateTo_TomasHurrellChangesHisStateFromBernalToSanNicolas() {
+        Client client = ClientFactory.tomasHurrell();
+
+        assertEquals("Bernal", client.state);
+
+        client.updateStateTo("San Nicolas");
+
+        assertEquals("San Nicolas", client.state);
+    }
+
 //    @After
 //    public void cleanUp() {
 //

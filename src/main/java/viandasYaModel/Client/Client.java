@@ -70,4 +70,16 @@ public class Client {
         if (!newEmail.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"))
             throw new InvalidEmailException();
     }
+
+        //Address
+
+    public void updateAddressTo(String address) {
+        this.address = address;
+    }
+
+        //State
+
+    public void updateStateTo(String state) {
+        this.state = state;
+    }
 }
