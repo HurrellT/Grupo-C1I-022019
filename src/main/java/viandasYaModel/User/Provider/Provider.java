@@ -1,5 +1,7 @@
 package viandasYaModel.User.Provider;
 
+import viandasYaModel.Exceptions.MenuAmountConstraintException;
+import viandasYaModel.Menu.Menu;
 import viandasYaModel.User.User;
 
 import javax.xml.datatype.Duration;
@@ -41,5 +43,22 @@ public class Provider extends User {
         this.officeDaysTo = officeDaysTo;
         this.deliveryStates = new ArrayList();
         this.menus = new ArrayList();
+    }
+
+    public void addMenu(Menu menu) throws MenuAmountConstraintException {
+        if (menusAmount() < 20)
+            this.menus.add(menu);
+        else {
+            throw new MenuAmountConstraintException();
+        }
+    }
+
+    public Integer menusAmount() {
+        return menus.size();
+    }
+
+    public void updateMenu(Menu oldMenu, Menu updatedMenu) {
+        menus.remove(oldMenu);
+        menus.add(updatedMenu);
     }
 }

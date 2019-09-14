@@ -1,16 +1,21 @@
 package viandasYaTests;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.mockito.Mockito.*;
+import org.mockito.runners.MockitoJUnitRunner;
+import viandasYaModel.Exceptions.MenuAmountConstraintException;
+import viandasYaModel.Menu.Menu;
+import viandasYaModel.Menu.MenuFactory;
 import viandasYaModel.User.Provider.Provider;
 import viandasYaModel.User.Provider.ProviderFactory;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ProviderTests {
 
     @Test
@@ -37,6 +42,42 @@ public class ProviderTests {
         assertEquals(officeDaysTo, provider.officeDaysTo);
         assertEquals(new ArrayList(), provider.deliveryStates);
         assertEquals(new ArrayList(), provider.menus);
+    }
+
+    @Test
+    public void testAddMenu_AProviderAddsAMenuWithCategoryPizza() throws MenuAmountConstraintException {
+        Provider provider = ProviderFactory.pepePizzas();
+        Menu pizzaMenu = MenuFactory.pizzaMenu();
+
+        provider.addMenu(pizzaMenu);
+
+        assertTrue(provider.menus.contains(pizzaMenu));
+    }
+
+    @Test(expected = MenuAmountConstraintException.class)
+    public void testAddMenu_AProviderCannotAddANewMenuBecauseHeIsManaging20Menus() throws MenuAmountConstraintException {
+        Provider providerMock = mock(Provider.class);
+
+        when(providerMock.menusAmount()).thenReturn(20);
+        Menu pizzaMenu = MenuFactory.pizzaMenu();
+        doThrow(new MenuAmountConstraintException()).when(providerMock).addMenu(pizzaMenu);
+
+        providerMock.addMenu(pizzaMenu);
+    }
+
+    @Test
+    public void testUpdateMenu_AProviderUpdatesAMenuNameFromMenu1ToPizzaMenu() throws MenuAmountConstraintException {
+        Provider provider = ProviderFactory.pepePizzas();
+        Menu initialMenu = MenuFactory.menuWithName("Menu 1");
+
+        provider.addMenu(initialMenu);
+        assertEquals("Menu 1", initialMenu.name);
+
+        Menu updatedMenu = MenuFactory.copying(initialMenu);
+        updatedMenu.changeNameTo("Pizza Menu");
+
+        provider.updateMenu(initialMenu, updatedMenu);
+        assertEquals(updatedMenu, provider.menus.get(0));
     }
 
 }
