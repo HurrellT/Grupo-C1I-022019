@@ -1,4 +1,4 @@
-package viandasYaTests;
+package viandasYaTests.UserTests;
 
 import org.junit.Test;
 import viandasYaModel.Exceptions.InvalidEmailException;

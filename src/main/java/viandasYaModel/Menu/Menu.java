@@ -1,15 +1,52 @@
 package viandasYaModel.Menu;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Menu {
 
     //Parameters
 
     public String name;
+    public String description;
+    public MenuCategory category;
+    public int deliveryPrice;
+    public LocalDate effectiveDateFrom;
+    public LocalDate effectiveDateTo;
+    public DayNight dayNight;
+    public LocalTime effectiveDeliveryHoursFrom;
+    public LocalTime effectiveDeliveryHoursTo;
+    public DeliveryType deliveryType;
+    public LocalTime averageDeliveryTime;
+    public int price;
+    public int maximumAllowedSells;
+//+ minimumAmount: Int
+//+ minimumAmountPrice: Float
+//+ minimumAmount2: Int
+//+ minimumAmount2Price: Float
+
 
     //Constructor
 
-    public Menu(String menuName) {
+    public Menu(String menuName, String description, MenuCategory category,
+                int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
+                DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
+                DeliveryType deliveryType, LocalTime averageDeliveryTime, int price,
+                int maximumAllowedSellsAmount) {
+
         this.name = menuName;
+        this.description = description;
+        this.category = category;
+        this.deliveryPrice = deliveryPrice;
+        this.effectiveDateFrom = effectiveDateFrom;
+        this.effectiveDateTo = effectiveDateTo;
+        this.dayNight = dayNight;
+        this.effectiveDeliveryHoursFrom = effectiveDeliveryHoursFrom;
+        this.effectiveDeliveryHoursTo = effectiveDeliveryHoursTo;
+        this.deliveryType = deliveryType;
+        this.averageDeliveryTime = averageDeliveryTime;
+        this.price = price;
+        this.maximumAllowedSells = maximumAllowedSellsAmount;
     }
 
     //Methods
@@ -18,22 +55,4 @@ public class Menu {
         this.name = newMenuName;
     }
 
-
-
-
-//+ name: String
-//+ description: String
-//+ category: MenuCategory
-//+ deliveryPrice: Int
-//+ effectiveDate: DateInterval o vars separadas
-//+ dayNight: DayNight
-//+ effectiveDeliveryHours: Time
-//+ deliveryType: DeliveryType
-//+ averageDeliveryTime: Time
-//+ price: Float
-//+ minimumAmount: Int
-//+ minimumAmountPrice: Float
-//+ minimumAmount2: Int
-//+ minimumAmount2Price: Float
-//+ maximumSellsAmount: Int
 }

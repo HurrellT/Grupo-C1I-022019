@@ -61,4 +61,8 @@ public class Provider extends User {
         menus.remove(oldMenu);
         menus.add(updatedMenu);
     }
+
+    public void deleteMenu(Menu menu) {
+        menus.remove(menu);
+    }
 }

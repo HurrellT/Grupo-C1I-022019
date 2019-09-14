@@ -1,4 +1,4 @@
-package viandasYaTests;
+package viandasYaTests.UserTests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -78,6 +78,19 @@ public class ProviderTests {
 
         provider.updateMenu(initialMenu, updatedMenu);
         assertEquals(updatedMenu, provider.menus.get(0));
+    }
+
+    @Test
+    public void testDeleteMenu_AProviderDeletesAMenu() throws MenuAmountConstraintException {
+        Provider provider = ProviderFactory.pepePizzas();
+        Menu menu = MenuFactory.menuWithName("Menu 1");
+        provider.addMenu(menu);
+
+        assertEquals(1,provider.menus.size());
+
+        provider.deleteMenu(menu);
+
+        assertEquals(0,provider.menus.size());
     }
 
 }
