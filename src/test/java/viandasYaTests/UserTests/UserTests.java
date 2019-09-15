@@ -86,4 +86,33 @@ public class UserTests {
         assertEquals("San Nicolas", client.state);
     }
 
+    @Test
+    public void testANewClientHasAnAccountWithCredit0() {
+
+        Client client = ClientFactory.federicoMartinez();
+
+        assertEquals(0, client.getAccountCredit());
+    }
+
+    @Test
+    public void testAddCredit_FedericoMartinezAddsCreditToHisAccount() {
+
+        Client client = ClientFactory.federicoMartinez();
+
+        client.addCredit(5);
+
+        assertEquals(5, client.getAccountCredit());
+    }
+
+    @Test
+    public void testAddCredit_FedericoMartinezSubtractCreditFromHisAccount() {
+
+        Client client = ClientFactory.federicoMartinez();
+
+        client.addCredit(5);
+        client.subtractCredit(3);
+
+        assertEquals(2, client.getAccountCredit());
+    }
+
 }

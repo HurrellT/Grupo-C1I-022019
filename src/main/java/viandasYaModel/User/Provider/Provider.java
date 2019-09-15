@@ -65,4 +65,6 @@ public class Provider extends User {
     public void deleteMenu(Menu menu) {
         menus.remove(menu);
     }
+
+    public boolean hasTheMenu(Menu menu) { return menus.contains(menu); }
 }
