@@ -107,7 +107,7 @@ public class UserTests {
     @Test
     public void testAddCredit_FedericoMartinezSubtractCreditFromHisAccount() {
 
-        Client client = ClientFactory.federicoMartinez();
+        Client client = ClientFactory.federicoMartinez(); //
 
         client.addCredit(5);
         client.subtractCredit(3);
