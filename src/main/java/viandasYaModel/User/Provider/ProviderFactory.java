@@ -16,6 +16,6 @@ public class ProviderFactory {
                 "Bernal", "Roque Saenz Peña 400",
                 "Pizzas y empanadas Pepe", "www.pepepizzas.com.ar",
                 "pepepizzas@gmail.com", "+5491184469357",
-                officeHoursFrom, officeHoursTo, officeDaysFrom, officeDaysTo);
+                officeHoursFrom, officeHoursTo, officeDaysFrom, officeDaysTo, true);
     }
 }

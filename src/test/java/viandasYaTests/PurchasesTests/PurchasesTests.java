@@ -3,6 +3,7 @@ package viandasYaTests.PurchasesTests;
 import org.junit.Test;
 import viandasYaModel.Exceptions.MenuAmountConstraintException;
 import viandasYaModel.Exceptions.NonexistentMenuException;
+import viandasYaModel.Menu.DeliveryType;
 import viandasYaModel.Menu.Menu;
 import viandasYaModel.Menu.MenuFactory;
 import viandasYaModel.Purchase.Purchase;
@@ -11,15 +12,25 @@ import viandasYaModel.User.Provider.ProviderFactory;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static viandasYaModel.Menu.DeliveryType.*;
 
 public class PurchasesTests {
+
+    @Test
+    public void test_deliveryType(){
+
+        Provider pepePizas = ProviderFactory.pepePizzas();
+
+        assertTrue(pepePizas.hasDelivery());
+
+    }
 
     @Test
     public void testAddMenu_addAMenuToAPurchase() throws MenuAmountConstraintException {
 
         Provider pepePizas = ProviderFactory.pepePizzas();
         Menu empanadas = MenuFactory.menuWithName("empanadas");
-        Purchase order1 = new Purchase(pepePizas);
+        Purchase order1 = new Purchase(pepePizas, DELIVERY);
 
         pepePizas.addMenu(empanadas);
         order1.addMenu("empanadas", 6);
@@ -34,7 +45,7 @@ public class PurchasesTests {
         Provider pepePizas = ProviderFactory.pepePizzas();
         Menu piza = MenuFactory.menuWithName("piza");
         Menu milanesa = MenuFactory.menuWithName("milanesa");
-        Purchase order1 = new Purchase(pepePizas);
+        Purchase order1 = new Purchase(pepePizas, DELIVERY);
 
         pepePizas.addMenu(piza);
         pepePizas.addMenu(milanesa);
@@ -57,7 +68,7 @@ public class PurchasesTests {
 
         Provider pepePizas = ProviderFactory.pepePizzas();
         Menu piza = MenuFactory.menuWithName("piza");
-        Purchase order1 = new Purchase(pepePizas);
+        Purchase order1 = new Purchase(pepePizas, PICK_UP);
 
         pepePizas.addMenu(piza);
 

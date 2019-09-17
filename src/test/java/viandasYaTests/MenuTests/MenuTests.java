@@ -30,7 +30,7 @@ public class MenuTests {
         assertEquals(DayNight.DAY, menu.dayNight);
         assertEquals(effectiveDeliveryHoursFrom, menu.effectiveDeliveryHoursFrom);
         assertEquals(effectiveDeliveryHoursTo, menu.effectiveDeliveryHoursTo);
-        assertEquals(DeliveryType.MOTORCYCLE, menu.deliveryType);
+        assertEquals(DeliveryType.DELIVERY, menu.deliveryType);
         assertEquals(averageDeliveryTime, menu.averageDeliveryTime);
         assertEquals(200, menu.price);
 //        assertEquals(11, menu.minimumAmount);     //TODO: WAITING TO GET AN ANSWER ABOUT MINIMUM RANGES

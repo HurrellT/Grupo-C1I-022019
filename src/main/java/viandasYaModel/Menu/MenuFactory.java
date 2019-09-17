@@ -17,7 +17,7 @@ public class MenuFactory {
                 "Pizza Menu", "Menu de pizzas",MenuCategory.PIZZA,
                 10,effectiveDateFrom,effectiveDateTo,
                 DayNight.DAY,effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
-                DeliveryType.MOTORCYCLE, averageDeliveryTime, 200,
+                DeliveryType.DELIVERY, averageDeliveryTime, 200,
                 100);
     }
 
@@ -26,7 +26,7 @@ public class MenuFactory {
                 menuName, "Menu de pizzas", MenuCategory.PIZZA,
                 10, effectiveDateFrom, effectiveDateTo,
                 DayNight.DAY, effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo,
-                DeliveryType.MOTORCYCLE, averageDeliveryTime, 200,
+                DeliveryType.DELIVERY, averageDeliveryTime, 200,
                 100);
     }
 
@@ -35,7 +35,7 @@ public class MenuFactory {
                 (menu.name, "Menu de pizzas", MenuCategory.PIZZA,
                         10, effectiveDateFrom, effectiveDateTo,
                         DayNight.DAY, effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo,
-                        DeliveryType.MOTORCYCLE, averageDeliveryTime, 200,
+                        DeliveryType.DELIVERY, averageDeliveryTime, 200,
                         100);
     }
 }
