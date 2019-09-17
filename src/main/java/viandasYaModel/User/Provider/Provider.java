@@ -1,10 +1,10 @@
 package viandasYaModel.User.Provider;
 
+import viandasYaModel.Exceptions.NonexistentMenuException;
 import viandasYaModel.Exceptions.MenuAmountConstraintException;
 import viandasYaModel.Menu.Menu;
 import viandasYaModel.User.User;
 
-import javax.xml.datatype.Duration;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class Provider extends User {
     public DayOfWeek officeDaysFrom;
     public DayOfWeek officeDaysTo;
     public List deliveryStates;
-    public List menus;
+    public List<Menu> menus;
 
     //Constructor
 
@@ -42,7 +42,7 @@ public class Provider extends User {
         this.officeDaysFrom = officeDaysFrom;
         this.officeDaysTo = officeDaysTo;
         this.deliveryStates = new ArrayList();
-        this.menus = new ArrayList();
+        this.menus = new ArrayList<>();
     }
 
     public void addMenu(Menu menu) throws MenuAmountConstraintException {
@@ -66,5 +66,13 @@ public class Provider extends User {
         menus.remove(menu);
     }
 
-    public boolean hasTheMenu(Menu menu) { return menus.contains(menu); }
+    public Menu getMenu(String menuName) throws NonexistentMenuException {
+        for(Menu m : this.menus) {
+            if (m.getName().equals(menuName)){
+                return m;
+            }
+        }
+        throw new NonexistentMenuException();
+    }
+
 }

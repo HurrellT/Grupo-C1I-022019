@@ -80,4 +80,6 @@ public class Menu {
         this.name = newMenuName;
     }
 
+    public String getName() {return this.name;}
+
 }
