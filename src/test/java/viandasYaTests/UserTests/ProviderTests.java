@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 import viandasYaModel.Exceptions.MenuAmountConstraintException;
+import viandasYaModel.Exceptions.MenuMinimumAmountInfringement;
+import viandasYaModel.Exceptions.MenuPriceInfringement;
 import viandasYaModel.Menu.Menu;
 import viandasYaModel.Menu.MenuFactory;
 import viandasYaModel.User.Provider.Provider;
@@ -45,7 +47,7 @@ public class ProviderTests {
     }
 
     @Test
-    public void testAddMenu_AProviderAddsAMenuWithCategoryPizza() throws MenuAmountConstraintException {
+    public void testAddMenu_AProviderAddsAMenuWithCategoryPizza() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
         Provider provider = ProviderFactory.pepePizzas();
         Menu pizzaMenu = MenuFactory.pizzaMenu();
 
@@ -55,7 +57,7 @@ public class ProviderTests {
     }
 
     @Test(expected = MenuAmountConstraintException.class)
-    public void testAddMenu_AProviderCannotAddANewMenuBecauseHeIsManaging20Menus() throws MenuAmountConstraintException {
+    public void testAddMenu_AProviderCannotAddANewMenuBecauseHeIsManaging20Menus() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
         Provider providerMock = mock(Provider.class);
 
         when(providerMock.menusAmount()).thenReturn(20);
@@ -66,7 +68,7 @@ public class ProviderTests {
     }
 
     @Test
-    public void testUpdateMenu_AProviderUpdatesAMenuNameFromMenu1ToPizzaMenu() throws MenuAmountConstraintException {
+    public void testUpdateMenu_AProviderUpdatesAMenuNameFromMenu1ToPizzaMenu() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
         Provider provider = ProviderFactory.pepePizzas();
         Menu initialMenu = MenuFactory.menuWithName("Menu 1");
 
@@ -81,7 +83,7 @@ public class ProviderTests {
     }
 
     @Test
-    public void testDeleteMenu_AProviderDeletesAMenu() throws MenuAmountConstraintException {
+    public void testDeleteMenu_AProviderDeletesAMenu() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
         Provider provider = ProviderFactory.pepePizzas();
         Menu menu = MenuFactory.menuWithName("Menu 1");
         provider.addMenu(menu);
