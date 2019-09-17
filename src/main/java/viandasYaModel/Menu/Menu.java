@@ -52,6 +52,7 @@ public class Menu {
     }
 
     //Optional constructor
+
     public Menu(String menuName, String description, MenuCategory category,
                 LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
@@ -61,7 +62,7 @@ public class Menu {
         this.name = menuName;
         this.description = description;
         this.category = category;
-        this.deliveryPrice = 0;
+        this.deliveryPrice = 0;         //No delivery price defined
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
         this.dayNight = dayNight;

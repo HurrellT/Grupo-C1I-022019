@@ -21,6 +21,17 @@ public class MenuFactory {
                 100);
     }
 
+    public static Menu burgerMenu() {
+
+        return new Menu(
+                "Burguer Menu", "Menu de hamburguesas",MenuCategory.HAMBURGER,
+                effectiveDateFrom,effectiveDateTo, DayNight.DAY,
+                effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
+                DeliveryType.MOTORCYCLE, averageDeliveryTime, 200,
+                100);
+    }
+
+
     public static Menu menuWithName(String menuName) {
         return new Menu(
                 menuName, "Menu de pizzas", MenuCategory.PIZZA,
@@ -38,4 +49,6 @@ public class MenuFactory {
                         DeliveryType.MOTORCYCLE, averageDeliveryTime, 200,
                         100);
     }
+
+
 }
