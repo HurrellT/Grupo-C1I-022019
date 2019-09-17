@@ -70,7 +70,7 @@ public class ProviderTests {
     @Test
     public void testUpdateMenu_AProviderUpdatesAMenuNameFromMenu1ToPizzaMenu() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
         Provider provider = ProviderFactory.pepePizzas();
-        Menu initialMenu = MenuFactory.menuWithName("Menu 1");
+        Menu initialMenu = MenuFactory.pizzaMenuWithName("Menu 1");
 
         provider.addMenu(initialMenu);
         assertEquals("Menu 1", initialMenu.name);
@@ -85,7 +85,7 @@ public class ProviderTests {
     @Test
     public void testDeleteMenu_AProviderDeletesAMenu() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
         Provider provider = ProviderFactory.pepePizzas();
-        Menu menu = MenuFactory.menuWithName("Menu 1");
+        Menu menu = MenuFactory.pizzaMenuWithName("Menu 1");
         provider.addMenu(menu);
 
         assertEquals(1,provider.menus.size());

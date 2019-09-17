@@ -5,6 +5,7 @@ import viandasYaModel.Exceptions.MenuPriceInfringement;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Menu {
 
@@ -12,7 +13,7 @@ public class Menu {
 
     public String name;
     public String description;
-    public MenuCategory category; //TODO: Change me to be a list of categories
+    public List<MenuCategory> categories;
     public int deliveryPrice;
     public LocalDate effectiveDateFrom;
     public LocalDate effectiveDateTo;
@@ -32,16 +33,16 @@ public class Menu {
 
     //Constructor
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, List<MenuCategory> categories,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, int price,
+                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, float minimumAmountPrice,
                 int minimumAmount2, float minimumAmount2Price) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         this.name = menuName;
         this.description = description;
-        this.category = category;
+        this.categories = categories;
         this.deliveryPrice = deliveryPrice;
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
@@ -59,15 +60,15 @@ public class Menu {
 
     //Optional constructor
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, List<MenuCategory> categories,
                 LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, int price,
+                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, float minimumAmountPrice) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         this.name = menuName;
         this.description = description;
-        this.category = category;
+        this.categories = categories;
         this.deliveryPrice = 0;         //No delivery price defined
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
@@ -86,15 +87,15 @@ public class Menu {
         setPrices(price, minimumAmountPrice, 0);
     }
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, List<MenuCategory> categories,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, int price,
+                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, int minimumAmountPrice) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         this.name = menuName;
         this.description = description;
-        this.category = category;
+        this.categories = categories;
         this.deliveryPrice = deliveryPrice;
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
