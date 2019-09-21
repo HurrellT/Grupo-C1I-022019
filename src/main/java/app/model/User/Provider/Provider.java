@@ -1,21 +1,25 @@
-package viandasYaModel.User.Provider;
+package app.model.User.Provider;
 
-import viandasYaModel.Exceptions.MenuAmountConstraintException;
-import viandasYaModel.Menu.Menu;
-import viandasYaModel.User.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import app.model.Exceptions.MenuAmountConstraintException;
+import app.model.Menu.Menu;
+import app.model.User.User;
 
-import javax.xml.datatype.Duration;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Provider extends User {
 
     // Parameters
 
+    private final UUID id;
     public String logo;
-    //    public Location location;
+    //Location Params
+    public double latitude;
+    public double longitude;
     public String description;
     public String website;
     public LocalTime officeHoursFrom;
@@ -27,14 +31,17 @@ public class Provider extends User {
 
     //Constructor
 
-    public Provider(String name, String logo, String state,
-                    String address, String description, String website,
+    public Provider(String name, String logo, double latitude, double longitude,
+                    String state, String address, String description, String website,
                     String email, String phone, LocalTime officeHoursFrom,
                     LocalTime officeHoursTo, DayOfWeek officeDaysFrom,
                     DayOfWeek officeDaysTo) {
         super(name, state, address, email, phone);
 
+        this.id = UUID.randomUUID();
         this.logo = logo;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.description = description;
         this.website = website;
         this.officeHoursFrom = officeHoursFrom;
@@ -44,6 +51,21 @@ public class Provider extends User {
         this.deliveryStates = new ArrayList();
         this.menus = new ArrayList();
     }
+
+    public Provider(
+            @JsonProperty("id") UUID id,
+            @JsonProperty("name") String name,
+            @JsonProperty("lat") double latitude,
+            @JsonProperty("long") double longitude) {
+        super(name, "Bernal","Calle falsa", "hurrelltomas@gmail.com", "+5491157784955");
+
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+
+    }
+
+    //Methods
 
     public void addMenu(Menu menu) throws MenuAmountConstraintException {
         if (menusAmount() < 20)

@@ -1,4 +1,4 @@
-package viandasYaModel.Exceptions;
+package app.model.Exceptions;
 
 public class MenuMinimumAmountInfringement extends Throwable {
 

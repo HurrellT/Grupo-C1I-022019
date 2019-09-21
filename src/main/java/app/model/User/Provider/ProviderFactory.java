@@ -1,4 +1,4 @@
-package viandasYaModel.User.Provider;
+package app.model.User.Provider;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -12,7 +12,7 @@ public class ProviderFactory {
         DayOfWeek officeDaysTo = DayOfWeek.FRIDAY;
 
         return new Provider(
-                "Pepe Pizzas", "logoUrl",
+                "Pepe Pizzas", "logoUrl",     -34.61053, -58.37175,
                 "Bernal", "Roque Saenz Peña 400",
                 "Pizzas y empanadas Pepe", "www.pepepizzas.com.ar",
                 "pepepizzas@gmail.com", "+5491184469357",

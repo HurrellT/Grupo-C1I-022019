@@ -1,6 +1,6 @@
-package viandasYaModel.Menu;
+package app.model.Menu;
 
-import viandasYaModel.Exceptions.ScoreRateOutOfBoundsException;
+import app.model.Exceptions.ScoreRateOutOfBoundsException;
 
 public class Score {
 

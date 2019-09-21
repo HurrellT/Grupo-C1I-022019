@@ -1,4 +1,4 @@
-package viandasYaModel.User.Client;
+package app.model.User.Client;
 
 public class ClientFactory {
     public static Client tomasHurrell() {

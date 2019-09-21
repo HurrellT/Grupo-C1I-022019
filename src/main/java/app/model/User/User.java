@@ -1,7 +1,7 @@
-package viandasYaModel.User;
+package app.model.User;
 
-import viandasYaModel.Exceptions.InvalidEmailException;
-import viandasYaModel.Exceptions.InvalidPhoneNumberException;
+import app.model.Exceptions.InvalidEmailException;
+import app.model.Exceptions.InvalidPhoneNumberException;
 
 public class User {
 

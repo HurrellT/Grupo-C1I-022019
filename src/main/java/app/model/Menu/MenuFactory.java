@@ -1,7 +1,7 @@
-package viandasYaModel.Menu;
+package app.model.Menu;
 
-import viandasYaModel.Exceptions.MenuMinimumAmountInfringement;
-import viandasYaModel.Exceptions.MenuPriceInfringement;
+import app.model.Exceptions.MenuMinimumAmountInfringement;
+import app.model.Exceptions.MenuPriceInfringement;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

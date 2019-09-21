@@ -2,10 +2,8 @@ package viandasYaTests.UserTests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import viandasYaModel.User.Client.Client;
-import viandasYaModel.User.Client.ClientFactory;
-import viandasYaModel.Exceptions.InvalidEmailException;
-import viandasYaModel.Exceptions.InvalidPhoneNumberException;
+import app.model.User.Client.Client;
+import app.model.User.Client.ClientFactory;
 
 public class ClientTests {
 

@@ -1,10 +1,7 @@
-package viandasYaModel.User.Client;
+package app.model.User.Client;
 
-import viandasYaModel.Exceptions.InvalidEmailException;
-import viandasYaModel.Exceptions.InvalidPhoneNumberException;
-import viandasYaModel.User.User;
-
-import java.util.regex.Pattern;
+import app.model.Exceptions.InvalidPhoneNumberException;
+import app.model.User.User;
 
 public class Client extends User {
 

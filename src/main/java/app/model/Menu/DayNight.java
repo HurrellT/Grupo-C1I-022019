@@ -1,4 +1,4 @@
-package viandasYaModel.Menu;
+package app.model.Menu;
 
 public enum DayNight {
     DAY,
