@@ -1,5 +1,7 @@
 package viandasYaModel.Purchase;
 
+import viandasYaModel.Email.Controller;
+import viandasYaModel.Email.Email;
 import viandasYaModel.Exceptions.NonexistentMenuException;
 import viandasYaModel.Menu.DeliveryType;
 import viandasYaModel.Menu.MenuItem;
@@ -49,6 +51,30 @@ public class Purchase {
             if (result) break;
         }
         return result;
+    }
+
+    public void sendMails(String clientAddress){
+
+        Controller controller = new Controller();
+        Email clientMail = new Email();
+        Email providerMail = new Email();
+
+        //Build email for client
+        clientMail.setReceiver(clientAddress);
+        clientMail.setSubject("Compra a través de viandas ya");
+        clientMail.setMessage("Su compra ha sido realizada con éxito");
+
+        //Build email for provider
+        providerMail.setReceiver(this.provider.getEmail());
+        providerMail.setSubject("Venta a través de viandas ya");
+        providerMail.setMessage("La venta ha sido realizada con éxito");
+
+        //TODO agregar más información en los mails:
+        // Cliente: menú comprado, costo, credito restante
+        // Proveedor: menú vendido, credito adquirido
+
+        controller.sendMail(clientMail);
+
     }
 
 }

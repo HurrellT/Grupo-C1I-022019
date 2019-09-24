@@ -1,10 +1,8 @@
 package viandasYaModel.User.Client;
 
-import viandasYaModel.Exceptions.InvalidEmailException;
 import viandasYaModel.Exceptions.InvalidPhoneNumberException;
+import viandasYaModel.Purchase.Purchase;
 import viandasYaModel.User.User;
-
-import java.util.regex.Pattern;
 
 public class Client extends User {
 
@@ -26,6 +24,13 @@ public class Client extends User {
 
     public void changeLastnameTo(String newLastname) {
         this.lastname = newLastname;
+    }
+
+    public void makePurchase(Purchase p){
+
+        //Validar que la compra se realice correctamente
+        p.sendMails(this.email);
+
     }
 
 

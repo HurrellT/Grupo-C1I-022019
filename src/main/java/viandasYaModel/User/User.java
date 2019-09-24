@@ -58,6 +58,10 @@ public class User {
             throw new InvalidEmailException();
     }
 
+    public String getEmail(){
+        return this.email;
+    }
+
     public void updateAddressTo(String address) {
         this.address = address;
     }
