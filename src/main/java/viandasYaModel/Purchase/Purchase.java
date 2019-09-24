@@ -19,6 +19,7 @@ public class Purchase {
     public DeliveryType deliveryType;
     public LocalDate deliveryDate;
     public LocalTime deliveryTime;
+    public int totalAmount;
 
     public Purchase(Provider p, DeliveryType deliveryType){
         this.provider = p;
@@ -26,6 +27,7 @@ public class Purchase {
         this.deliveryType = deliveryType;
         this.deliveryDate = LocalDate.now();
         this.deliveryTime = LocalTime.now();
+        this.totalAmount = 0;
     }
 
     public Purchase(Provider p, DeliveryType deliveryType, LocalDate deliveryDate, LocalTime deliveryTime){
@@ -34,13 +36,16 @@ public class Purchase {
         this.deliveryType = deliveryType;
         this.deliveryDate = deliveryDate;
         this.deliveryTime = deliveryTime;
+        this.totalAmount = 0;
     }
 
     public void addMenu(String menuName, Integer quantity) throws NonexistentMenuException {
         this.order.add(new MenuItem(this.provider.getMenu(menuName), quantity));
+        this.totalAmount += (this.provider.getMenu(menuName).getPrice() * quantity);
     }
 
     public void removeMenu(String menuName){
+        this.totalAmount -= (this.provider.getMenu(menuName).getPrice() * this.getMenuQuantity(menuName));
         this.order.removeIf(menuItem -> (menuItem.getMenuName().equals(menuName)));
     }
 
@@ -51,6 +56,29 @@ public class Purchase {
             if (result) break;
         }
         return result;
+    }
+
+    public int getTotalAmount(){
+        return this.totalAmount;
+    }
+
+    private int getMenuQuantity(String menuName){
+        int quantity = 0;
+        for (MenuItem item: order) {
+            if(item.getMenuName() == menuName){
+                quantity = item.getQuantity();
+                break;
+            }
+        }
+        return quantity;
+    }
+
+    public int menusQuantity(){
+        return order.size();
+    }
+
+    public void makePayment(){
+        this.provider.addCredit(this.totalAmount);
     }
 
     public void sendMails(String clientAddress){

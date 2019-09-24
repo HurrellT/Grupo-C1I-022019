@@ -15,4 +15,5 @@ public class MenuItem {
     public String getMenuName(){
         return this.menu.getName();
     }
+    public Integer getQuantity() { return this.quantity; }
 }

@@ -38,4 +38,25 @@ public class MenuFactory {
                         DeliveryType.DELIVERY, averageDeliveryTime, 200,
                         100);
     }
+
+    public static Menu empanadas() {
+
+        return new Menu(
+                "Empanadas", "Menu de empanadas",MenuCategory.EMPANADAS,
+                10,effectiveDateFrom,effectiveDateTo,
+                DayNight.DAY,effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
+                DeliveryType.DELIVERY, averageDeliveryTime, 100,
+                100);
+    }
+
+    public static Menu hamburger() {
+
+        return new Menu(
+                "Hamburguesa", "Menu de hamburguesa",MenuCategory.HAMBURGER,
+                10,effectiveDateFrom,effectiveDateTo,
+                DayNight.DAY,effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
+                DeliveryType.DELIVERY, averageDeliveryTime, 100,
+                100);
+    }
+
 }

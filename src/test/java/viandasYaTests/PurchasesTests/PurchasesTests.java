@@ -2,14 +2,19 @@ package viandasYaTests.PurchasesTests;
 
 import org.junit.Test;
 import viandasYaModel.Exceptions.MenuAmountConstraintException;
+import viandasYaModel.Exceptions.NoEnoughCreditException;
+import viandasYaModel.Exceptions.NoItemsInTheOrderException;
 import viandasYaModel.Exceptions.NonexistentMenuException;
 import viandasYaModel.Menu.DeliveryType;
 import viandasYaModel.Menu.Menu;
 import viandasYaModel.Menu.MenuFactory;
 import viandasYaModel.Purchase.Purchase;
+import viandasYaModel.User.Client.Client;
+import viandasYaModel.User.Client.ClientFactory;
 import viandasYaModel.User.Provider.Provider;
 import viandasYaModel.User.Provider.ProviderFactory;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static viandasYaModel.Menu.DeliveryType.*;
@@ -37,6 +42,7 @@ public class PurchasesTests {
 
         assertTrue(order1.containsMenu("empanadas"));
         assertFalse(order1.containsMenu("pizza"));
+        assertEquals(1200, order1.getTotalAmount());
     }
 
     @Test
@@ -55,11 +61,13 @@ public class PurchasesTests {
         //El pedido tiene piza y milanesa.
         assertTrue(order1.containsMenu("piza"));
         assertTrue(order1.containsMenu("milanesa"));
+        assertEquals(600, order1.getTotalAmount());
 
         order1.removeMenu("piza");
 
-        //El pedido ya no tiene la piza.
+        //El pedido ya no tiene la piza y se resta su precio.
         assertFalse(order1.containsMenu("piza"));
+        assertEquals(200, order1.getTotalAmount());
 
     }
 
@@ -74,6 +82,60 @@ public class PurchasesTests {
 
         //Pido empanadas pero pepePizas solo tiene piza.
         order1.addMenu("empanada", 12);
+
+    }
+
+    @Test
+    public void getTotalAmount_getTheSumOfTheAmounts() throws MenuAmountConstraintException{
+
+        Provider pepePizas = ProviderFactory.pepePizzas();
+        Menu piza = MenuFactory.pizzaMenu();
+        Menu empanada = MenuFactory.empanadas();
+        Menu hamburguesa = MenuFactory.hamburger();
+        Purchase order1 = new Purchase(pepePizas, DELIVERY);
+
+        //Seteo los precios de los menús
+        piza.setPrice(200);
+        empanada.setPrice(45);
+        hamburguesa.setPrice(150);
+
+        //Agrego los menús a la disponibilidad del proveedor
+        pepePizas.addMenu(piza);
+        pepePizas.addMenu(empanada);
+        pepePizas.addMenu(hamburguesa);
+
+        //Agrego menús a la orden
+        order1.addMenu(piza.getName(), 2);
+        order1.addMenu(empanada.getName(), 6);
+        order1.addMenu(hamburguesa.getName(), 3);
+
+        assertEquals(1120, order1.getTotalAmount(), 0.0);
+    }
+
+    @Test(expected = NoEnoughCreditException.class)
+    public void makePurchase_tryingToMakeAPurchaseWithoutEnoughCredit() throws MenuAmountConstraintException{
+
+        Provider pepePizas = ProviderFactory.pepePizzas();
+        Menu piza = MenuFactory.pizzaMenu();
+        Client fede = ClientFactory.federicoMartinez();
+        Purchase order1 = new Purchase(pepePizas, DELIVERY);
+
+        piza.setPrice(200);
+        pepePizas.addMenu(piza);
+        order1.addMenu(piza.getName(), 1);
+        fede.addCredit(10);
+        fede.makePurchase(order1);
+
+    }
+
+    @Test(expected = NoItemsInTheOrderException.class)
+    public void makePurchase_tryingToMakeAPurchaseWithoutItems(){
+
+        Provider pepePizas = ProviderFactory.pepePizzas();
+        Client fede = ClientFactory.federicoMartinez();
+        Purchase order1 = new Purchase(pepePizas, DELIVERY);
+
+        fede.makePurchase(order1);
 
     }
 

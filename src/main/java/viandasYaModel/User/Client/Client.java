@@ -1,6 +1,8 @@
 package viandasYaModel.User.Client;
 
 import viandasYaModel.Exceptions.InvalidPhoneNumberException;
+import viandasYaModel.Exceptions.NoEnoughCreditException;
+import viandasYaModel.Exceptions.NoItemsInTheOrderException;
 import viandasYaModel.Purchase.Purchase;
 import viandasYaModel.User.User;
 
@@ -26,12 +28,26 @@ public class Client extends User {
         this.lastname = newLastname;
     }
 
-    public void makePurchase(Purchase p){
+    public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException {
 
-        //Validar que la compra se realice correctamente
-        p.sendMails(this.email);
+        int totalAmount = p.getTotalAmount();
+
+        if (p.menusQuantity() > 0){
+
+            if(totalAmount <= this.getAccountCredit()){
+                p.makePayment();
+                this.subtractCredit(totalAmount);
+                p.sendMails(this.email);
+            }
+            else{
+                throw new NoEnoughCreditException();
+            }
+
+        }
+        else{
+            throw new NoItemsInTheOrderException();
+        }
 
     }
-
 
 }
