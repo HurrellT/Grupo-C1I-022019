@@ -12,7 +12,7 @@ public class User {
     public String address;
     public String email;
     public String phone;
-    public int accountCredit;
+    public double accountCredit;
 
     //Constructor
 
@@ -70,9 +70,9 @@ public class User {
         this.state = state;
     }
 
-    public void addCredit(int cred){ this.accountCredit+= cred; }
+    public void addCredit(double cred){ this.accountCredit+= cred; }
 
-    public void subtractCredit(int cred){ this.accountCredit-= cred; }
+    public void subtractCredit(double cred){ this.accountCredit-= cred; }
 
-    public int getAccountCredit() { return this.accountCredit; }
+    public double getAccountCredit() { return this.accountCredit; }
 }

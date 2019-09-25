@@ -91,7 +91,7 @@ public class UserTests {
 
         Client client = ClientFactory.federicoMartinez();
 
-        assertEquals(0, client.getAccountCredit());
+        assertEquals(0, client.getAccountCredit(), 0.0);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class UserTests {
 
         client.addCredit(5);
 
-        assertEquals(5, client.getAccountCredit());
+        assertEquals(5, client.getAccountCredit(), 0.0);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class UserTests {
         client.addCredit(5);
         client.subtractCredit(3);
 
-        assertEquals(2, client.getAccountCredit());
+        assertEquals(2, client.getAccountCredit(), 0.0);
     }
 
 }

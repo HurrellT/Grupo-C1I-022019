@@ -19,7 +19,7 @@ public class Purchase {
     public DeliveryType deliveryType;
     public LocalDate deliveryDate;
     public LocalTime deliveryTime;
-    public int totalAmount;
+    public double totalAmount;
 
     public Purchase(Provider p, DeliveryType deliveryType){
         this.provider = p;
@@ -58,7 +58,7 @@ public class Purchase {
         return result;
     }
 
-    public int getTotalAmount(){
+    public double getTotalAmount(){
         return this.totalAmount;
     }
 

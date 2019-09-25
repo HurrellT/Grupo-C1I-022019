@@ -39,7 +39,7 @@ public class PurchasesTests {
 
         assertTrue(order1.containsMenu("empanadas"));
         assertFalse(order1.containsMenu("pizza"));
-        assertEquals(1200, order1.getTotalAmount());
+        assertEquals(1200, order1.getTotalAmount(), 0.0);
     }
 
     @Test
@@ -58,13 +58,13 @@ public class PurchasesTests {
         //El pedido tiene piza y milanesa.
         assertTrue(order1.containsMenu("piza"));
         assertTrue(order1.containsMenu("milanesa"));
-        assertEquals(600, order1.getTotalAmount());
+        assertEquals(600, order1.getTotalAmount(), 0.0);
 
         order1.removeMenu("piza");
 
         //El pedido ya no tiene la piza y se resta su precio.
         assertFalse(order1.containsMenu("piza"));
-        assertEquals(200, order1.getTotalAmount());
+        assertEquals(200, order1.getTotalAmount(), 0.0);
 
     }
 

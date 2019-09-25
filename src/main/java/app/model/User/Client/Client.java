@@ -31,7 +31,7 @@ public class Client extends User {
 
     public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException {
 
-        int totalAmount = p.getTotalAmount();
+        double totalAmount = p.getTotalAmount();
 
         if (p.menusQuantity() > 0){
 
