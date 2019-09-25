@@ -12,6 +12,7 @@ public class User {
     public String address;
     public String email;
     public String phone;
+    public int accountCredit;
 
     //Constructor
 
@@ -25,6 +26,7 @@ public class User {
         this.address = address;
         this.email = email;
         this.phone = phone;
+        this.accountCredit = 0;
     }
 
     //Methods
@@ -56,6 +58,10 @@ public class User {
             throw new InvalidEmailException();
     }
 
+    public String getEmail(){
+        return this.email;
+    }
+
     public void updateAddressTo(String address) {
         this.address = address;
     }
@@ -63,4 +69,10 @@ public class User {
     public void updateStateTo(String state) {
         this.state = state;
     }
+
+    public void addCredit(int cred){ this.accountCredit+= cred; }
+
+    public void subtractCredit(int cred){ this.accountCredit-= cred; }
+
+    public int getAccountCredit() { return this.accountCredit; }
 }

@@ -2,10 +2,14 @@ package viandasYaTests.UserTests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+import viandasYaModel.Menu.DeliveryType;
+import viandasYaModel.Purchase.Purchase;
 import viandasYaModel.User.Client.Client;
 import viandasYaModel.User.Client.ClientFactory;
 import viandasYaModel.Exceptions.InvalidEmailException;
 import viandasYaModel.Exceptions.InvalidPhoneNumberException;
+import viandasYaModel.User.Provider.Provider;
+import viandasYaModel.User.Provider.ProviderFactory;
 
 public class ClientTests {
 
@@ -37,6 +41,17 @@ public class ClientTests {
 
         assertEquals("Jarrel", client.lastname);
     }
+
+    /*@Test
+    public void testSendMails(){
+
+        Client client = ClientFactory.federicoMartinez();
+        Provider provider = ProviderFactory.pepePizzas();
+        Purchase purchase = new Purchase(provider, DeliveryType.DELIVERY);
+
+        client.makePurchase(purchase);
+
+    }*/
 
 
 //    @After

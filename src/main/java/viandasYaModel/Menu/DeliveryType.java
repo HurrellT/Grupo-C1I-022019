@@ -1,7 +1,6 @@
 package viandasYaModel.Menu;
 
 public enum DeliveryType {
-    MOTORCYCLE,
-    DRONE,
-    CAR,
+    DELIVERY,
+    PICK_UP,
 }

@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.Mockito.*;
+
 import org.mockito.runners.MockitoJUnitRunner;
+import viandasYaModel.Exceptions.NonexistentMenuException;
 import viandasYaModel.Exceptions.MenuAmountConstraintException;
 import viandasYaModel.Exceptions.MenuMinimumAmountInfringement;
 import viandasYaModel.Exceptions.MenuPriceInfringement;
@@ -93,6 +95,25 @@ public class ProviderTests {
         provider.deleteMenu(menu);
 
         assertEquals(0,provider.menus.size());
+    }
+
+    @Test
+    public void testGetMenu_CheckIfTheProviderHasAManu() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
+        Provider pepePizzas = ProviderFactory.pepePizzas();
+        Menu menu = MenuFactory.menuWithName("12 Empanadas");
+        pepePizzas.addMenu(menu);
+
+        assertEquals(pepePizzas.getMenu("12 Empanadas").getName(), menu.getName());
+    }
+
+    @Test(expected = NonexistentMenuException.class)
+    public void testGetMenu_TheProviderDoesntHaveTheMenu() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
+        Provider pepePizzas = ProviderFactory.pepePizzas();
+        Menu menu1 = MenuFactory.menuWithName("12 Empanadas");
+
+        pepePizzas.addMenu(menu1);
+        pepePizzas.getMenu("1 Piza");
+
     }
 
 }

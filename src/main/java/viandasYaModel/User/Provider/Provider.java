@@ -1,10 +1,11 @@
 package viandasYaModel.User.Provider;
 
+import viandasYaModel.Exceptions.NonexistentMenuException;
 import viandasYaModel.Exceptions.MenuAmountConstraintException;
+import viandasYaModel.Menu.DeliveryType;
 import viandasYaModel.Menu.Menu;
 import viandasYaModel.User.User;
 
-import javax.xml.datatype.Duration;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class Provider extends User {
     public DayOfWeek officeDaysFrom;
     public DayOfWeek officeDaysTo;
     public List deliveryStates;
-    public List menus;
+    public List<Menu> menus;
+    private boolean delivery;
 
     //Constructor
 
@@ -31,7 +33,7 @@ public class Provider extends User {
                     String address, String description, String website,
                     String email, String phone, LocalTime officeHoursFrom,
                     LocalTime officeHoursTo, DayOfWeek officeDaysFrom,
-                    DayOfWeek officeDaysTo) {
+                    DayOfWeek officeDaysTo, boolean delivery) {
         super(name, state, address, email, phone);
 
         this.logo = logo;
@@ -42,7 +44,8 @@ public class Provider extends User {
         this.officeDaysFrom = officeDaysFrom;
         this.officeDaysTo = officeDaysTo;
         this.deliveryStates = new ArrayList();
-        this.menus = new ArrayList();
+        this.menus = new ArrayList<>();
+        this.delivery = delivery;
     }
 
     public void addMenu(Menu menu) throws MenuAmountConstraintException {
@@ -65,4 +68,16 @@ public class Provider extends User {
     public void deleteMenu(Menu menu) {
         menus.remove(menu);
     }
+
+    public Menu getMenu(String menuName) throws NonexistentMenuException {
+        for(Menu m : this.menus) {
+            if (m.getName().equals(menuName)){
+                return m;
+            }
+        }
+        throw new NonexistentMenuException();
+    }
+
+    public boolean hasDelivery(){return delivery;}
+
 }

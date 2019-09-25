@@ -140,5 +140,13 @@ public class Menu {
         }
     }
 
+    public String getName() {return this.name;}
 
+    public double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(int price){
+        this.price = price;
+    }
 }

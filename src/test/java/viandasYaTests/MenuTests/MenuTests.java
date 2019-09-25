@@ -34,7 +34,7 @@ public class MenuTests {
         assertEquals(DayNight.DAY, menu.dayNight);
         assertEquals(effectiveDeliveryHoursFrom, menu.effectiveDeliveryHoursFrom);
         assertEquals(effectiveDeliveryHoursTo, menu.effectiveDeliveryHoursTo);
-        assertEquals(DeliveryType.MOTORCYCLE, menu.deliveryType);
+        assertEquals(DeliveryType.DELIVERY, menu.deliveryType);
         assertEquals(averageDeliveryTime, menu.averageDeliveryTime);
         assertEquals(200, menu.price, 0);
         assertEquals(10, menu.minimumAmount);
@@ -64,7 +64,7 @@ public class MenuTests {
         assertEquals(DayNight.DAY, menu.dayNight);
         assertEquals(effectiveDeliveryHoursFrom, menu.effectiveDeliveryHoursFrom);
         assertEquals(effectiveDeliveryHoursTo, menu.effectiveDeliveryHoursTo);
-        assertEquals(DeliveryType.MOTORCYCLE, menu.deliveryType);
+        assertEquals(DeliveryType.DELIVERY, menu.deliveryType);
         assertEquals(averageDeliveryTime, menu.averageDeliveryTime);
         assertEquals(200, menu.price, 0);
         assertEquals(10, menu.minimumAmount);
@@ -88,7 +88,7 @@ public class MenuTests {
 
         Menu menu = new Menu("Test Menu", "Menu de prueba", menuCategories,
                 10,effectiveDateFrom, effectiveDateTo, DayNight.NIGHT,
-                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.MOTORCYCLE,
+                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.DELIVERY,
                 averageDeliveryTime, 100, 10, 1, 90);
 
         assertEquals("Test Menu", menu.name);
@@ -101,7 +101,7 @@ public class MenuTests {
         assertEquals(DayNight.NIGHT, menu.dayNight);
         assertEquals(effectiveDeliveryHoursFrom, menu.effectiveDeliveryHoursFrom);
         assertEquals(effectiveDeliveryHoursTo, menu.effectiveDeliveryHoursTo);
-        assertEquals(DeliveryType.MOTORCYCLE, menu.deliveryType);
+        assertEquals(DeliveryType.DELIVERY, menu.deliveryType);
         assertEquals(averageDeliveryTime, menu.averageDeliveryTime);
         assertEquals(100, menu.price, 0);
         assertEquals(1, menu.minimumAmount);
@@ -132,7 +132,7 @@ public class MenuTests {
 
         Menu menu = new Menu("Test Menu", "Menu de prueba", menuCategories,
                 10,effectiveDateFrom, effectiveDateTo, DayNight.NIGHT,
-                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.MOTORCYCLE,
+                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.DELIVERY,
                 averageDeliveryTime, 100, 10, 1, 90,
                 10,100);
     }
