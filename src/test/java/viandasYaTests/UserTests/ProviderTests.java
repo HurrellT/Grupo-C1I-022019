@@ -1,19 +1,20 @@
 package viandasYaTests.UserTests;
 
 import static org.junit.Assert.*;
+
+import app.model.Exceptions.NonexistentMenuException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.Mockito.*;
 
 import org.mockito.runners.MockitoJUnitRunner;
-import viandasYaModel.Exceptions.NonexistentMenuException;
-import viandasYaModel.Exceptions.MenuAmountConstraintException;
-import viandasYaModel.Exceptions.MenuMinimumAmountInfringement;
-import viandasYaModel.Exceptions.MenuPriceInfringement;
-import viandasYaModel.Menu.Menu;
-import viandasYaModel.Menu.MenuFactory;
-import viandasYaModel.User.Provider.Provider;
-import viandasYaModel.User.Provider.ProviderFactory;
+import app.model.Exceptions.MenuAmountConstraintException;
+import app.model.Exceptions.MenuMinimumAmountInfringement;
+import app.model.Exceptions.MenuPriceInfringement;
+import app.model.Menu.Menu;
+import app.model.Menu.MenuFactory;
+import app.model.User.Provider.Provider;
+import app.model.User.Provider.ProviderFactory;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -35,7 +36,8 @@ public class ProviderTests {
         assertEquals("logoUrl", provider.logo);
         assertEquals("Bernal", provider.state);
         assertEquals("Roque Saenz Peña 400", provider.address);
-//        assertEquals(location gmaps, provider.location);
+        assertEquals(-34.61053, provider.latitude, 0);
+        assertEquals(-58.37175, provider.longitude, 0);
         assertEquals("Pizzas y empanadas Pepe", provider.description);
         assertEquals("www.pepepizzas.com.ar",provider.website);
         assertEquals("pepepizzas@gmail.com", provider.email);

@@ -1,9 +1,9 @@
 package viandasYaTests.EmailTests;
 
+import app.model.Email.Controller;
+import app.model.Email.Email;
+import app.model.Exceptions.InvalidEmailException;
 import org.junit.Test;
-import viandasYaModel.Email.Controller;
-import viandasYaModel.Email.Email;
-import viandasYaModel.Exceptions.InvalidEmailException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;

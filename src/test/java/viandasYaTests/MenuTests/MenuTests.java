@@ -1,9 +1,9 @@
 package viandasYaTests.MenuTests;
 
 import org.junit.Test;
-import viandasYaModel.Exceptions.MenuMinimumAmountInfringement;
-import viandasYaModel.Exceptions.MenuPriceInfringement;
-import viandasYaModel.Menu.*;
+import app.model.Exceptions.MenuMinimumAmountInfringement;
+import app.model.Exceptions.MenuPriceInfringement;
+import app.model.Menu.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

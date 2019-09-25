@@ -1,8 +1,8 @@
 package viandasYaTests.MenuTests;
 
 import org.junit.Test;
-import viandasYaModel.Exceptions.ScoreRateOutOfBoundsException;
-import viandasYaModel.Menu.Score;
+import app.model.Exceptions.ScoreRateOutOfBoundsException;
+import app.model.Menu.Score;
 import static org.junit.Assert.*;
 
 

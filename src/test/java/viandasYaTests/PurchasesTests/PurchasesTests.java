@@ -1,20 +1,20 @@
 package viandasYaTests.PurchasesTests;
 
+import app.model.Exceptions.*;
+import app.model.Menu.Menu;
+import app.model.Menu.MenuFactory;
+import app.model.Purchase.Purchase;
+import app.model.User.Client.Client;
+import app.model.User.Client.ClientFactory;
+import app.model.User.Provider.Provider;
+import app.model.User.Provider.ProviderFactory;
 import org.junit.Test;
-import viandasYaModel.Exceptions.*;
-import viandasYaModel.Menu.DeliveryType;
-import viandasYaModel.Menu.Menu;
-import viandasYaModel.Menu.MenuFactory;
-import viandasYaModel.Purchase.Purchase;
-import viandasYaModel.User.Client.Client;
-import viandasYaModel.User.Client.ClientFactory;
-import viandasYaModel.User.Provider.Provider;
-import viandasYaModel.User.Provider.ProviderFactory;
 
+import static app.model.Menu.DeliveryType.DELIVERY;
+import static app.model.Menu.DeliveryType.PICK_UP;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static viandasYaModel.Menu.DeliveryType.*;
 
 public class PurchasesTests {
 
