@@ -136,4 +136,50 @@ public class PurchasesTests {
 
     }
 
+    @Test
+    public void makePayment_APurchaseMakesAPayment()throws MenuMinimumAmountInfringement,
+            MenuPriceInfringement,
+            MenuAmountConstraintException{
+
+        Provider pepePizas = ProviderFactory.pepePizzas();
+        Menu piza = MenuFactory.pizzaMenu();
+        Purchase order = new Purchase(pepePizas, DELIVERY);
+
+        piza.setPrice(200);
+        pepePizas.addMenu(piza);
+        order.addMenu("Pizza Menu", 1);
+
+        assertEquals(0, pepePizas.getAccountCredit(), 0);
+
+        order.makePayment();
+
+        assertEquals(200, pepePizas.getAccountCredit(), 0);
+
+    }
+
+    @Test
+    public void makePurchase_makeASuccessfulPurchase() throws MenuMinimumAmountInfringement,
+                                                              MenuPriceInfringement,
+                                                              MenuAmountConstraintException{
+
+        Provider pepePizas = ProviderFactory.pepePizzas();
+        Client juan = ClientFactory.juan();
+        Menu piza = MenuFactory.pizzaMenu();
+        Purchase order = new Purchase(pepePizas, DELIVERY);
+
+        juan.addCredit(200);
+        piza.setPrice(200);
+        pepePizas.addMenu(piza);
+        order.addMenu("Pizza Menu", 1);
+
+        assertEquals(0, pepePizas.getAccountCredit(), 0);
+
+        juan.makePurchase(order);
+
+        assertEquals(0, juan.getAccountCredit(), 0);
+        assertEquals(200, pepePizas.getAccountCredit(), 0);
+
+
+    }
+
 }

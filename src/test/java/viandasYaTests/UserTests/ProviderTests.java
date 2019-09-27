@@ -51,6 +51,15 @@ public class ProviderTests {
     }
 
     @Test
+    public void addCredit_AProviderAddsCreditToHisAccount(){
+        Provider pepePizzas = ProviderFactory.pepePizzas();
+
+        pepePizzas.addCredit(152.10);
+
+        assertEquals(pepePizzas.getAccountCredit(), 152.10, 0);
+    }
+
+    @Test
     public void testAddMenu_AProviderAddsAMenuWithCategoryPizza() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
         Provider provider = ProviderFactory.pepePizzas();
         Menu pizzaMenu = MenuFactory.pizzaMenu();

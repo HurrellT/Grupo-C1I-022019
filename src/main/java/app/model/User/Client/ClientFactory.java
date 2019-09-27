@@ -11,4 +11,9 @@ public class ClientFactory {
                 "Saenz 123", "Avellaneda",
                 "fedejmartinez@gmail.com", "+5491166213955");
     }
+    public static Client juan() {
+        return new Client("Juan", "Lopez",
+                "Rp 1233", "Paris",
+                "jlp1412334542@gmail.com", "+5491166242443");
+    }
 }
