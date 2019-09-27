@@ -1,0 +1,16 @@
+---------------------------------------------------------------------
+TAG Grupo-C1I-022019-Entrega-1
+---------------------------------------------------------------------
+NEW FEATURES
+* User - Client / Provider Feature; providing all the information relevant to each
+    type of user.
+* Email Feature; send email notifications with valid email verifications.
+* Menu Feature; containing all the information about the categories available,
+    all the prices, including delivery prices, types and time frames.
+* Purchase Feature; representing all the purchases a user can make.
+* Score Feature; letting you score menues according to a certain criteria.
+
+NOTES
+* This application includes a basic Spring boot app to test it's functionality, but
+currently, there's no persistence system implemented.
+* The Location services will probably change in order to be used in the Front End Map.
