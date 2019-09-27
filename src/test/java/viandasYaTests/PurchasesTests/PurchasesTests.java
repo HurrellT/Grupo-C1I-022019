@@ -10,6 +10,9 @@ import app.model.User.Provider.Provider;
 import app.model.User.Provider.ProviderFactory;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import static app.model.Menu.DeliveryType.DELIVERY;
 import static app.model.Menu.DeliveryType.PICK_UP;
 import static org.junit.Assert.assertEquals;
@@ -130,7 +133,7 @@ public class PurchasesTests {
 
         Provider pepePizas = ProviderFactory.pepePizzas();
         Client fede = ClientFactory.federicoMartinez();
-        Purchase order1 = new Purchase(pepePizas, DELIVERY);
+        Purchase order1 = new Purchase(pepePizas, DELIVERY, LocalDate.ofYearDay(2019, 300), LocalTime.MIDNIGHT);
 
         fede.makePurchase(order1);
 
