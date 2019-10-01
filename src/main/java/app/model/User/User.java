@@ -3,9 +3,18 @@ package app.model.User;
 import app.model.Exceptions.InvalidEmailException;
 import app.model.Exceptions.InvalidPhoneNumberException;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type",discriminatorType = DiscriminatorType.STRING)
 public class User {
 
     //Parameters
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     public String name;
     public String state;
@@ -15,6 +24,8 @@ public class User {
     public double accountCredit;
 
     //Constructor
+
+    public User() {}
 
     public User(String name, String state, String address, String email, String phone) {
 

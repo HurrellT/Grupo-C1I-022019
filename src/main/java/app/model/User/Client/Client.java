@@ -7,6 +7,14 @@ import app.model.Exceptions.NoItemsInTheOrderException;
 import app.model.Purchase.Purchase;
 import app.model.User.User;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "client")
+@DiscriminatorValue("client")
 public class Client extends User {
 
     //Parameters
@@ -14,6 +22,8 @@ public class Client extends User {
     public String lastname;
 
     //Constructor
+
+    public Client() {super();}
 
     public Client(String name, String lastname,
                   String address, String state,

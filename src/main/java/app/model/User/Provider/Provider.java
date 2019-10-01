@@ -7,17 +7,23 @@ import app.model.Menu.Menu;
 import app.model.User.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "provider")
+@DiscriminatorValue("provider")
 public class Provider extends User {
 
     // Parameters
 
-    private final UUID id;
     public String logo;
     //Location Params
     public double latitude;
@@ -28,11 +34,15 @@ public class Provider extends User {
     public LocalTime officeHoursTo;
     public DayOfWeek officeDaysFrom;
     public DayOfWeek officeDaysTo;
+    @Transient
     public List deliveryStates;
+    @Transient
     public List<Menu> menus;
     private boolean delivery;
 
     //Constructor
+
+    public Provider() {super();}
 
     public Provider(String name, String logo, double latitude, double longitude,
                     String state, String address, String description, String website,
@@ -41,7 +51,6 @@ public class Provider extends User {
                     DayOfWeek officeDaysTo, boolean delivery) {
         super(name, state, address, email, phone);
 
-        this.id = UUID.randomUUID();
         this.logo = logo;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -63,7 +72,6 @@ public class Provider extends User {
             @JsonProperty("long") double longitude) {
         super(name, "Bernal","Calle falsa", "hurrelltomas@gmail.com", "+5491157784955");
 
-        this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
 
