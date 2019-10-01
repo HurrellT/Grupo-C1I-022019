@@ -1,14 +1,9 @@
-package app.api;
+package app.api.user;
 
+import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import app.model.User.Provider.Provider;
-import app.model.User.Provider.ProviderFactory;
-import app.model.User.User;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,12 +12,10 @@ import java.util.List;
 public class UserController {
 
     //Parameters
-
+    @Autowired
     private final UserService userService;
 
     //Constructor
-
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -30,12 +23,17 @@ public class UserController {
     //Methods
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public void addUser(@RequestBody Provider user) {
+    public void addUser(@RequestBody User user) {
         userService.addUser(user);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<User> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @RequestMapping(value = "/user/{name}")
+    public User findUserNamed(@PathVariable("name") String name) {
+        return userService.findUserNamed(name);
     }
 }

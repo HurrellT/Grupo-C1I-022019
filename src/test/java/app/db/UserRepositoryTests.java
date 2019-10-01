@@ -1,7 +1,8 @@
 package app.db;
 
-import app.db.UserRepository;
+import app.api.user.UserRepository;
 import app.model.User.Client.ClientFactory;
+import app.model.User.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,14 @@ public class UserRepositoryTests {
         userRepository.save(ClientFactory.tomasHurrell());
         userRepository.save(ClientFactory.federicoMartinez());
         assertThat(userRepository.findAll()).isInstanceOf(List.class);
+    }
+
+    @Test
+    public void whenSavingCustomer_thenCorrect() {
+        userRepository.save(ClientFactory.tomasHurrell());
+        User user = userRepository.findById(1L).orElseGet(()
+                -> ClientFactory.tomasHurrell());
+        assertThat(user.name).isEqualTo("Bob");
     }
 
 }
