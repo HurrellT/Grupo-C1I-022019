@@ -36,7 +36,7 @@ public class Provider extends User {
     public DayOfWeek officeDaysTo;
     @Transient
     public List deliveryStates;
-    @Transient
+    @Transient //TODO: fix me
     public List<Menu> menus;
     private boolean delivery;
 
@@ -63,18 +63,6 @@ public class Provider extends User {
         this.deliveryStates = new ArrayList();
         this.menus = new ArrayList<>();
         this.delivery = delivery;
-    }
-
-    public Provider(
-            @JsonProperty("id") UUID id,
-            @JsonProperty("name") String name,
-            @JsonProperty("lat") double latitude,
-            @JsonProperty("long") double longitude) {
-        super(name, "Bernal","Calle falsa", "hurrelltomas@gmail.com", "+5491157784955");
-
-        this.latitude = latitude;
-        this.longitude = longitude;
-
     }
 
     //Methods
