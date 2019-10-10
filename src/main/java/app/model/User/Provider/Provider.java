@@ -34,7 +34,7 @@ public class Provider extends User {
     public LocalTime officeHoursTo;
     public DayOfWeek officeDaysFrom;
     public DayOfWeek officeDaysTo;
-    @Transient
+    @Transient  //TODO: delete me
     public List deliveryStates;
     @Transient //TODO: fix me
     public List<Menu> menus;
