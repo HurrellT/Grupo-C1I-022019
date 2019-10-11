@@ -3,16 +3,22 @@ package app.model.Menu;
 import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "menu")
 public class Menu {
 
     //Parameters
 
+    @Id
     public String name;
     public String description;
+    @Transient //Por que es una lista? cada menú no deberia tener una categoría?
     public List<MenuCategory> categories;
     public int deliveryPrice;
     public LocalDate effectiveDateFrom;
@@ -28,7 +34,8 @@ public class Menu {
     public float minimumAmountPrice;
     public int minimumAmount2;
     public float minimumAmount2Price;
-    public Score score;
+    @OneToMany
+    public List<Score> score;
 
 
     //Constructor
@@ -52,7 +59,7 @@ public class Menu {
         this.deliveryType = deliveryType;
         this.averageDeliveryTime = averageDeliveryTime;
         this.maximumAllowedSells = maximumAllowedSellsAmount;
-        this.score = new Score();
+        this.score = new ArrayList<>();
 
         setMinimumAmounts(minimumAmount, minimumAmount2);
         setPrices(price, minimumAmountPrice, minimumAmount2Price);
@@ -81,7 +88,7 @@ public class Menu {
         this.maximumAllowedSells = maximumAllowedSellsAmount;
         this.minimumAmount = minimumAmount;
         this.minimumAmountPrice = minimumAmountPrice;
-        this.score = new Score();
+        this.score = new ArrayList<>();
 
         setMinimumAmounts(minimumAmount, 0);
         setPrices(price, minimumAmountPrice, 0);
@@ -105,7 +112,7 @@ public class Menu {
         this.deliveryType = deliveryType;
         this.averageDeliveryTime = averageDeliveryTime;
         this.maximumAllowedSells = maximumAllowedSellsAmount;
-        this.score = new Score();
+        this.score =new ArrayList<>();
 
         setMinimumAmounts(minimumAmount, 0);
         setPrices(price, minimumAmountPrice, 0);
