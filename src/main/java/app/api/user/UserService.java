@@ -30,4 +30,21 @@ public class UserService {
     public User findUserNamed(String name) {
         return userRepository.findByName(name);
     }
+
+    public void updateUser(long userId, User user) {
+        User foundUser = findById(userId);
+        userRepository.delete(foundUser);
+        foundUser.name = user.name;
+        foundUser.state = user.state;
+        foundUser.address = user.address;
+        foundUser.email = user.email;
+        foundUser.phone = user.phone;
+        foundUser.accountCredit = user.accountCredit;
+
+        userRepository.save(foundUser);
+    }
+
+    public User findById(long id) {
+        return userRepository.findById(id).get();
+    }
 }
