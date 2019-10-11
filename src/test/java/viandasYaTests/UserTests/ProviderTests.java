@@ -46,7 +46,6 @@ public class ProviderTests {
         assertEquals(officeHoursTo, provider.officeHoursTo);
         assertEquals(officeDaysFrom, provider.officeDaysFrom);
         assertEquals(officeDaysTo, provider.officeDaysTo);
-        assertEquals(new ArrayList(), provider.deliveryStates);
         assertEquals(new ArrayList(), provider.menus);
     }
 

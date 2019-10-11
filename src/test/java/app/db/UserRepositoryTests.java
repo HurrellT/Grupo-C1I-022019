@@ -39,7 +39,7 @@ public class UserRepositoryTests {
         userRepository.save(ClientFactory.tomasHurrell());
         User user = userRepository.findById(1L).orElseGet(()
                 -> ClientFactory.tomasHurrell());
-        assertThat(user.name).isEqualTo("Bob");
+        assertThat(user.name).isEqualTo("Tomas");
     }
 
 }

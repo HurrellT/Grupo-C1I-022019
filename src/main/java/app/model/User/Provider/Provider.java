@@ -7,10 +7,7 @@ import app.model.Menu.Menu;
 import app.model.User.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -34,9 +31,7 @@ public class Provider extends User {
     public LocalTime officeHoursTo;
     public DayOfWeek officeDaysFrom;
     public DayOfWeek officeDaysTo;
-    @Transient
-    public List deliveryStates;
-    @Transient
+    @OneToMany
     public List<Menu> menus;
     private boolean delivery;
 
@@ -60,21 +55,8 @@ public class Provider extends User {
         this.officeHoursTo = officeHoursTo;
         this.officeDaysFrom = officeDaysFrom;
         this.officeDaysTo = officeDaysTo;
-        this.deliveryStates = new ArrayList();
         this.menus = new ArrayList<>();
         this.delivery = delivery;
-    }
-
-    public Provider(
-            @JsonProperty("id") UUID id,
-            @JsonProperty("name") String name,
-            @JsonProperty("lat") double latitude,
-            @JsonProperty("long") double longitude) {
-        super(name, "Bernal","Calle falsa", "hurrelltomas@gmail.com", "+5491157784955");
-
-        this.latitude = latitude;
-        this.longitude = longitude;
-
     }
 
     //Methods
