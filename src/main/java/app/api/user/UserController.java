@@ -33,8 +33,14 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @RequestMapping(value = "/user/{name}")
+    @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
     public User findUserNamed(@PathVariable("name") String name) {
         return userService.findUserNamed(name);
+    }
+
+    @PutMapping("/user/{id}")
+    public void updateUserWithId(@PathVariable("id") String id, @RequestBody User user) {
+        long userId = Long.parseLong(id);
+        userService.updateUser(userId, user);
     }
 }
