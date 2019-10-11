@@ -43,4 +43,10 @@ public class UserController {
         long userId = Long.parseLong(id);
         userService.updateUser(userId, user);
     }
+
+    @DeleteMapping("/user/{id}")
+    public void deleteUserWithId(@PathVariable("id") String id) {
+        long userId = Long.parseLong(id);
+        userService.deleteUserIdentifiedWith(userId);
+    }
 }
