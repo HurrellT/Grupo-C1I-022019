@@ -6,19 +6,20 @@ import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
 import app.model.Menu.Menu;
 import app.model.Menu.MenuFactory;
-import app.model.User.Client.ClientFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class MenuRepositoryTests {
 
 
@@ -45,6 +46,17 @@ public class MenuRepositoryTests {
 
         menuRepository.save(burgers);
         Menu menu = menuRepository.findById(1L).orElseGet(()-> burgers);
-        assertThat(menu.getName()).isEqualTo("Burguer Menu");
+        assertThat(menu.getName()).isEqualTo(burgers.getName());
     }
+
+    @Test
+    public void whenSavingMenuAnFindByName_thenCorrect() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
+
+        Menu burgers = MenuFactory.burgerMenu();
+
+        menuRepository.save(burgers);
+        Menu menu = menuRepository.findByName(burgers.getName());
+        assertThat(menu.getName()).isEqualTo(burgers.getName());
+    }
+
 }

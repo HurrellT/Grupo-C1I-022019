@@ -81,7 +81,9 @@ public class Purchase {
         this.provider.addCredit(this.totalAmount);
     }
 
-    public void sendMails(String clientAddress){
+    public List<MenuItem> getOrder(){ return this.order; }
+
+    public void sendMails(String clientAddress, String clientMessage){
 
         Controller controller = new Controller();
         Email clientMail = new Email();
@@ -90,18 +92,46 @@ public class Purchase {
         //Build email for client
         clientMail.setReceiver(clientAddress);
         clientMail.setSubject("Compra a través de viandas ya");
-        clientMail.setMessage("Su compra ha sido realizada con éxito");
+        clientMail.setMessage(clientMessage);
 
         //Build email for provider
         providerMail.setReceiver(this.provider.getEmail());
         providerMail.setSubject("Venta a través de viandas ya");
-        providerMail.setMessage("La venta ha sido realizada con éxito");
-
-        //TODO agregar más información en los mails:
-        // Cliente: menú comprado, costo, credito restante
-        // Proveedor: menú vendido, credito adquirido
+        providerMail.setMessage(this.getEmailProviderMessage());
 
         controller.sendMail(clientMail);
+        controller.sendMail(providerMail);
+
+    }
+
+    private String getEmailProviderMessage(){
+
+        String message;
+        int menuQty = this.menusQuantity();
+        int iterator = 0;
+
+        message = "La venta ha sido realizada con éxito. \n";
+
+        if (menuQty > 1){
+            message += "Menús: ";
+        }
+        else{
+            message += "Menú: ";
+        }
+        for (MenuItem item: this.getOrder()) {
+            iterator += 1;
+            message += item.getMenuName();
+            if (iterator == menuQty){
+                message += ".\n";
+            }
+            else{
+                message += ", ";
+            }
+        }
+        message += "Crédito adquirido: " + this.getTotalAmount() + "\n";
+        message += "Crédito total: " + this.provider.getAccountCredit();
+
+        return message;
 
     }
 

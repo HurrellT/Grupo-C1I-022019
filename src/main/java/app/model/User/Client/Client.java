@@ -4,10 +4,10 @@ package app.model.User.Client;
 import app.model.Exceptions.InvalidPhoneNumberException;
 import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Exceptions.NoItemsInTheOrderException;
+import app.model.Menu.MenuItem;
 import app.model.Purchase.Purchase;
 import app.model.User.User;
 
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -48,7 +48,7 @@ public class Client extends User {
             if(totalAmount <= this.getAccountCredit()){
                 p.makePayment();
                 this.subtractCredit(totalAmount);
-                p.sendMails(this.email);
+                p.sendMails(this.email, this.getEmailMessage(p));
             }
             else{
                 throw new NoEnoughCreditException();
@@ -58,6 +58,37 @@ public class Client extends User {
         else{
             throw new NoItemsInTheOrderException();
         }
+
+    }
+
+    private String getEmailMessage(Purchase p){
+
+        String message;
+        int menuQty = p.menusQuantity();
+        int iterator = 0;
+
+        message = "Su compra ha sido realizada con éxito. \n";
+
+        if (menuQty > 1){
+            message += "Menús: ";
+        }
+        else{
+            message += "Menú: ";
+        }
+        for (MenuItem item: p.getOrder()) {
+            iterator += 1;
+            message += item.getMenuName();
+            if (iterator == menuQty){
+                message += ".\n";
+            }
+            else{
+                message += ", ";
+            }
+        }
+        message += "Costo: " + p.getTotalAmount() + "\n";
+        message += "Crédito restante: " + this.getAccountCredit();
+
+        return message;
 
     }
 
