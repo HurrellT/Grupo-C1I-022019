@@ -16,6 +16,9 @@ public class Menu {
     //Parameters
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     public String name;
     public String description;
     @Transient //Por que es una lista? cada menú no deberia tener una categoría?
@@ -39,6 +42,7 @@ public class Menu {
 
 
     //Constructor
+    public Menu(){}
 
     public Menu(String menuName, String description, List<MenuCategory> categories,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
