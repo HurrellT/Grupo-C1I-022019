@@ -2,6 +2,7 @@ package app;
 
 import app.api.user.UserRepository;
 import app.model.User.Client.ClientFactory;
+import app.model.User.Provider.ProviderFactory;
 import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -30,8 +31,10 @@ class DBPreloader {
         //Users to Preload
         User tomasHurrell = ClientFactory.tomasHurrell();
         User federicoMartinez = ClientFactory.federicoMartinez();
+        User provider = ProviderFactory.pepePizzas();
 
         userRepository.save(tomasHurrell);
         userRepository.save(federicoMartinez);
+        userRepository.save(provider);
     }
 }

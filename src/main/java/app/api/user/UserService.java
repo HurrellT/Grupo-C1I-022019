@@ -1,5 +1,7 @@
 package app.api.user;
 
+import app.model.User.Client.Client;
+import app.model.User.Provider.Provider;
 import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,25 +33,58 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-    public void updateUser(long userId, User user) {
-        User foundUser = findById(userId);
+    public void updateClient(long userId, Client client) {
+        Client foundUser = findClientById(userId);
         userRepository.delete(foundUser);
-        foundUser.name = user.name;
-        foundUser.state = user.state;
-        foundUser.address = user.address;
-        foundUser.email = user.email;
-        foundUser.phone = user.phone;
-        foundUser.accountCredit = user.accountCredit;
+        foundUser.name = client.name;
+        foundUser.lastname = client.lastname;
+        foundUser.state = client.state;
+        foundUser.address = client.address;
+        foundUser.email = client.email;
+        foundUser.phone = client.phone;
+        foundUser.accountCredit = client.accountCredit;
 
         userRepository.save(foundUser);
     }
 
-    public User findById(long id) {
+    public User findUserById(long id) {
         return userRepository.findById(id).get();
     }
 
+    public Client findClientById(long id) {
+        return userRepository.findClientById(id);
+    }
+
     public void deleteUserIdentifiedWith(long userId) {
-        User oldUser = findById(userId);
+        User oldUser = findUserById(userId);
         userRepository.delete(oldUser);
+    }
+
+    public void updateProvider(long userId, Provider provider) {
+        Provider foundProvider = findProviderById(userId);
+        userRepository.delete(foundProvider);
+
+        foundProvider.name = provider.name;
+        foundProvider.state = provider.state;
+        foundProvider.address = provider.address;
+        foundProvider.email = provider.email;
+        foundProvider.phone = provider.phone;
+        foundProvider.accountCredit = provider.accountCredit;
+        foundProvider.logo = provider.logo;
+        foundProvider.latitude = provider.latitude;
+        foundProvider.longitude = provider.longitude;
+        foundProvider.description = provider.description;
+        foundProvider.website = provider.website;
+        foundProvider.officeHoursFrom = provider.officeHoursFrom;
+        foundProvider.officeHoursTo = provider.officeHoursTo;
+        foundProvider.officeDaysFrom = provider.officeDaysFrom;
+        foundProvider.officeDaysTo = provider.officeDaysTo;
+        foundProvider.menus = provider.menus;
+
+        userRepository.save(foundProvider);
+    }
+
+    private Provider findProviderById(long id) {
+        return userRepository.findProviderById(id);
     }
 }

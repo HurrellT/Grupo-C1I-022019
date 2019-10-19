@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "client")
+//@Table(name = "client")
 @DiscriminatorValue("client")
 public class Client extends User {
 

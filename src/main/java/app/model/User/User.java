@@ -1,9 +1,12 @@
 package app.model.User;
 
+import app.model.Validators.EmailValidation;
 import app.model.Exceptions.InvalidEmailException;
 import app.model.Exceptions.InvalidPhoneNumberException;
+import app.model.Validators.PhoneNumberValidation;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -16,11 +19,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
 
+    @Column(name = "type", insertable = false, updatable = false)
+    public String type;
+
+    @NotEmpty(message = "Por favor, escriba su nombre")
     public String name;
+
+    @NotEmpty(message = "Por favor, escriba su ciudad")
     public String state;
+
+    @NotEmpty(message = "Por favor, escriba su direccion")
     public String address;
+
+    @EmailValidation
+    @NotEmpty(message = "Por favor, escriba un email valido")
     public String email;
+
+    @PhoneNumberValidation
+    @NotEmpty(message = "Por favor, escriba un numero de telefono valido")
     public String phone;
+
     public double accountCredit;
 
     //Constructor
