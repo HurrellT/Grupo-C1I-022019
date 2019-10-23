@@ -12,9 +12,7 @@ import app.model.User.User;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.xml.crypto.Data;
 import java.text.NumberFormat;
-import java.util.Currency;
 import java.util.ResourceBundle;
 
 @Entity

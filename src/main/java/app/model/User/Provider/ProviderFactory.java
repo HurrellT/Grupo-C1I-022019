@@ -15,7 +15,7 @@ public class ProviderFactory {
                 "Pepe Pizzas", "logoUrl",     -34.61053, -58.37175,
                 "Bernal", "Roque Saenz Peña 400",
                 "Pizzas y empanadas Pepe", "www.pepepizzas.com.ar",
-                "fedejmartinez@gmail.com", "+5491184469357",
+                "pepepizzas@gmail.com", "+5491184469357",
                 officeHoursFrom, officeHoursTo, officeDaysFrom, officeDaysTo, true);
     }
 }

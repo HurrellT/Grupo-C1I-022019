@@ -166,7 +166,7 @@ public class PurchasesTests {
                                                               MenuAmountConstraintException{
 
         Provider pepePizas = ProviderFactory.pepePizzas();
-        Client juan = ClientFactory.federicoMartinez();
+        Client juan = ClientFactory.juan();
         Menu piza = MenuFactory.pizzaMenu();
         Menu hamburguesa = MenuFactory.burgerMenu();
         Purchase order = new Purchase(pepePizas, DELIVERY);
