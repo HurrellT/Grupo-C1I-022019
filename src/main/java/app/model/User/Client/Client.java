@@ -1,6 +1,7 @@
 package app.model.User.Client;
 
 
+import app.model.DataFormatter.DataFormatter;
 import app.model.Exceptions.InvalidPhoneNumberException;
 import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Exceptions.NoItemsInTheOrderException;
@@ -11,6 +12,10 @@ import app.model.User.User;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.crypto.Data;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.ResourceBundle;
 
 @Entity
 @Table(name = "client")
@@ -42,13 +47,14 @@ public class Client extends User {
     public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException {
 
         double totalAmount = p.getTotalAmount();
+        DataFormatter f = new DataFormatter("US");
 
         if (p.menusQuantity() > 0){
 
             if(totalAmount <= this.getAccountCredit()){
                 p.makePayment();
                 this.subtractCredit(totalAmount);
-                p.sendMails(this.email, this.getEmailMessage(p));
+                p.sendMails(this.email, this.getEmailMessage(p, f), f);
             }
             else{
                 throw new NoEnoughCreditException();
@@ -61,19 +67,21 @@ public class Client extends User {
 
     }
 
-    private String getEmailMessage(Purchase p){
+    private String getEmailMessage(Purchase p, DataFormatter formatter){
 
         String message;
+        ResourceBundle messages = formatter.getResourceBundle();
+        NumberFormat currencyFormatter = formatter.getCurrencyFormatter();
         int menuQty = p.menusQuantity();
         int iterator = 0;
 
-        message = "Su compra ha sido realizada con éxito. \n";
+        message = messages.getString("clientHeader") + "\n";
 
         if (menuQty > 1){
-            message += "Menús: ";
+            message += messages.getString("menus") + " ";
         }
         else{
-            message += "Menú: ";
+            message += messages.getString("menu") + " ";
         }
         for (MenuItem item: p.getOrder()) {
             iterator += 1;
@@ -85,8 +93,8 @@ public class Client extends User {
                 message += ", ";
             }
         }
-        message += "Costo: " + p.getTotalAmount() + "\n";
-        message += "Crédito restante: " + this.getAccountCredit();
+        message += messages.getString("cost") + " " + currencyFormatter.format(p.getTotalAmount()) + "\n";
+        message += messages.getString("remCredit") + " " + currencyFormatter.format(this.getAccountCredit());
 
         return message;
 
