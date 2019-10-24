@@ -38,7 +38,7 @@ public class DataFormatter {
                 break;
 
             default:
-                currentLocale = new Locale("es", country);
+                currentLocale = new Locale("es", "AR");
         }
 
         return currentLocale;

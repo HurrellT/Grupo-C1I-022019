@@ -73,7 +73,7 @@ public class Client extends User {
         int menuQty = p.menusQuantity();
         int iterator = 0;
 
-        message = messages.getString("clientHeader") + "\n";
+        message = messages.getString("clientHeader") + "\n\n";
 
         if (menuQty > 1){
             message += messages.getString("menus") + " ";
@@ -92,7 +92,8 @@ public class Client extends User {
             }
         }
         message += messages.getString("cost") + " " + currencyFormatter.format(p.getTotalAmount()) + "\n";
-        message += messages.getString("remCredit") + " " + currencyFormatter.format(this.getAccountCredit());
+        message += messages.getString("remCredit") + " " + currencyFormatter.format(this.getAccountCredit()) + "\n\n";
+        message += messages.getString("clientFooter");
 
         return message;
 

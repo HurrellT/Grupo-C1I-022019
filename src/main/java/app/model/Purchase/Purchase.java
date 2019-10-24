@@ -95,11 +95,15 @@ public class Purchase {
         clientMail.setReceiver(clientAddress);
         clientMail.setSubject(messages.getString("clientSubject"));
         clientMail.setMessage(clientMessage);
+        clientMail.setFileName("ViandasYa.png");
+        clientMail.setFilePath("ViandasYa.png");
 
         //Build email for provider
         providerMail.setReceiver(this.provider.getEmail());
         providerMail.setSubject(messages.getString("providerSubject"));
         providerMail.setMessage(this.getEmailProviderMessage(formatter));
+        providerMail.setFileName("ViandasYa.png");
+        providerMail.setFilePath("ViandasYa.png");
 
         controller.sendMail(clientMail);
         controller.sendMail(providerMail);
@@ -114,7 +118,7 @@ public class Purchase {
         int menuQty = this.menusQuantity();
         int iterator = 0;
 
-        message = messages.getString("providerHeader") + "\n";
+        message = messages.getString("providerHeader") + "\n\n";
 
         if (menuQty > 1){
             message += messages.getString("menus") + " ";
@@ -133,7 +137,9 @@ public class Purchase {
             }
         }
         message += messages.getString("acqCredit") + " " + currencyFormatter.format(this.getTotalAmount()) + "\n";
-        message += messages.getString("totCredit") + " " + currencyFormatter.format(this.provider.getAccountCredit());
+        message += messages.getString("totCredit") + " " + currencyFormatter.format(this.provider.getAccountCredit())
+                + "\n\n";
+        message += messages.getString("providerFooter");
 
         return message;
 
