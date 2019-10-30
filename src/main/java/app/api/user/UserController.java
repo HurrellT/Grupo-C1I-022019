@@ -12,7 +12,7 @@ import java.util.List;
 @EnableAutoConfiguration
 public class UserController {
 
-    //Parameters
+
     @Autowired
     private final UserService userService;
 

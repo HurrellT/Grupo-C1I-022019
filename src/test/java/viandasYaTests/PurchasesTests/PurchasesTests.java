@@ -168,20 +168,23 @@ public class PurchasesTests {
         Provider pepePizas = ProviderFactory.pepePizzas();
         Client juan = ClientFactory.juan();
         Menu piza = MenuFactory.pizzaMenu();
+        Menu hamburguesa = MenuFactory.burgerMenu();
         Purchase order = new Purchase(pepePizas, DELIVERY);
 
-        juan.addCredit(200);
+        juan.addCredit(400);
         piza.setPrice(200);
+        hamburguesa.setPrice(100);
         pepePizas.addMenu(piza);
+        pepePizas.addMenu(hamburguesa);
         order.addMenu("Pizza Menu", 1);
+        order.addMenu("Burguer Menu", 1);
 
         assertEquals(0, pepePizas.getAccountCredit(), 0);
 
         juan.makePurchase(order);
 
-        assertEquals(0, juan.getAccountCredit(), 0);
-        assertEquals(200, pepePizas.getAccountCredit(), 0);
-
+        assertEquals(100, juan.getAccountCredit(), 0);
+        assertEquals(300, pepePizas.getAccountCredit(), 0);
 
     }
 

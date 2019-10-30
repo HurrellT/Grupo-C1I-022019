@@ -5,16 +5,23 @@ import app.model.Exceptions.InvalidEmailException;
 public class Email {
 
     //Parameters
-    String user;
-    String pass;
-    String subject;
-    String receiver;
-    String message;
+    private String user;
+    private String pass;
+    private String subject;
+    private String receiver;
+    private String message;
+    private String filePath;
+    private String fileName;
 
     public Email(){
 
         this.user = "viandasya.c1i@gmail.com";
         this.pass = "ktmlnpbqckpkbtcd";
+        this.subject  = "";
+        this.receiver = "";
+        this.message  = "";
+        this.filePath = "";
+        this.fileName = "";
 
     }
 
@@ -38,6 +45,10 @@ public class Email {
         return this.pass;
     }
 
+    public String getFileName() { return fileName; }
+
+    public String getFilePath() {  return filePath; }
+
     public void setReceiver(String receiver){
         this.receiver = receiver;
     }
@@ -49,6 +60,10 @@ public class Email {
     public void setMessage(String message){
         this.message = message;
     }
+
+    public void setFileName(String fileName) { this.fileName = fileName; }
+
+    public void setFilePath(String filePath) { this.filePath = filePath; }
 
     public void composeEmailWith(String subject, String receiver, String message) {
         isAValidEmail(receiver);

@@ -37,17 +37,6 @@ public class ClientTests {
         assertEquals("Jarrel", client.lastname);
     }
 
-    /*@Test
-    public void testSendMails(){
-
-        Client client = ClientFactory.federicoMartinez();
-        Provider provider = ProviderFactory.pepePizzas();
-        Purchase purchase = new Purchase(provider, DeliveryType.DELIVERY);
-
-        client.makePurchase(purchase);
-
-    }*/
-
 
 //    @After
 //    public void cleanUp() {
