@@ -16,7 +16,7 @@ import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 @Entity
-@Table(name = "client")
+//@Table(name = "client")
 @DiscriminatorValue("client")
 public class Client extends User {
 

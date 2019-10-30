@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "provider")
+//@Table(name = "provider")
 @DiscriminatorValue("provider")
 public class Provider extends User {
 
