@@ -8,19 +8,31 @@ import app.model.Menu.DeliveryType;
 import app.model.Menu.MenuItem;
 import app.model.User.Provider.Provider;
 
+import javax.persistence.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
+@Entity
+@Table(name = "purchase")
 public class Purchase {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
+
+    @ManyToOne
     public Provider provider;
+    @OneToMany
     public List<MenuItem> order;
     public DeliveryType deliveryType;
     public LocalDate deliveryDate;
     public LocalTime deliveryTime;
     public double totalAmount;
+
+    //Constructor
+    public Purchase(){}
 
     public Purchase(Provider p, DeliveryType deliveryType){
         this.provider = p;

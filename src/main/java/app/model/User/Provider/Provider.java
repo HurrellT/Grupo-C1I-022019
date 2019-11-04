@@ -93,4 +93,8 @@ public class Provider extends User {
 
     public boolean hasDelivery(){return delivery;}
 
+    public List<Menu> getMenus(){
+        return this.menus;
+    }
+
 }

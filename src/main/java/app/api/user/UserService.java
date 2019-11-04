@@ -84,7 +84,7 @@ public class UserService {
         userRepository.save(foundProvider);
     }
 
-    private Provider findProviderById(long id) {
+    public Provider findProviderById(long id) {
         return userRepository.findProviderById(id);
     }
 }
