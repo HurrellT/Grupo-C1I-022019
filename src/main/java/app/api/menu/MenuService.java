@@ -2,9 +2,11 @@ package app.api.menu;
 
 import app.model.Menu.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MenuService {
 
     //Parameters
@@ -23,5 +25,7 @@ public class MenuService {
 
     public Menu findMenuNamed(String name){ return  menuRepository.findByName(name); }
 
-
+    public List<Menu> getAllMenus() {
+        return (List<Menu>) menuRepository.findAll();
+    }
 }

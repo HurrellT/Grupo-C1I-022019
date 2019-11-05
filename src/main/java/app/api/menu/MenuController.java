@@ -3,11 +3,15 @@ package app.api.menu;
 import app.api.user.UserService;
 import app.model.Menu.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin
+@RestController
+@EnableAutoConfiguration
 public class MenuController {
 
     @Autowired
@@ -33,10 +37,15 @@ public class MenuController {
         return menuService.findMenuNamed(name);
     }
 
-    @GetMapping("/menus")
-    public List<Menu> getAllProviderMenus(@PathVariable("id") String id){
+    @GetMapping("/menus/{provider}")
+    public List<Menu> getAllProviderMenus(@PathVariable("provider") String id){
         long providerId = Long.parseLong(id);
         return userService.findProviderById(providerId).getMenus();
+    }
+
+    @GetMapping("/menus")
+    public List<Menu> getAllMenus() {
+        return menuService.getAllMenus();
     }
 
 }
