@@ -21,8 +21,7 @@ public class Menu {
 
     public String name;
     public String description;
-    @Transient //Por que es una lista? cada menú no deberia tener una categoría?
-    public List<MenuCategory> categories;
+    public MenuCategory category;
     public int deliveryPrice;
     public LocalDate effectiveDateFrom;
     public LocalDate effectiveDateTo;
@@ -44,7 +43,7 @@ public class Menu {
     //Constructor
     public Menu(){}
 
-    public Menu(String menuName, String description, List<MenuCategory> categories,
+    public Menu(String menuName, String description, MenuCategory category,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
                 DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
@@ -53,7 +52,7 @@ public class Menu {
 
         this.name = menuName;
         this.description = description;
-        this.categories = categories;
+        this.category = category;
         this.deliveryPrice = deliveryPrice;
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
@@ -71,7 +70,7 @@ public class Menu {
 
     //Optional constructor
 
-    public Menu(String menuName, String description, List<MenuCategory> categories,
+    public Menu(String menuName, String description, MenuCategory category,
                 LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
                 DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
@@ -79,7 +78,7 @@ public class Menu {
 
         this.name = menuName;
         this.description = description;
-        this.categories = categories;
+        this.category = category;
         this.deliveryPrice = 0;         //No delivery price defined
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
@@ -98,7 +97,7 @@ public class Menu {
         setPrices(price, minimumAmountPrice, 0);
     }
 
-    public Menu(String menuName, String description, List<MenuCategory> categories,
+    public Menu(String menuName, String description, MenuCategory category,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
                 DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
@@ -106,7 +105,7 @@ public class Menu {
 
         this.name = menuName;
         this.description = description;
-        this.categories = categories;
+        this.category = category;
         this.deliveryPrice = deliveryPrice;
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;

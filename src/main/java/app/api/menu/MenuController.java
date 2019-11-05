@@ -2,11 +2,13 @@ package app.api.menu;
 
 import app.api.user.UserService;
 import app.model.Menu.Menu;
+import app.model.Menu.MenuCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MenuController {
 
@@ -39,4 +41,11 @@ public class MenuController {
         return userService.findProviderById(providerId).getMenus();
     }
 
+    @GetMapping("/menus/{category}")
+    public List<Menu> getAllCategoryMenus(@PathVariable("category")MenuCategory category){
+        return menuService.getAllMenus()
+               .stream()
+                .filter(menu -> (menu.category) == category)
+                .collect(Collectors.toList());
+    }
 }
