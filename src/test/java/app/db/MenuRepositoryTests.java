@@ -54,7 +54,7 @@ public class MenuRepositoryTests {
 
         Menu burgers = MenuFactory.burgerMenu();
 
-        menuRepository.save(burgers);
+        //Burger menu already added in DBPreloader
         Menu menu = menuRepository.findByName(burgers.getName());
         assertThat(menu.getName()).isEqualTo(burgers.getName());
     }
