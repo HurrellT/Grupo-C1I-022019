@@ -45,6 +45,18 @@ public class MenuFactory {
                 100,10,190);
     }
 
+    //SUSHI MENU
+
+    public static Menu sushiMenu() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
+
+        return new Menu(
+                "Sushi Menu", "Menu de sushi", MenuCategory.SUSHI,
+                effectiveDateFrom,effectiveDateTo, DayNight.DAY,
+                effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
+                DeliveryType.DELIVERY, averageDeliveryTime, 500,
+                100,10,190);
+    }
+
     //PIZZA MENU WITH CUSTOM NAME
 
     public static Menu pizzaMenuWithName(String menuName) throws MenuMinimumAmountInfringement, MenuPriceInfringement {

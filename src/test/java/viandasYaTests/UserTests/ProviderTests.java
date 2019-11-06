@@ -126,4 +126,18 @@ public class ProviderTests {
 
     }
 
+    @Test
+    public void testGetMenuList_TheProviderHaveTheMenusInHisList() throws MenuAmountConstraintException, MenuMinimumAmountInfringement, MenuPriceInfringement {
+        Provider pepePizzas = ProviderFactory.pepePizzas();
+        Menu menu1 = MenuFactory.menuWithName("12 Empanadas");
+        Menu menu2 = MenuFactory.menuWithName("1 Hamburguesa");
+
+        pepePizzas.addMenu(menu1);
+        pepePizzas.addMenu(menu2);
+        assertEquals(pepePizzas.getMenus().size(), 2);
+        assertTrue(pepePizzas.getMenus().contains(menu1));
+        assertTrue(pepePizzas.getMenus().contains(menu2));
+
+    }
+
 }

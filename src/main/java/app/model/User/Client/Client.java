@@ -11,8 +11,11 @@ import app.model.User.User;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Entity
@@ -23,6 +26,8 @@ public class Client extends User {
     //Parameters
 
     public String lastname;
+    @OneToMany
+    private List<Purchase> purchases;
 
     //Constructor
 
@@ -34,12 +39,17 @@ public class Client extends User {
         super(name,state,address,email,phoneNumber);
 
         this.lastname = lastname;
+        this.purchases = new ArrayList<>();
     }
 
     //Methods
 
     public void changeLastnameTo(String newLastname) {
         this.lastname = newLastname;
+    }
+
+    public List<Purchase> getPurchases(){
+        return this.purchases;
     }
 
     public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException {
@@ -52,6 +62,7 @@ public class Client extends User {
             if(totalAmount <= this.getAccountCredit()){
                 p.makePayment();
                 this.subtractCredit(totalAmount);
+                this.purchases.add(p);
                 p.sendMails(this.email, this.getEmailMessage(p, f), f);
             }
             else{

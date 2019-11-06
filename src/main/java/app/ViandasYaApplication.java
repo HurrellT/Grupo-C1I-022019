@@ -1,12 +1,16 @@
 package app;
 
 import app.api.menu.MenuRepository;
+import app.api.purchase.PurchaseRepository;
 import app.api.user.UserRepository;
+import app.model.Exceptions.MenuAmountConstraintException;
 import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
 import app.model.Menu.Menu;
 import app.model.Menu.MenuFactory;
+import app.model.Purchase.Purchase;
 import app.model.User.Client.ClientFactory;
+import app.model.User.Provider.Provider;
 import app.model.User.Provider.ProviderFactory;
 import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
+import static app.model.Menu.DeliveryType.DELIVERY;
 
 @SpringBootApplication
 public class ViandasYaApplication {
@@ -32,22 +38,46 @@ class DBPreloader {
     private UserRepository userRepository;
     @Autowired
     private MenuRepository menuRepository;
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
     @EventListener
-    public void appReady(ApplicationReadyEvent event) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
+    public void appReady(ApplicationReadyEvent event) throws MenuMinimumAmountInfringement, MenuPriceInfringement, MenuAmountConstraintException {
         //Users to Preload
         User tomasHurrell = ClientFactory.tomasHurrell();
         User federicoMartinez = ClientFactory.federicoMartinez();
-        User provider = ProviderFactory.pepePizzas();
+        Provider pepePizzas = ProviderFactory.pepePizzas();
+        Provider palermoSushi = ProviderFactory.palermoSushi();
 
+        //Menus to Preload
         Menu pizza = MenuFactory.pizzaMenu();
         Menu burger = MenuFactory.burgerMenu();
+        Menu sushi = MenuFactory.sushiMenu();
 
         userRepository.save(tomasHurrell);
         userRepository.save(federicoMartinez);
-        userRepository.save(provider);
+        userRepository.save(pepePizzas);
+        userRepository.save(palermoSushi);
+
+        //Purchases to preload
+        Purchase order1 = new Purchase(pepePizzas, DELIVERY);
+        Purchase order2 = new Purchase(palermoSushi, DELIVERY);
 
         menuRepository.save(pizza);
         menuRepository.save(burger);
+        menuRepository.save(sushi);
+
+        ((Provider) pepePizzas).addMenu(pizza);
+        ((Provider) palermoSushi).addMenu(sushi);
+
+        purchaseRepository.save(order1);
+        purchaseRepository.save(order2);
+
+        /*order1.addMenu("Pizza Menu", 1);
+        order2.addMenu("Sushi Menu", 1);
+
+        purchaseRepository.(order1);
+        purchaseRepository.save(order2);*/
+
     }
 }

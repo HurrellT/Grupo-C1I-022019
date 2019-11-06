@@ -2,12 +2,15 @@ package app.api.menu;
 
 import app.api.user.UserService;
 import app.model.Menu.Menu;
+import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -37,15 +40,29 @@ public class MenuController {
         return menuService.findMenuNamed(name);
     }
 
-    @GetMapping("/menus/{provider}")
+    @GetMapping("/menusp/{provider}")
     public List<Menu> getAllProviderMenus(@PathVariable("provider") String id){
         long providerId = Long.parseLong(id);
         return userService.findProviderById(providerId).getMenus();
     }
 
+    @GetMapping("/menusc/{category}")
+    public List<Menu> getAllCategoryMenus(@PathVariable("category") String category){
+        return menuService.getAllMenus()
+                .stream()
+                .filter(menu -> (menu.category.toString().toLowerCase()).equals(category))
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/menus")
     public List<Menu> getAllMenus() {
-        return menuService.getAllMenus();
+
+        List<User> providers = userService.getAllProviders();
+        List<Menu> menus = new ArrayList<>();
+        for (User p : providers){
+            menus.addAll(p.getMenus());
+        }
+        return menus;
     }
 
 }

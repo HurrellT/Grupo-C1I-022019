@@ -36,6 +36,7 @@ public class Menu {
     public float minimumAmountPrice;
     public int minimumAmount2;
     public float minimumAmount2Price;
+    private long providerId;
     @OneToMany
     public List<Score> score;
 
@@ -158,5 +159,9 @@ public class Menu {
 
     public void setPrice(int price){
         this.price = price;
+    }
+
+    public void setProviderId(long id){
+        this.providerId = id;
     }
 }

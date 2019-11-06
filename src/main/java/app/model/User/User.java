@@ -1,5 +1,6 @@
 package app.model.User;
 
+import app.model.Menu.Menu;
 import app.model.Validators.EmailValidation;
 import app.model.Exceptions.InvalidEmailException;
 import app.model.Exceptions.InvalidPhoneNumberException;
@@ -7,6 +8,8 @@ import app.model.Validators.PhoneNumberValidation;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -104,4 +107,8 @@ public class User {
     public void subtractCredit(double cred){ this.accountCredit-= cred; }
 
     public double getAccountCredit() { return this.accountCredit; }
+
+    public List<Menu> getMenus(){
+        return new ArrayList<>();
+    }
 }
