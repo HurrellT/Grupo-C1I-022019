@@ -44,7 +44,7 @@ public class MenuRepositoryTests {
 
         Menu burgers = MenuFactory.burgerMenu();
 
-        menuRepository.save(burgers);
+        //menuRepository.save(burgers);
         Menu menu = menuRepository.findById(1L).orElseGet(()-> burgers);
         assertThat(menu.getName()).isEqualTo(burgers.getName());
     }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -29,13 +30,20 @@ public class UserService {
         return (List<User>) userRepository.findAll();
     }
 
+    public List<User> getAllProviders() {
+        return this.getAllUsers()
+                .stream()
+                .filter(user -> (user.type).equals("provider"))
+                .collect(Collectors.toList());
+    }
+
     public User findUserNamed(String name) {
         return userRepository.findByName(name);
     }
 
     public void updateClient(long userId, Client client) {
         Client foundUser = findClientById(userId);
-        userRepository.delete(foundUser);
+
         foundUser.name = client.name;
         foundUser.lastname = client.lastname;
         foundUser.state = client.state;
@@ -62,7 +70,6 @@ public class UserService {
 
     public void updateProvider(long userId, Provider provider) {
         Provider foundProvider = findProviderById(userId);
-        userRepository.delete(foundProvider);
 
         foundProvider.name = provider.name;
         foundProvider.state = provider.state;
@@ -80,6 +87,7 @@ public class UserService {
         foundProvider.officeDaysFrom = provider.officeDaysFrom;
         foundProvider.officeDaysTo = provider.officeDaysTo;
         foundProvider.menus = provider.menus;
+
 
         userRepository.save(foundProvider);
     }

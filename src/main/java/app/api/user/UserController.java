@@ -1,5 +1,6 @@
 package app.api.user;
 
+import app.model.Purchase.Purchase;
 import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
 import app.model.User.User;
@@ -56,10 +57,8 @@ public class UserController {
 
     @GetMapping("/providers")
     public List<User> getAllProviders() {
-        return userService.getAllUsers()
-                .stream()
-                .filter(user -> (user.type).equals("provider"))
-                .collect(Collectors.toList()); }
+        return userService.getAllProviders();
+    }
 
     @GetMapping("/clients")
     public List<User> getAllClients() {
@@ -69,7 +68,17 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-//    TODO: AGREGAR LA LISTA DE COMPRAS
+    @GetMapping("/clientPurchases/{client}")
+    public List<Purchase> getClientPurchases(@PathVariable("client") String id){
+        long clientId = Long.parseLong(id);
+        return userService.findClientById(clientId).getPurchases();
+    }
+
+    @GetMapping("/providerName/{id}")
+    public String getProviderName(@PathVariable("id") String id){
+        long providerId = Long.parseLong(id);
+        return userService.findProviderById(providerId).name;
+    }
 
     // UPDATING -- PUT REQUESTS
 
