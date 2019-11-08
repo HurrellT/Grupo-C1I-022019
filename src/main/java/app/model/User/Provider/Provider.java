@@ -31,7 +31,7 @@ public class Provider extends User {
     public LocalTime officeHoursTo;
     public DayOfWeek officeDaysFrom;
     public DayOfWeek officeDaysTo;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<Menu> menus;
     private boolean delivery;
 
@@ -64,6 +64,7 @@ public class Provider extends User {
     public void addMenu(Menu menu) throws MenuAmountConstraintException {
         if (menusAmount() < 20) {
             menu.setProviderId(this.id);
+            menu.setProviderName(this.name);
             this.menus.add(menu); }
         else{
             throw new MenuAmountConstraintException(); }

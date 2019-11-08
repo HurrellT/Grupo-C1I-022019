@@ -74,6 +74,12 @@ public class UserController {
         return userService.findClientById(clientId).getPurchases();
     }
 
+    @GetMapping("/providerName/{id}")
+    public String getProviderName(@PathVariable("id") String id){
+        long providerId = Long.parseLong(id);
+        return userService.findProviderById(providerId).name;
+    }
+
     // UPDATING -- PUT REQUESTS
 
     @PutMapping("/client/{id}")

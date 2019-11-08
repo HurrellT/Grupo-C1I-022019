@@ -3,6 +3,7 @@ package app;
 import app.api.menu.MenuRepository;
 import app.api.purchase.PurchaseRepository;
 import app.api.user.UserRepository;
+import app.api.user.UserService;
 import app.model.Exceptions.MenuAmountConstraintException;
 import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
@@ -40,6 +41,8 @@ class DBPreloader {
     private MenuRepository menuRepository;
     @Autowired
     private PurchaseRepository purchaseRepository;
+    @Autowired
+    private UserService userService;
 
     @EventListener
     public void appReady(ApplicationReadyEvent event) throws MenuMinimumAmountInfringement, MenuPriceInfringement, MenuAmountConstraintException {
@@ -54,12 +57,23 @@ class DBPreloader {
         Menu burger = MenuFactory.burgerMenu();
         Menu sushi = MenuFactory.sushiMenu();
 
+        menuRepository.save(pizza);
+        menuRepository.save(burger);
+        menuRepository.save(sushi);
+
         userRepository.save(tomasHurrell);
         userRepository.save(federicoMartinez);
         userRepository.save(pepePizzas);
         userRepository.save(palermoSushi);
 
-        //Purchases to preload
+        ((Provider) pepePizzas).addMenu(pizza);
+        ((Provider) palermoSushi).addMenu(sushi);
+        ((Provider) palermoSushi).addMenu(burger);
+
+        userService.updateProvider(pepePizzas.id, pepePizzas);
+        userService.updateProvider(palermoSushi.id, palermoSushi);
+
+        /*//Purchases to preload
         Purchase order1 = new Purchase(pepePizzas, DELIVERY);
         Purchase order2 = new Purchase(palermoSushi, DELIVERY);
 

@@ -43,7 +43,7 @@ public class UserService {
 
     public void updateClient(long userId, Client client) {
         Client foundUser = findClientById(userId);
-        userRepository.delete(foundUser);
+
         foundUser.name = client.name;
         foundUser.lastname = client.lastname;
         foundUser.state = client.state;
@@ -70,7 +70,6 @@ public class UserService {
 
     public void updateProvider(long userId, Provider provider) {
         Provider foundProvider = findProviderById(userId);
-        userRepository.delete(foundProvider);
 
         foundProvider.name = provider.name;
         foundProvider.state = provider.state;
@@ -88,6 +87,7 @@ public class UserService {
         foundProvider.officeDaysFrom = provider.officeDaysFrom;
         foundProvider.officeDaysTo = provider.officeDaysTo;
         foundProvider.menus = provider.menus;
+
 
         userRepository.save(foundProvider);
     }
