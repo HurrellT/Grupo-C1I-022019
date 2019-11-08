@@ -57,8 +57,8 @@ class DBPreloader {
         Menu burger = MenuFactory.burgerMenu();
         Menu sushi = MenuFactory.sushiMenu();
 
-        menuRepository.save(pizza);
         menuRepository.save(burger);
+        menuRepository.save(pizza);
         menuRepository.save(sushi);
 
         userRepository.save(tomasHurrell);
