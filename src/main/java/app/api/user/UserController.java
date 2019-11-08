@@ -69,6 +69,8 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
+//    TODO: AGREGAR LA LISTA DE COMPRAS
+
     // UPDATING -- PUT REQUESTS
 
     @PutMapping("/client/{id}")
