@@ -1,4 +1,22 @@
 ---------------------------------------------------------------------
+TAG Grupo-C1I-022019-Entrega-2
+---------------------------------------------------------------------
+NEW FEATURES
+* New API endpoints for Users (Clients and Providers)
+* New API endpoints for Menus
+* New API endpoints for Purchases
+* Minor changes and bugfixes
+
+KNOWN ISSUES
+*
+
+NOTES
+*
+
+
+------------------------Previous Releases----------------------------
+
+---------------------------------------------------------------------
 TAG Grupo-C1I-022019-Entrega-1
 ---------------------------------------------------------------------
 NEW FEATURES
