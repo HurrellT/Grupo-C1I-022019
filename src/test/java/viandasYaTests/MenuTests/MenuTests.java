@@ -26,8 +26,7 @@ public class MenuTests {
 
         assertEquals("Pizza Menu", menu.name);
         assertEquals("Menu de pizzas", menu.description);
-        assertTrue(menu.categories.contains(MenuCategory.PIZZA));
-        assertIsTheOnlyOneIn(menu.categories, MenuCategory.PIZZA);
+        assertEquals(menu.category, MenuCategory.PIZZA);
         assertEquals(10,menu.deliveryPrice);
         assertEquals(effectiveDateFrom, menu.effectiveDateFrom);
         assertEquals(effectiveDateTo, menu.effectiveDateTo);
@@ -56,8 +55,7 @@ public class MenuTests {
 
         assertEquals("Burguer Menu", menu.name);
         assertEquals("Menu de hamburguesas", menu.description);
-        assertTrue(menu.categories.contains(MenuCategory.HAMBURGER));
-        assertIsTheOnlyOneIn(menu.categories, MenuCategory.HAMBURGER);
+        assertEquals(menu.category, MenuCategory.HAMBURGER);
         assertEquals(0,menu.deliveryPrice); //TODO: Use optionals instead?
         assertEquals(effectiveDateFrom, menu.effectiveDateFrom);
         assertEquals(effectiveDateTo, menu.effectiveDateTo);
@@ -81,20 +79,15 @@ public class MenuTests {
         LocalTime effectiveDeliveryHoursFrom = LocalTime.of(9,0);
         LocalTime effectiveDeliveryHoursTo = LocalTime.of(18,0);
         LocalTime averageDeliveryTime = LocalTime.of(13,0);
-        List<MenuCategory> menuCategories = new ArrayList<MenuCategory>();
 
-        menuCategories.add(MenuCategory.PIZZA);
-        menuCategories.add(MenuCategory.SUSHI);
-
-        Menu menu = new Menu("Test Menu", "Menu de prueba", menuCategories,
+        Menu menu = new Menu("Test Menu", "Menu de prueba", MenuCategory.SUSHI,
                 10,effectiveDateFrom, effectiveDateTo, DayNight.NIGHT,
                 effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.DELIVERY,
                 averageDeliveryTime, 100, 10, 1, 90);
 
         assertEquals("Test Menu", menu.name);
         assertEquals("Menu de prueba", menu.description);
-        assertTrue(menu.categories.contains(MenuCategory.PIZZA));
-        assertTrue(menu.categories.contains(MenuCategory.SUSHI));
+        assertEquals(menu.category, MenuCategory.SUSHI);
         assertEquals(10,menu.deliveryPrice); //TODO: Use optionals instead?
         assertEquals(effectiveDateFrom, menu.effectiveDateFrom);
         assertEquals(effectiveDateTo, menu.effectiveDateTo);
@@ -124,21 +117,15 @@ public class MenuTests {
         LocalTime effectiveDeliveryHoursTo = LocalTime.of(18,0);
         LocalTime averageDeliveryTime = LocalTime.of(13,0);
 
-        List<MenuCategory> menuCategories = new ArrayList<MenuCategory>();
-
-        menuCategories.add(MenuCategory.PIZZA);
-        menuCategories.add(MenuCategory.SUSHI);
-
-
-        Menu menu = new Menu("Test Menu", "Menu de prueba", menuCategories,
+        Menu menu = new Menu("Test Menu", "Menu de prueba", MenuCategory.SUSHI,
                 10,effectiveDateFrom, effectiveDateTo, DayNight.NIGHT,
                 effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.DELIVERY,
                 averageDeliveryTime, 100, 10, 1, 90,
                 10,100);
     }
 
-    public void assertIsTheOnlyOneIn(List aList, Object anObject) {
+    /*public void assertIsTheOnlyOneIn(List aList, Object anObject) {
         assertTrue(aList.size() == 1);
         assertTrue(aList.contains(anObject));
-    }
+    }*/
 }

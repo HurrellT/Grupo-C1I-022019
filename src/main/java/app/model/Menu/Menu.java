@@ -3,17 +3,25 @@ package app.model.Menu;
 import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "menu")
 public class Menu {
 
     //Parameters
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     public String name;
     public String description;
-    public List<MenuCategory> categories;
+    public MenuCategory category;
     public int deliveryPrice;
     public LocalDate effectiveDateFrom;
     public LocalDate effectiveDateTo;
@@ -28,12 +36,16 @@ public class Menu {
     public float minimumAmountPrice;
     public int minimumAmount2;
     public float minimumAmount2Price;
-    public Score score;
+    private long providerId;
+    private String providerName;
+    @OneToMany
+    public List<Score> score;
 
 
     //Constructor
+    public Menu(){}
 
-    public Menu(String menuName, String description, List<MenuCategory> categories,
+    public Menu(String menuName, String description, MenuCategory category,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
                 DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
@@ -42,7 +54,7 @@ public class Menu {
 
         this.name = menuName;
         this.description = description;
-        this.categories = categories;
+        this.category = category;
         this.deliveryPrice = deliveryPrice;
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
@@ -52,7 +64,7 @@ public class Menu {
         this.deliveryType = deliveryType;
         this.averageDeliveryTime = averageDeliveryTime;
         this.maximumAllowedSells = maximumAllowedSellsAmount;
-        this.score = new Score();
+        this.score = new ArrayList<>();
 
         setMinimumAmounts(minimumAmount, minimumAmount2);
         setPrices(price, minimumAmountPrice, minimumAmount2Price);
@@ -60,7 +72,7 @@ public class Menu {
 
     //Optional constructor
 
-    public Menu(String menuName, String description, List<MenuCategory> categories,
+    public Menu(String menuName, String description, MenuCategory category,
                 LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
                 DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
@@ -68,7 +80,7 @@ public class Menu {
 
         this.name = menuName;
         this.description = description;
-        this.categories = categories;
+        this.category = category;
         this.deliveryPrice = 0;         //No delivery price defined
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
@@ -81,13 +93,13 @@ public class Menu {
         this.maximumAllowedSells = maximumAllowedSellsAmount;
         this.minimumAmount = minimumAmount;
         this.minimumAmountPrice = minimumAmountPrice;
-        this.score = new Score();
+        this.score = new ArrayList<>();
 
         setMinimumAmounts(minimumAmount, 0);
         setPrices(price, minimumAmountPrice, 0);
     }
 
-    public Menu(String menuName, String description, List<MenuCategory> categories,
+    public Menu(String menuName, String description, MenuCategory category,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
                 DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
                 DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
@@ -95,7 +107,7 @@ public class Menu {
 
         this.name = menuName;
         this.description = description;
-        this.categories = categories;
+        this.category = category;
         this.deliveryPrice = deliveryPrice;
         this.effectiveDateFrom = effectiveDateFrom;
         this.effectiveDateTo = effectiveDateTo;
@@ -105,7 +117,7 @@ public class Menu {
         this.deliveryType = deliveryType;
         this.averageDeliveryTime = averageDeliveryTime;
         this.maximumAllowedSells = maximumAllowedSellsAmount;
-        this.score = new Score();
+        this.score =new ArrayList<>();
 
         setMinimumAmounts(minimumAmount, 0);
         setPrices(price, minimumAmountPrice, 0);
@@ -149,4 +161,14 @@ public class Menu {
     public void setPrice(int price){
         this.price = price;
     }
+
+    public void setProviderName (String name) {this.providerName = name; }
+
+    public String getProviderName () { return this.providerName; }
+
+    public void setProviderId(long id){
+        this.providerId = id;
+    }
+
+    public long getProviderId(){ return this.providerId;}
 }

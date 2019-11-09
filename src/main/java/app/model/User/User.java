@@ -1,20 +1,55 @@
 package app.model.User;
 
+import app.model.Exceptions.NoEnoughCreditException;
+import app.model.Exceptions.NoItemsInTheOrderException;
+import app.model.Menu.Menu;
+import app.model.Purchase.Purchase;
+import app.model.Validators.EmailValidation;
 import app.model.Exceptions.InvalidEmailException;
 import app.model.Exceptions.InvalidPhoneNumberException;
+import app.model.Validators.PhoneNumberValidation;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type",discriminatorType = DiscriminatorType.STRING)
 public class User {
 
     //Parameters
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
+
+    @Column(name = "type", insertable = false, updatable = false)
+    public String type;
+
+    @NotEmpty(message = "Por favor, escriba su nombre")
     public String name;
+
+    @NotEmpty(message = "Por favor, escriba su ciudad")
     public String state;
+
+    @NotEmpty(message = "Por favor, escriba su direccion")
     public String address;
+
+    @EmailValidation
+    @NotEmpty(message = "Por favor, escriba un email valido")
     public String email;
+
+    @PhoneNumberValidation
+    @NotEmpty(message = "Por favor, escriba un numero de telefono valido")
     public String phone;
+
     public double accountCredit;
 
     //Constructor
+
+    public User() {}
 
     public User(String name, String state, String address, String email, String phone) {
 
@@ -75,4 +110,10 @@ public class User {
     public void subtractCredit(double cred){ this.accountCredit-= cred; }
 
     public double getAccountCredit() { return this.accountCredit; }
+
+    public List<Menu> getMenus(){
+        return new ArrayList<>();
+    }
+
+    public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException { }
 }

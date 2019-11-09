@@ -2,8 +2,16 @@ package app.model.Menu;
 
 import app.model.Exceptions.ScoreRateOutOfBoundsException;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "score")
 public class Score {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     public int score;
 
     public Score() {

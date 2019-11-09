@@ -23,11 +23,9 @@ public class MenuFactory {
     //PIZZA MENU
 
     public static Menu pizzaMenu() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
-        List<MenuCategory> menuCategories = new ArrayList<MenuCategory>();
-        menuCategories.add(MenuCategory.PIZZA);
 
         return new Menu(
-                "Pizza Menu", "Menu de pizzas", menuCategories,
+                "Pizza Menu", "Menu de pizzas", MenuCategory.PIZZA,
                 10,effectiveDateFrom,effectiveDateTo,
                 DayNight.DAY,effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
                 DeliveryType.DELIVERY, averageDeliveryTime, 200,
@@ -38,25 +36,33 @@ public class MenuFactory {
     //HAMBURGUER MENU
 
     public static Menu burgerMenu() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
-        List<MenuCategory> menuCategories = new ArrayList<MenuCategory>();
-        menuCategories.add(MenuCategory.HAMBURGER);
 
         return new Menu(
-                "Burguer Menu", "Menu de hamburguesas", menuCategories,
+                "Burguer Menu", "Menu de hamburguesas", MenuCategory.HAMBURGER,
                 effectiveDateFrom,effectiveDateTo, DayNight.DAY,
                 effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
                 DeliveryType.DELIVERY, averageDeliveryTime, 200,
                 100,10,190);
     }
 
+    //SUSHI MENU
+
+    public static Menu sushiMenu() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
+
+        return new Menu(
+                "Sushi Menu", "Menu de sushi", MenuCategory.SUSHI,
+                effectiveDateFrom,effectiveDateTo, DayNight.DAY,
+                effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
+                DeliveryType.DELIVERY, averageDeliveryTime, 500,
+                100,10,190);
+    }
+
     //PIZZA MENU WITH CUSTOM NAME
 
     public static Menu pizzaMenuWithName(String menuName) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
-        List<MenuCategory> menuCategories = new ArrayList<MenuCategory>();
-        menuCategories.add(MenuCategory.PIZZA);
 
         return new Menu(
-                menuName, "Menu de pizzas", menuCategories,
+                menuName, "Menu de pizzas", MenuCategory.PIZZA,
                 10, effectiveDateFrom, effectiveDateTo,
                 DayNight.DAY, effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo,
                 DeliveryType.DELIVERY, averageDeliveryTime, 200,
@@ -67,7 +73,7 @@ public class MenuFactory {
     //NEW MENU COPYING ANOTHER MENU
 
     public static Menu copying(Menu menu) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
-        return new Menu(menu.name, menu.description, menu.categories,
+        return new Menu(menu.name, menu.description, menu.category,
                         menu.deliveryPrice, menu.effectiveDateFrom, menu.effectiveDateTo,
                         menu.dayNight, menu.effectiveDeliveryHoursFrom, menu.effectiveDeliveryHoursTo,
                         menu.deliveryType, menu.averageDeliveryTime, menu.price,
@@ -84,12 +90,7 @@ public class MenuFactory {
         LocalTime effectiveDeliveryHoursTo = LocalTime.of(18,0);
         LocalTime averageDeliveryTime = LocalTime.of(13,0);
 
-        List<MenuCategory> menuCategories = new ArrayList<MenuCategory>();
-
-        menuCategories.add(MenuCategory.PIZZA);
-        menuCategories.add(MenuCategory.SUSHI);
-
-        return new Menu("Test Menu", "Menu de prueba", menuCategories,
+        return new Menu("Test Menu", "Menu de prueba", MenuCategory.SUSHI,
                 10,effectiveDateFrom, effectiveDateTo, DayNight.NIGHT,
                 effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.DELIVERY,
                 averageDeliveryTime, 100, 10, 1, 90,
@@ -100,11 +101,9 @@ public class MenuFactory {
 
     public static Menu empanadas() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
-        List<MenuCategory> menuCategories = new ArrayList<MenuCategory>();
-        menuCategories.add(MenuCategory.EMPANADAS);
 
         return new Menu(
-                "Empanadas", "Menu de empanadas",menuCategories,
+                "Empanadas", "Menu de empanadas",MenuCategory.EMPANADAS,
                 10,effectiveDateFrom,effectiveDateTo,
                 DayNight.DAY,effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
                 DeliveryType.DELIVERY, averageDeliveryTime,
@@ -116,11 +115,8 @@ public class MenuFactory {
 
     public static Menu menuWithName(String menuName) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
-        List<MenuCategory> menuCategories = new ArrayList<MenuCategory>();
-        menuCategories.add(MenuCategory.PIZZA);
-
         return new Menu(
-                menuName, "Descripcion", menuCategories,
+                menuName, "Descripcion", MenuCategory.PIZZA,
                 10, effectiveDateFrom, effectiveDateTo,
                 DayNight.DAY, effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo,
                 DeliveryType.DELIVERY, averageDeliveryTime, 200,

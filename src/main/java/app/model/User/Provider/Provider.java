@@ -7,17 +7,21 @@ import app.model.Menu.Menu;
 import app.model.User.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+//@Table(name = "provider")
+@DiscriminatorValue("provider")
 public class Provider extends User {
 
     // Parameters
 
-    private final UUID id;
     public String logo;
     //Location Params
     public double latitude;
@@ -26,13 +30,17 @@ public class Provider extends User {
     public String website;
     public LocalTime officeHoursFrom;
     public LocalTime officeHoursTo;
+    @NotNull
     public DayOfWeek officeDaysFrom;
+    @NotNull
     public DayOfWeek officeDaysTo;
-    public List deliveryStates;
+    @OneToMany(cascade = CascadeType.ALL)
     public List<Menu> menus;
-    private boolean delivery;
+    public boolean delivery;
 
     //Constructor
+
+    public Provider() {super();}
 
     public Provider(String name, String logo, double latitude, double longitude,
                     String state, String address, String description, String website,
@@ -41,7 +49,6 @@ public class Provider extends User {
                     DayOfWeek officeDaysTo, boolean delivery) {
         super(name, state, address, email, phone);
 
-        this.id = UUID.randomUUID();
         this.logo = logo;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -51,32 +58,19 @@ public class Provider extends User {
         this.officeHoursTo = officeHoursTo;
         this.officeDaysFrom = officeDaysFrom;
         this.officeDaysTo = officeDaysTo;
-        this.deliveryStates = new ArrayList();
         this.menus = new ArrayList<>();
         this.delivery = delivery;
-    }
-
-    public Provider(
-            @JsonProperty("id") UUID id,
-            @JsonProperty("name") String name,
-            @JsonProperty("lat") double latitude,
-            @JsonProperty("long") double longitude) {
-        super(name, "Bernal","Calle falsa", "hurrelltomas@gmail.com", "+5491157784955");
-
-        this.id = id;
-        this.latitude = latitude;
-        this.longitude = longitude;
-
     }
 
     //Methods
 
     public void addMenu(Menu menu) throws MenuAmountConstraintException {
-        if (menusAmount() < 20)
-            this.menus.add(menu);
-        else {
-            throw new MenuAmountConstraintException();
-        }
+        if (menusAmount() < 20) {
+            menu.setProviderId(this.id);
+            menu.setProviderName(this.name);
+            this.menus.add(menu); }
+        else{
+            throw new MenuAmountConstraintException(); }
     }
 
     public Integer menusAmount() {
@@ -102,5 +96,9 @@ public class Provider extends User {
     }
 
     public boolean hasDelivery(){return delivery;}
+
+    public List<Menu> getMenus(){
+        return this.menus;
+    }
 
 }

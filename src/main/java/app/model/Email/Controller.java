@@ -1,5 +1,7 @@
 package app.model.Email;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -26,9 +28,16 @@ public class Controller {
             Session s = Session.getDefaultInstance(p, null);
             BodyPart text = new MimeBodyPart();
             text.setText(mail.getMessage());
-
+            BodyPart attachment = new MimeBodyPart();
             MimeMultipart multi = new MimeMultipart();
+
             multi.addBodyPart(text);
+
+            if(!mail.getFilePath().equals("")){
+                attachment.setDataHandler(new DataHandler(new FileDataSource(mail.getFilePath())));
+                attachment.setFileName(mail.getFileName());
+                multi.addBodyPart(attachment);
+            }
 
             MimeMessage message = new MimeMessage(s);
             message.setFrom(new InternetAddress(mail.getUser()));

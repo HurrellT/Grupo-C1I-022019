@@ -18,4 +18,22 @@ public class ProviderFactory {
                 "pepepizzas@gmail.com", "+5491184469357",
                 officeHoursFrom, officeHoursTo, officeDaysFrom, officeDaysTo, true);
     }
+
+    public static Provider palermoSushi() {
+
+        LocalTime officeHoursFrom = LocalTime.of(18,0);
+        LocalTime officeHoursTo = LocalTime.of(23,0);
+        DayOfWeek officeDaysFrom = DayOfWeek.MONDAY;
+        DayOfWeek officeDaysTo = DayOfWeek.SUNDAY;
+
+        return new Provider(
+                "Palermo Sushi", "logoUrl",     -34.61053, -58.37175,
+                "Palermo", "Scalabrini Ortiz 3200",
+                "Sushi en Palermo", "www.palermosushi.com.ar",
+                "palermosushi@gmail.com", "+5491184464357",
+                officeHoursFrom, officeHoursTo, officeDaysFrom, officeDaysTo, true);
+    }
+
+
+
 }
