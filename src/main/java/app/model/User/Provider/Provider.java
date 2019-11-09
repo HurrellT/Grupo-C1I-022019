@@ -8,6 +8,7 @@ import app.model.User.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -29,11 +30,13 @@ public class Provider extends User {
     public String website;
     public LocalTime officeHoursFrom;
     public LocalTime officeHoursTo;
+    @NotNull
     public DayOfWeek officeDaysFrom;
+    @NotNull
     public DayOfWeek officeDaysTo;
     @OneToMany(cascade = CascadeType.ALL)
     public List<Menu> menus;
-    private boolean delivery;
+    public boolean delivery;
 
     //Constructor
 
