@@ -39,8 +39,8 @@ class DBPreloader {
     private UserRepository userRepository;
     @Autowired
     private MenuRepository menuRepository;
-    @Autowired
-    private PurchaseRepository purchaseRepository;
+//    @Autowired
+//    private PurchaseRepository purchaseRepository;
     @Autowired
     private UserService userService;
 
