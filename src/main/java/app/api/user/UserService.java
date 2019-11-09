@@ -37,6 +37,13 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<User> getAllClients() {
+        return this.getAllUsers()
+                .stream()
+                .filter(user -> (user.type).equals("client"))
+                .collect(Collectors.toList());
+    }
+
     public User findUserNamed(String name) {
         return userRepository.findByName(name);
     }

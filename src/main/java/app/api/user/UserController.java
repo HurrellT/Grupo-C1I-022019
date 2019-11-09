@@ -62,16 +62,19 @@ public class UserController {
 
     @GetMapping("/clients")
     public List<User> getAllClients() {
-        return userService.getAllUsers()
-                .stream()
-                .filter(user -> (user.type).equals("client"))
-                .collect(Collectors.toList());
+        return userService.getAllClients();
     }
 
     @GetMapping("/clientPurchases/{client}")
     public List<Purchase> getClientPurchases(@PathVariable("client") String id){
         long clientId = Long.parseLong(id);
         return userService.findClientById(clientId).getPurchases();
+    }
+
+    @GetMapping("/providerGetId/{id}")
+    public Provider getProviderById(@PathVariable("id") String id){
+        long providerId = Long.parseLong(id);
+        return userService.findProviderById(providerId);
     }
 
     @GetMapping("/providerName/{id}")

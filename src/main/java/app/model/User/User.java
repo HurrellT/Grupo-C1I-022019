@@ -1,6 +1,9 @@
 package app.model.User;
 
+import app.model.Exceptions.NoEnoughCreditException;
+import app.model.Exceptions.NoItemsInTheOrderException;
 import app.model.Menu.Menu;
+import app.model.Purchase.Purchase;
 import app.model.Validators.EmailValidation;
 import app.model.Exceptions.InvalidEmailException;
 import app.model.Exceptions.InvalidPhoneNumberException;
@@ -111,4 +114,6 @@ public class User {
     public List<Menu> getMenus(){
         return new ArrayList<>();
     }
+
+    public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException { }
 }

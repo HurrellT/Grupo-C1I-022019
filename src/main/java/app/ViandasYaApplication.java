@@ -61,8 +61,10 @@ class DBPreloader {
         menuRepository.save(pizza);
         menuRepository.save(sushi);
 
-        userRepository.save(tomasHurrell);
+        federicoMartinez.addCredit(500);
+
         userRepository.save(federicoMartinez);
+        userRepository.save(tomasHurrell);
         userRepository.save(pepePizzas);
         userRepository.save(palermoSushi);
 
