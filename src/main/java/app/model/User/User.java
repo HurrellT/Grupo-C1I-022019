@@ -115,5 +115,5 @@ public class User {
         return new ArrayList<>();
     }
 
-    public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException { }
+    public Boolean makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException { return false; }
 }

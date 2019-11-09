@@ -1,9 +1,10 @@
 package app.api.purchase;
 
+import app.api.menu.MenuService;
 import app.api.user.UserService;
 import app.model.Menu.DeliveryType;
+import app.model.Menu.Menu;
 import app.model.Purchase.Purchase;
-import app.model.Purchase.PurchaseRequest;
 import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
 import app.model.User.User;
@@ -24,11 +25,14 @@ public class PurchaseController {
     private final PurchaseService purchaseService;
     @Autowired
     private final UserService userService;
+    @Autowired
+    private final MenuService menuService;
 
     //Constructor
-    public PurchaseController(PurchaseService purchaseService, UserService userService) {
+    public PurchaseController(PurchaseService purchaseService, UserService userService, MenuService menuService) {
         this.purchaseService = purchaseService;
         this.userService = userService;
+        this.menuService = menuService;
     }
 
     // CREATING -- POST REQUESTS
@@ -36,17 +40,26 @@ public class PurchaseController {
     @PostMapping("/purchase")
     public void addPurchase(@Valid @RequestBody Purchase purchase) { purchaseService.addPurchase(purchase); }
 
-    @PostMapping("/makePurchase")
-    public void makePurchase(@Valid @RequestBody PurchaseRequest purchaseRequest) {
-        //TODO this method should receive a list of menus, quantity for each one, a client and a delivery type
-        User client = this.userService.getAllClients().get(0);
-        Purchase order = new Purchase(purchaseRequest.provider, DeliveryType.DELIVERY);
-        order.addMenu(purchaseRequest.menuName, 1);
-        client.makePurchase(order);
-        userService.updateClient(client.id, (Client) client);
-    }
-
     // GETTING -- GET REQUESTS
+    @GetMapping("/makePurchase/{menuName}")
+    public Boolean makePurchase(@PathVariable("menuName") String name) {
+        //TODO this method should receive a list of menus, quantity for each one, a client and a delivery type
+        //https://www.baeldung.com/spring-request-param (see how to pass a list)
+        Boolean result = false;
+
+        Menu menu = menuService.findMenuNamed(name);
+        Provider provider = userService.findProviderById(menu.getProviderId());
+        User client = this.userService.getAllClients().get(0);
+        Purchase order = new Purchase(provider, DeliveryType.DELIVERY);
+        order.addMenu(menu.name, 1);
+
+        result = client.makePurchase(order);
+        //if (result){
+            userService.updateClient(client.id, (Client) client);
+        //}
+
+        return result;
+    }
 
     @GetMapping("/purchases/{provider}")
     public List<Purchase> getAllProviderPurchases(@PathVariable("provider") String id){

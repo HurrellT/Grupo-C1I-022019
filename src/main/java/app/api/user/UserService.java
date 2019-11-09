@@ -62,6 +62,7 @@ public class UserService {
         foundUser.email = client.email;
         foundUser.phone = client.phone;
         foundUser.accountCredit = client.accountCredit;
+        foundUser.setPurchases(client.getPurchases());
 
         userRepository.save(foundUser);
     }

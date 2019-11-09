@@ -22,9 +22,9 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
 
-    @ManyToOne
+    @Transient
     public Provider provider;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<MenuItem> order;
     public DeliveryType deliveryType;
     public LocalDate deliveryDate;

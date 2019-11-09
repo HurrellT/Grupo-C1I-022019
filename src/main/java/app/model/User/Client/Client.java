@@ -9,10 +9,7 @@ import app.model.Menu.MenuItem;
 import app.model.Purchase.Purchase;
 import app.model.User.User;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,7 @@ public class Client extends User {
     //Parameters
 
     public String lastname;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Purchase> purchases;
 
     //Constructor
@@ -52,10 +49,13 @@ public class Client extends User {
         return this.purchases;
     }
 
-    public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException {
+    public void setPurchases(List<Purchase> purchases) {this.purchases = purchases;}
+
+    public Boolean makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException {
 
         double totalAmount = p.getTotalAmount();
         DataFormatter f = new DataFormatter("US");
+        Boolean result = false;
 
         if (p.menusQuantity() > 0){
 
@@ -73,7 +73,8 @@ public class Client extends User {
         else{
             throw new NoItemsInTheOrderException();
         }
-
+        result = true;
+        return result;
     }
 
     private String getEmailMessage(Purchase p, DataFormatter formatter){
