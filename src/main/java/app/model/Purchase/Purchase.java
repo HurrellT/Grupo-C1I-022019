@@ -3,6 +3,7 @@ package app.model.Purchase;
 import app.model.DataFormatter.DataFormatter;
 import app.model.Email.Controller;
 import app.model.Email.Email;
+import app.model.Email.Sender;
 import app.model.Exceptions.NonexistentMenuException;
 import app.model.Menu.DeliveryType;
 import app.model.Menu.MenuItem;
@@ -98,7 +99,9 @@ public class Purchase {
 
     public void sendMails(String clientAddress, String clientMessage, DataFormatter formatter){
 
-        Controller controller = new Controller();
+        //Controller controller = new Controller();
+        Sender clientSender;
+        Sender providerSender;
         Email clientMail = new Email();
         Email providerMail = new Email();
         ResourceBundle messages = formatter.getResourceBundle();
@@ -117,8 +120,12 @@ public class Purchase {
         providerMail.setFileName("ViandasYa.png");
         providerMail.setFilePath("ViandasYa.png");
 
-        controller.sendMail(clientMail);
-        controller.sendMail(providerMail);
+        clientSender = new Sender("Client send", clientMail);
+        providerSender = new Sender("Provider send", providerMail);
+        clientSender.start();
+        providerSender.start();
+        /*controller.sendMail(clientMail);
+        controller.sendMail(providerMail);*/
 
     }
 

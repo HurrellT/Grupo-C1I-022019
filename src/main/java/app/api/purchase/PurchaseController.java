@@ -42,10 +42,9 @@ public class PurchaseController {
 
     // GETTING -- GET REQUESTS
     @GetMapping("/makePurchase/{menuName}")
-    public Boolean makePurchase(@PathVariable("menuName") String name) {
+    public void makePurchase(@PathVariable("menuName") String name) {
         //TODO this method should receive a list of menus, quantity for each one, a client and a delivery type
         //https://www.baeldung.com/spring-request-param (see how to pass a list)
-        Boolean result = false;
 
         Menu menu = menuService.findMenuNamed(name);
         Provider provider = userService.findProviderById(menu.getProviderId());
@@ -53,12 +52,8 @@ public class PurchaseController {
         Purchase order = new Purchase(provider, DeliveryType.DELIVERY);
         order.addMenu(menu.name, 1);
 
-        result = client.makePurchase(order);
-        //if (result){
-            userService.updateClient(client.id, (Client) client);
-        //}
-
-        return result;
+        client.makePurchase(order);
+        userService.updateClient(client.id, (Client) client);
     }
 
     @GetMapping("/purchases/{provider}")
