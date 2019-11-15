@@ -8,7 +8,9 @@ import app.model.User.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;

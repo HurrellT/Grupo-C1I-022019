@@ -4,6 +4,8 @@ import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty(message = "El nombre no debe estar vacio")
     public String name;
     public String description;
     public MenuCategory category;

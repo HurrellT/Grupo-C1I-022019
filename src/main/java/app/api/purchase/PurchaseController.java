@@ -5,6 +5,7 @@ import app.api.user.UserService;
 import app.model.Menu.DeliveryType;
 import app.model.Menu.Menu;
 import app.model.Purchase.Purchase;
+import app.model.Purchase.PurchaseRequest;
 import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
 import app.model.User.User;
@@ -12,7 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,20 +45,41 @@ public class PurchaseController {
     @PostMapping("/purchase")
     public void addPurchase(@Valid @RequestBody Purchase purchase) { purchaseService.addPurchase(purchase); }
 
-    // GETTING -- GET REQUESTS
-    @GetMapping("/makePurchase/{menuName}")
-    public void makePurchase(@PathVariable("menuName") String name) {
-        //TODO this method should receive a list of menus, quantity for each one, a client and a delivery type
-        //https://www.baeldung.com/spring-request-param (see how to pass a list)
+    @PostMapping("/makePurchase")
+    @Transactional
+    public void makePurchase(@Valid @RequestBody List<PurchaseRequest> purchaseRequest) {
 
-        Menu menu = menuService.findMenuNamed(name);
-        Provider provider = userService.findProviderById(menu.getProviderId());
-        User client = this.userService.getAllClients().get(0);
-        Purchase order = new Purchase(provider, DeliveryType.DELIVERY);
-        order.addMenu(menu.name, 1);
+        HashMap<Long, Purchase> purchases = new HashMap<>();
+        Collection<Purchase> orders = new ArrayList<>();
+        Purchase order;
+        Provider provider;
+        long providerId;
 
-        client.makePurchase(order);
-        userService.updateClient(client.id, (Client) client);
+
+        for (PurchaseRequest pr: purchaseRequest) {
+            System.out.println("menuId: " + pr.menuName + " provId: " + pr.providerId +
+                    " quantity: " + pr.quantity);
+            /*providerId = Long.parseLong(pr.providerId);
+            if (purchases.containsKey(providerId)){
+                order = purchases.get(providerId);
+                order.addMenu(pr.menuName, Integer.parseInt(pr.quantity));
+                purchases.replace(providerId, order);
+            }
+            else{
+                provider = this.userService.findProviderById(providerId);
+                order = new Purchase(provider, DeliveryType.DELIVERY);
+                order.addMenu(pr.menuName, Integer.parseInt(pr.quantity));
+                purchases.put(providerId, order);
+            }*/
+        }
+
+        //TODO replace this client with the logged client
+        /*User client = this.userService.getAllClients().get(0);
+
+        orders = purchases.values();
+        for (Purchase p: orders){
+            client.makePurchase(p);
+        }*/
     }
 
     @GetMapping("/purchases/{provider}")
