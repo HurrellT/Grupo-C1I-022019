@@ -2,11 +2,10 @@ package app.api.purchase;
 
 import app.api.menu.MenuService;
 import app.api.user.UserService;
+import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Menu.DeliveryType;
-import app.model.Menu.Menu;
 import app.model.Purchase.Purchase;
 import app.model.Purchase.PurchaseRequest;
-import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
 import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -47,39 +45,48 @@ public class PurchaseController {
 
     @PostMapping("/makePurchase")
     @Transactional
-    public void makePurchase(@Valid @RequestBody List<PurchaseRequest> purchaseRequest) {
+    public void makePurchase(@Valid @RequestBody List<PurchaseRequest> purchaseRequests) {
 
         HashMap<Long, Purchase> purchases = new HashMap<>();
-        Collection<Purchase> orders = new ArrayList<>();
+        Collection<Purchase> orders;
         Purchase order;
         Provider provider;
         long providerId;
+        long clientId;
+        double totalPurchaseAmmount = 0;
+        User client;
 
+        //Get client
+        clientId = 4;
+        client = userService.findClientById(clientId);
 
-        for (PurchaseRequest pr: purchaseRequest) {
-            System.out.println("menuId: " + pr.menuName + " provId: " + pr.providerId +
-                    " quantity: " + pr.quantity);
-            /*providerId = Long.parseLong(pr.providerId);
+        for (PurchaseRequest pr: purchaseRequests) {
+            providerId = Long.parseLong(pr.providerId);
             if (purchases.containsKey(providerId)){
                 order = purchases.get(providerId);
                 order.addMenu(pr.menuName, Integer.parseInt(pr.quantity));
-                purchases.replace(providerId, order);
+                purchases.put(providerId, order);
             }
             else{
                 provider = this.userService.findProviderById(providerId);
                 order = new Purchase(provider, DeliveryType.DELIVERY);
                 order.addMenu(pr.menuName, Integer.parseInt(pr.quantity));
                 purchases.put(providerId, order);
-            }*/
+            }
         }
-
-        //TODO replace this client with the logged client
-        /*User client = this.userService.getAllClients().get(0);
 
         orders = purchases.values();
         for (Purchase p: orders){
-            client.makePurchase(p);
-        }*/
+            totalPurchaseAmmount += p.getTotalAmount();
+        }
+        if (totalPurchaseAmmount > client.getAccountCredit()){
+            throw new NoEnoughCreditException();
+        }
+        else{
+            for (Purchase p: orders){
+                client.makePurchase(p);
+            }
+        }
     }
 
     @GetMapping("/purchases/{provider}")

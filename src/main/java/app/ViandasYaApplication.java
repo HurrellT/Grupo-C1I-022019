@@ -1,7 +1,6 @@
 package app;
 
 import app.api.menu.MenuRepository;
-import app.api.purchase.PurchaseRepository;
 import app.api.user.UserRepository;
 import app.api.user.UserService;
 import app.model.Exceptions.MenuAmountConstraintException;
@@ -75,7 +74,7 @@ class DBPreloader {
         userService.updateProvider(pepePizzas.id, pepePizzas);
         userService.updateProvider(palermoSushi.id, palermoSushi);
 
-        /*//Purchases to preload
+        //Purchases to preload
         Purchase order1 = new Purchase(pepePizzas, DELIVERY);
         Purchase order2 = new Purchase(palermoSushi, DELIVERY);
 
@@ -86,14 +85,15 @@ class DBPreloader {
         ((Provider) pepePizzas).addMenu(pizza);
         ((Provider) palermoSushi).addMenu(sushi);
 
-        purchaseRepository.save(order1);
+        /*purchaseRepository.save(order1);
         purchaseRepository.save(order2);
 
-        /*order1.addMenu("Pizza Menu", 1);
+        order1.addMenu("Pizza Menu", 1);
         order2.addMenu("Sushi Menu", 1);
 
         purchaseRepository.(order1);
         purchaseRepository.save(order2);*/
+
 
     }
 }

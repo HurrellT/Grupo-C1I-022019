@@ -36,7 +36,7 @@ public class Provider extends User {
     public DayOfWeek officeDaysFrom;
     @NotNull
     public DayOfWeek officeDaysTo;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     public List<Menu> menus;
     public boolean delivery;
 
