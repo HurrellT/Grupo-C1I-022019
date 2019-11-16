@@ -2,6 +2,7 @@ package app.api.menu;
 
 import app.api.user.UserService;
 import app.model.Menu.Menu;
+import app.model.User.Provider.Provider;
 import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -57,9 +58,9 @@ public class MenuController {
     @GetMapping("/menus")
     public List<Menu> getAllMenus() {
 
-        List<User> providers = userService.getAllProviders();
+        List<Provider> providers = userService.getAllProviders(0,10 /*TODO: PASARLE PAGINACION POR URL*/);
         List<Menu> menus = new ArrayList<>();
-        for (User p : providers){
+        for (Provider p : providers){
             menus.addAll(p.getMenus());
         }
         return menus;

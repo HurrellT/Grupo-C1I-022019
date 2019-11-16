@@ -48,6 +48,8 @@ class DBPreloader {
         //Users to Preload
         User tomasHurrell = ClientFactory.tomasHurrell();
         User federicoMartinez = ClientFactory.federicoMartinez();
+        User juan = ClientFactory.juan();
+        User josesito = ClientFactory.josesito();
         Provider pepePizzas = ProviderFactory.pepePizzas();
         Provider palermoSushi = ProviderFactory.palermoSushi();
 
@@ -64,6 +66,8 @@ class DBPreloader {
 
         userRepository.save(federicoMartinez);
         userRepository.save(tomasHurrell);
+        userRepository.save(juan);
+        userRepository.save(josesito);
         userRepository.save(pepePizzas);
         userRepository.save(palermoSushi);
 

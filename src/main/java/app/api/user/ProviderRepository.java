@@ -8,20 +8,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository
-        extends CrudRepository<User, Long>,
-                PagingAndSortingRepository<User, Long> {
-
-    User findByName(String name);
-
-    Client findClientById(Long id);
-
-    Provider findProviderById(Long id);
-
-    Client findByType(String type);
+public interface ProviderRepository
+        extends CrudRepository<Provider, Long>,
+        PagingAndSortingRepository<Provider, Long> {
 
     //TODO: check to replace the save from spring to go through the class constructor
     //in order to check the validations, and if there's something wrong, send a bad request
 
 }
-

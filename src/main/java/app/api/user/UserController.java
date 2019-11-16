@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -73,9 +71,10 @@ public class UserController {
 
     // GETTING -- GET REQUESTS
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @RequestMapping(value = "/users", method = RequestMethod.GET, params = { "page", "size" })
+    public List<User> getAllUsers(@RequestParam("page") Integer page,
+                                  @RequestParam("size") Integer size) {
+        return userService.getAllUsers(page, size);
     }
 
     @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
@@ -83,14 +82,16 @@ public class UserController {
         return userService.findUserNamed(name);
     }
 
-    @GetMapping("/providers")
-    public List<User> getAllProviders() {
-        return userService.getAllProviders();
+    @GetMapping(value = "/providers", params = { "page", "size" })
+    public List<Provider> getAllProviders(@RequestParam("page") Integer page,
+                                          @RequestParam("size") Integer size) {
+        return userService.getAllProviders(page, size);
     }
 
-    @GetMapping("/clients")
-    public List<User> getAllClients() {
-        return userService.getAllClients();
+    @GetMapping(value = "/clients", params = { "page", "size" })
+    public List<User> getAllClients(@RequestParam("page") Integer page,
+                                    @RequestParam("size") Integer size) {
+        return userService.getAllClients(page, size);
     }
 
     @GetMapping("/clientPurchases/{client}")
