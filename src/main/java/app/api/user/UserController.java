@@ -1,16 +1,20 @@
 package app.api.user;
 
+import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Purchase.Purchase;
 import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
 import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -42,6 +46,30 @@ public class UserController {
 
     @PostMapping("/provider")
     public void addClient(@Valid @RequestBody Provider client) { userService.addUser(client); }
+
+        // Credit management
+
+    @PostMapping("/withdrawCredit/{id}/{amount}")
+    public void withdrawCredit(@PathVariable("id") String id, @PathVariable("amount") String amount) throws NoEnoughCreditException {
+        long userId = Long.parseLong(id);
+        User user = userService.findUserById(userId);
+        try {
+            user.subtractCredit(Double.parseDouble(amount));
+        }
+        catch (NoEnoughCreditException exc) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, exc.getMessage(), exc);
+        }
+        userService.updateUserCredit(user);
+    }
+
+    @PostMapping("/depositCredit/{id}/{amount}")
+    public void depositCredit(@PathVariable("id") String id, @PathVariable("amount") String amount) {
+        long userId = Long.parseLong(id);
+        User user = userService.findUserById(userId);
+        user.addCredit(Double.parseDouble(amount));
+        userService.updateUserCredit(user);
+    }
 
     // GETTING -- GET REQUESTS
 
@@ -104,4 +132,5 @@ public class UserController {
         long userId = Long.parseLong(id);
         userService.deleteUserIdentifiedWith(userId);
     }
+
 }

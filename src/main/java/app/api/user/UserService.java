@@ -111,4 +111,8 @@ public class UserService {
     public List<Purchase> getAllPurchases() {
         return userRepository.findByType("client").getPurchases();
     }
+
+    public void updateUserCredit(User user) {
+        userRepository.save(user);
+    }
 }
