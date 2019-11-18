@@ -43,9 +43,10 @@ public class PurchaseController {
     @PostMapping("/purchase")
     public void addPurchase(@Valid @RequestBody Purchase purchase) { purchaseService.addPurchase(purchase); }
 
-    @PostMapping("/makePurchase")
+    @PostMapping("/makePurchase/{id}")
     @Transactional
-    public void makePurchase(@Valid @RequestBody List<PurchaseRequest> purchaseRequests) {
+    public void makePurchase(@Valid @RequestBody List<PurchaseRequest> purchaseRequests,
+                             @PathVariable("id") String id) {
 
         HashMap<Long, Purchase> purchases = new HashMap<>();
         Collection<Purchase> orders;
@@ -57,7 +58,7 @@ public class PurchaseController {
         User client;
 
         //Get client
-        clientId = 4;
+        clientId = Long.parseLong(id);
         client = userService.findClientById(clientId);
 
         for (PurchaseRequest pr: purchaseRequests) {
