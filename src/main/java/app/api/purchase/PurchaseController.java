@@ -6,8 +6,8 @@ import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Menu.DeliveryType;
 import app.model.Purchase.Purchase;
 import app.model.Purchase.PurchaseRequest;
+import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
-import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +55,7 @@ public class PurchaseController {
         long providerId;
         long clientId;
         double totalPurchaseAmmount = 0;
-        User client;
+        Client client;
 
         //Get client
         clientId = Long.parseLong(id);

@@ -1,7 +1,5 @@
 package app.model.User.Client;
 
-import app.model.User.User;
-
 public class ClientFactory {
     public static Client tomasHurrell() {
         return new Client("Tomas", "Hurrell",

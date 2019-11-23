@@ -121,6 +121,4 @@ public class User {
     public List<Menu> getMenus(){
         return new ArrayList<>();
     }
-
-    public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException {}
 }
