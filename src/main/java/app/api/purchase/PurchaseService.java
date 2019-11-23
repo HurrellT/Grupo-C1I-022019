@@ -27,8 +27,4 @@ public class PurchaseService {
         return purchaseRepository.findById(id).get();
     }
 
-    public List<Purchase> getAllPurchases() {
-        return (List<Purchase>) purchaseRepository.findAll();
-    }
-
 }

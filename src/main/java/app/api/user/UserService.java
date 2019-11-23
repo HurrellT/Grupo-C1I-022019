@@ -1,11 +1,15 @@
 package app.api.user;
 
+import app.model.Purchase.Purchase;
 import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
 import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +62,7 @@ public class UserService {
         foundUser.email = client.email;
         foundUser.phone = client.phone;
         foundUser.accountCredit = client.accountCredit;
+        foundUser.setPurchases(client.getPurchases());
 
         userRepository.save(foundUser);
     }
@@ -101,5 +106,9 @@ public class UserService {
 
     public Provider findProviderById(long id) {
         return userRepository.findProviderById(id);
+    }
+
+    public List<Purchase> getAllPurchases() {
+        return userRepository.findByType("client").getPurchases();
     }
 }

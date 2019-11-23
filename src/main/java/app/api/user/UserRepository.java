@@ -17,6 +17,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Provider findProviderById(Long id);
 
+    Client findByType(String type);
+
     //TODO: check to replace the save from spring to go through the class constructor
     //in order to check the validations, and if there's something wrong, send a bad request
 

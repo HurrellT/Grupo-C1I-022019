@@ -8,7 +8,9 @@ import app.model.User.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class Provider extends User {
     public DayOfWeek officeDaysFrom;
     @NotNull
     public DayOfWeek officeDaysTo;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     public List<Menu> menus;
     public boolean delivery;
 
