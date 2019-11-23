@@ -107,7 +107,14 @@ public class User {
 
     public void addCredit(double cred){ this.accountCredit+= cred; }
 
-    public void subtractCredit(double cred){ this.accountCredit-= cred; }
+    public void subtractCredit(double cred){
+        if (this.accountCredit == 0) {
+            throw new NoEnoughCreditException();
+        }
+        else {
+            this.accountCredit-= cred;
+        }
+    }
 
     public double getAccountCredit() { return this.accountCredit; }
 

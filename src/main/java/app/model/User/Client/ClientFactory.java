@@ -1,5 +1,7 @@
 package app.model.User.Client;
 
+import app.model.User.User;
+
 public class ClientFactory {
     public static Client tomasHurrell() {
         return new Client("Tomas", "Hurrell",
@@ -15,5 +17,11 @@ public class ClientFactory {
         return new Client("Juan", "Lopez",
                 "Rp 1233", "Paris",
                 "jlp1412334542@gmail.com", "+5491166242443");
+    }
+
+    public static Client josesito() {
+        return new Client("Jose", "Sito",
+                "calle falsa 123", "Estado X", "josesito@gmail.com",
+                "+5491166242467");
     }
 }
