@@ -3,7 +3,6 @@ package app.api.menu;
 import app.api.user.UserService;
 import app.model.Menu.Menu;
 import app.model.User.Provider.Provider;
-import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;

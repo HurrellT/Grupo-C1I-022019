@@ -1,7 +1,6 @@
 package app.model.Purchase;
 
 import app.model.DataFormatter.DataFormatter;
-import app.model.Email.Controller;
 import app.model.Email.Email;
 import app.model.Email.Sender;
 import app.model.Exceptions.NonexistentMenuException;
@@ -13,7 +12,9 @@ import javax.persistence.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 @Entity
 @Table(name = "purchase")
