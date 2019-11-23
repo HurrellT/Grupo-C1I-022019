@@ -128,4 +128,8 @@ public class UserService {
     public void updateUserCredit(User user) {
         userRepository.save(user);
     }
+
+    public Integer getAllUsersSize() {
+        return Math.toIntExact(userRepository.findAll().spliterator().getExactSizeIfKnown());
+    }
 }

@@ -71,6 +71,11 @@ public class UserController {
 
     // GETTING -- GET REQUESTS
 
+    @GetMapping("/totalUsers")
+    public Integer getAllUsersSize() {
+        return userService.getAllUsersSize();
+    }
+
     @RequestMapping(value = "/users", method = RequestMethod.GET, params = { "page", "size" })
     public List<User> getAllUsers(@RequestParam("page") Integer page,
                                   @RequestParam("size") Integer size) {
