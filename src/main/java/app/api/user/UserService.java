@@ -132,4 +132,12 @@ public class UserService {
     public Integer getAllUsersSize() {
         return Math.toIntExact(userRepository.findAll().spliterator().getExactSizeIfKnown());
     }
+
+    public Client findUserByEmail(String email) {
+        return userRepository.findClientByEmail(email);
+    }
+
+    public boolean clientIsRegistered(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }

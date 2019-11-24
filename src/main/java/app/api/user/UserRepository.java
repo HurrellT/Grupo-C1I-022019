@@ -20,6 +20,10 @@ public interface UserRepository
 
     Client findByType(String type);
 
+    Client findClientByEmail(String email);
+
+    boolean existsByEmail(String email);
+
     //TODO: check to replace the save from spring to go through the class constructor
     //in order to check the validations, and if there's something wrong, send a bad request
 

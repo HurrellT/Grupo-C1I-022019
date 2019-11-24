@@ -87,6 +87,16 @@ public class UserController {
         return userService.findUserNamed(name);
     }
 
+    @GetMapping("/client/{email}")
+    public Client findUserByEmail(@PathVariable("email") String email) {
+        return userService.findUserByEmail(email);
+    }
+
+    @GetMapping("/clientIsRegistered/{email}")
+    public boolean clientIsRegistered(@PathVariable("email") String email) {
+        return userService.clientIsRegistered(email);
+    }
+
     @GetMapping(value = "/providers", params = { "page", "size" })
     public List<Provider> getAllProviders(@RequestParam("page") Integer page,
                                           @RequestParam("size") Integer size) {
