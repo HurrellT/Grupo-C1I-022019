@@ -133,11 +133,15 @@ public class UserService {
         return Math.toIntExact(userRepository.findAll().spliterator().getExactSizeIfKnown());
     }
 
-    public Client findUserByEmail(String email) {
+    public Client findClientByEmail(String email) {
         return userRepository.findClientByEmail(email);
     }
 
     public boolean clientIsRegistered(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 }

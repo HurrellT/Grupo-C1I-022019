@@ -88,7 +88,12 @@ public class UserController {
     }
 
     @GetMapping("/client/{email}")
-    public Client findUserByEmail(@PathVariable("email") String email) {
+    public Client findClientByEmail(@PathVariable("email") String email) {
+        return userService.findClientByEmail(email);
+    }
+
+    @GetMapping("/user/{email}")
+    public User findUserByEmail(@PathVariable("email") String email) {
         return userService.findUserByEmail(email);
     }
 
