@@ -6,6 +6,7 @@ import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Menu.DeliveryType;
 import app.model.Purchase.Purchase;
 import app.model.Purchase.PurchaseRequest;
+import app.model.Purchase.PurchaseScore;
 import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +45,11 @@ public class PurchaseController {
     @PostMapping("/purchase")
     public void addPurchase(@Valid @RequestBody Purchase purchase) { purchaseService.addPurchase(purchase); }
 
+    @PostMapping("/setScore")
+    public void setScore(@Valid @RequestBody PurchaseScore purchaseScore){
+        purchaseService.setScore(purchaseScore.id, purchaseScore.score);
+    }
+
     @PostMapping("/makePurchase/{id}")
     @Transactional
     public void makePurchase(@Valid @RequestBody List<PurchaseRequest> purchaseRequests,
@@ -70,7 +77,7 @@ public class PurchaseController {
             }
             else{
                 provider = this.userService.findProviderById(providerId);
-                order = new Purchase(provider, DeliveryType.DELIVERY);
+                order = new Purchase(provider, pr.deliveryType, pr.deliveryDate, pr.deliveryTime);
                 order.addMenu(pr.menuName, Integer.parseInt(pr.quantity));
                 purchases.put(providerId, order);
             }
@@ -90,13 +97,20 @@ public class PurchaseController {
         }
     }
 
-    @GetMapping("/purchases/{provider}")
+    @GetMapping("/ppurchases/{provider}")
     public List<Purchase> getAllProviderPurchases(@PathVariable("provider") String id){
         long providerId = Long.parseLong(id);
         return userService.getAllPurchases()
                 .stream()
                 .filter(purchase -> (purchase.provider.id) == providerId)
-                .collect(Collectors.toList()); }
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/cpurchases/{client}")
+    public List<Purchase> getAllClientPurchases(@PathVariable("client") String id){
+        long clientId = Long.parseLong(id);
+        return userService.findClientById(clientId).getPurchases();
+    }
 
     @GetMapping("/purchases")
     public List<Purchase> getAllPurchases() {

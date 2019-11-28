@@ -25,4 +25,12 @@ public class PurchaseService {
         return purchaseRepository.findById(id).get();
     }
 
+    public void setScore(long id, int score){
+
+        Purchase foundPurchase = this.findPurchaseById(id);
+        foundPurchase.score = score;
+
+        purchaseRepository.save(foundPurchase);
+    }
+
 }

@@ -79,8 +79,8 @@ class DBPreloader {
         userService.updateProvider(palermoSushi.id, palermoSushi);
 
         //Purchases to preload
-        Purchase order1 = new Purchase(pepePizzas, DELIVERY);
-        Purchase order2 = new Purchase(palermoSushi, DELIVERY);
+        Purchase order1 = new Purchase(pepePizzas, "Delivery");
+        Purchase order2 = new Purchase(palermoSushi, "Delivery");
 
         menuRepository.save(pizza);
         menuRepository.save(burger);

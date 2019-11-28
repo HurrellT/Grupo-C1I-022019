@@ -28,15 +28,17 @@ public class Purchase {
     public Provider provider;
     @OneToMany(cascade = CascadeType.ALL)
     public List<MenuItem> order;
-    public DeliveryType deliveryType;
+    public String deliveryType;
     public LocalDate deliveryDate;
+    public LocalDate orderDate;
     public LocalTime deliveryTime;
     public double totalAmount;
+    public int score;
 
     //Constructor
     public Purchase(){}
 
-    public Purchase(Provider p, DeliveryType deliveryType){
+    public Purchase(Provider p, String deliveryType){
         this.provider = p;
         this.order = new ArrayList<>();
         this.deliveryType = deliveryType;
@@ -45,11 +47,12 @@ public class Purchase {
         this.totalAmount = 0;
     }
 
-    public Purchase(Provider p, DeliveryType deliveryType, LocalDate deliveryDate, LocalTime deliveryTime){
+    public Purchase(Provider p, String deliveryType, LocalDate deliveryDate, LocalTime deliveryTime){
         this.provider = p;
         this.order = new ArrayList<>();
         this.deliveryType = deliveryType;
         this.deliveryDate = deliveryDate;
+        this.orderDate = LocalDate.now();
         this.deliveryTime = deliveryTime;
         this.totalAmount = 0;
     }
@@ -97,6 +100,14 @@ public class Purchase {
     }
 
     public List<MenuItem> getOrder(){ return this.order; }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public int getScore(){
+        return this.score;
+    }
 
     public void sendMails(String clientAddress, String clientMessage, DataFormatter formatter){
 
