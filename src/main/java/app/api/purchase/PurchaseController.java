@@ -3,7 +3,6 @@ package app.api.purchase;
 import app.api.menu.MenuService;
 import app.api.user.UserService;
 import app.model.Exceptions.NoEnoughCreditException;
-import app.model.Menu.DeliveryType;
 import app.model.Purchase.Purchase;
 import app.model.Purchase.PurchaseRequest;
 import app.model.Purchase.PurchaseScore;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -110,6 +108,19 @@ public class PurchaseController {
     public List<Purchase> getAllClientPurchases(@PathVariable("client") String id){
         long clientId = Long.parseLong(id);
         return userService.findClientById(clientId).getPurchases();
+    }
+
+    @GetMapping("/pendingScoredPurchases/{client}")
+    public int getPendingScoredPurchases(@PathVariable("client") String id){
+        int pendingScoredPurchases = 0;
+        List<Purchase> purchases = this.getAllClientPurchases(id);
+        for(Purchase p: purchases){
+            if(p.score == 0){
+                pendingScoredPurchases += 1;
+            }
+        }
+
+        return pendingScoredPurchases;
     }
 
     @GetMapping("/purchases")

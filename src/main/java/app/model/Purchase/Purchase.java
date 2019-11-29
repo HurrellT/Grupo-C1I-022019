@@ -34,6 +34,7 @@ public class Purchase {
     public LocalTime deliveryTime;
     public double totalAmount;
     public int score;
+    public String showScore;
 
     //Constructor
     public Purchase(){}
@@ -45,6 +46,7 @@ public class Purchase {
         this.deliveryDate = LocalDate.now();
         this.deliveryTime = LocalTime.now();
         this.totalAmount = 0;
+        this.showScore = "";
     }
 
     public Purchase(Provider p, String deliveryType, LocalDate deliveryDate, LocalTime deliveryTime){
@@ -55,6 +57,7 @@ public class Purchase {
         this.orderDate = LocalDate.now();
         this.deliveryTime = deliveryTime;
         this.totalAmount = 0;
+        this.showScore = "";
     }
 
     public void addMenu(String menuName, Integer quantity) throws NonexistentMenuException {
@@ -136,8 +139,6 @@ public class Purchase {
         providerSender = new Sender("Provider send", providerMail);
         clientSender.start();
         providerSender.start();
-        /*controller.sendMail(clientMail);
-        controller.sendMail(providerMail);*/
 
     }
 
