@@ -32,10 +32,10 @@ public class UserController {
     //Methods
 
 //  TODO: this one is temporary -- DELETE ME
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public void addUser(@RequestBody User user) {
-        userService.addUser(user);
-    }
+//    @RequestMapping(value = "/user", method = RequestMethod.POST)
+//    public void addUser(@RequestBody User user) {
+//        userService.addUser(user);
+//    }
 
     // CREATING -- POST REQUESTS
 
@@ -69,6 +69,17 @@ public class UserController {
         userService.updateUserCredit(user);
     }
 
+    @PostMapping("/convertClientToProvider/{id}")
+    public void convertClientToProvider(@PathVariable("id") String id, @RequestBody Provider provider) {
+        long userId = Long.parseLong(id);
+        Client client = userService.findClientById(userId);
+        Provider convertedUser = client.convertToProvider(provider.logo, provider.latitude, provider.longitude,
+                provider.description, provider.website, provider.officeHoursFrom,
+                provider.officeHoursTo, provider.officeDaysFrom, provider.officeDaysTo,
+                provider.menus, provider.delivery);
+        userService.convertAndUpdateClientToProvider(client.id, convertedUser);
+    }
+
     // GETTING -- GET REQUESTS
 
     @GetMapping("/totalUsers")
@@ -92,7 +103,7 @@ public class UserController {
         return userService.findClientByEmail(email);
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/userWithEmail/{email}")
     public User findUserByEmail(@PathVariable("email") String email) {
         return userService.findUserByEmail(email);
     }

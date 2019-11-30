@@ -144,4 +144,9 @@ public class UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
+
+    public void convertAndUpdateClientToProvider(long id, Provider convertedUser) {
+        userRepository.deleteById(id);
+        userRepository.save(convertedUser);
+    }
 }
