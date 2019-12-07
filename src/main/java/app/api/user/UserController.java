@@ -33,10 +33,10 @@ public class UserController {
     //Methods
 
 //  TODO: this one is temporary -- DELETE ME
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public void addUser(@RequestBody User user) {
-        userService.addUser(user);
-    }
+//    @RequestMapping(value = "/user", method = RequestMethod.POST)
+//    public void addUser(@RequestBody User user) {
+//        userService.addUser(user);
+//    }
 
     // CREATING -- POST REQUESTS
 
@@ -70,6 +70,17 @@ public class UserController {
         userService.updateUserCredit(user);
     }
 
+    @PostMapping("/convertClientToProvider/{id}")
+    public void convertClientToProvider(@PathVariable("id") String id, @RequestBody Provider provider) {
+        long userId = Long.parseLong(id);
+        Client client = userService.findClientById(userId);
+        Provider convertedUser = client.convertToProvider(provider.logo, provider.latitude, provider.longitude,
+                provider.description, provider.website, provider.officeHoursFrom,
+                provider.officeHoursTo, provider.officeDaysFrom, provider.officeDaysTo,
+                provider.menus, provider.delivery);
+        userService.convertAndUpdateClientToProvider(client.id, convertedUser);
+    }
+
     // GETTING -- GET REQUESTS
 
     @Logger
@@ -88,6 +99,21 @@ public class UserController {
     @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
     public User findUserNamed(@PathVariable("name") String name) {
         return userService.findUserNamed(name);
+    }
+
+    @GetMapping("/client/{email}")
+    public Client findClientByEmail(@PathVariable("email") String email) {
+        return userService.findClientByEmail(email);
+    }
+
+    @GetMapping("/userWithEmail/{email}")
+    public User findUserByEmail(@PathVariable("email") String email) {
+        return userService.findUserByEmail(email);
+    }
+
+    @GetMapping("/clientIsRegistered/{email}")
+    public boolean clientIsRegistered(@PathVariable("email") String email) {
+        return userService.clientIsRegistered(email);
     }
 
     @GetMapping(value = "/providers", params = { "page", "size" })

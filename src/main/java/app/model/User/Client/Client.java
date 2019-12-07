@@ -7,13 +7,17 @@ import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Exceptions.NoItemsInTheOrderException;
 import app.model.Menu.MenuItem;
 import app.model.Purchase.Purchase;
+import app.model.User.Provider.Provider;
 import app.model.User.User;
 
 import javax.persistence.*;
 import java.text.NumberFormat;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
 @Entity
 //@Table(name = "client")
@@ -108,4 +112,18 @@ public class Client extends User {
 
     }
 
+
+    public Provider convertToProvider(String logo, double latitude,
+                                      double longitude, String description,
+                                      String website, LocalTime officeHoursFrom,
+                                      LocalTime officeHoursTo, DayOfWeek officeDaysFrom,
+                                      DayOfWeek officeDaysTo, List menus,
+                                      boolean delivery) {
+        Provider provider = new Provider(this.name, logo, latitude, longitude,
+                this.state, this.address, description, website,
+                this.email, this.phone, officeHoursFrom, officeHoursTo,
+                officeDaysFrom, officeDaysTo, delivery);
+        provider.id = this.id;
+        return provider;
+    }
 }
