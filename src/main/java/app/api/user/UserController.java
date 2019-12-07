@@ -1,5 +1,6 @@
 package app.api.user;
 
+import app.aspects.Logger;
 import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Purchase.Purchase;
 import app.model.User.Client.Client;
@@ -71,6 +72,7 @@ public class UserController {
 
     // GETTING -- GET REQUESTS
 
+    @Logger
     @GetMapping("/totalUsers")
     public Integer getAllUsersSize() {
         return userService.getAllUsersSize();
@@ -82,6 +84,7 @@ public class UserController {
         return userService.getAllUsers(page, size);
     }
 
+    @Logger
     @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
     public User findUserNamed(@PathVariable("name") String name) {
         return userService.findUserNamed(name);
