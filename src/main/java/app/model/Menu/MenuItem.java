@@ -1,5 +1,7 @@
 package app.model.Menu;
 
+import app.model.Exceptions.ScoreRateOutOfBoundsException;
+
 import javax.persistence.*;
 
 @Entity
@@ -28,4 +30,7 @@ public class MenuItem {
         return this.menu.getName();
     }
     public Integer getQuantity() { return this.quantity; }
+    public void setMenuScore(int score){
+        menu.addScore(score);
+    }
 }

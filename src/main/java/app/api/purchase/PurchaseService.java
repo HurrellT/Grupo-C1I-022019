@@ -1,5 +1,6 @@
 package app.api.purchase;
 
+import app.model.Exceptions.ScoreRateOutOfBoundsException;
 import app.model.Purchase.Purchase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class PurchaseService {
     public void setScore(long id, int score){
 
         Purchase foundPurchase = this.findPurchaseById(id);
-        foundPurchase.score = score;
+        foundPurchase.setScore(score);
 
         purchaseRepository.save(foundPurchase);
     }

@@ -2,6 +2,7 @@ package app.model.Menu;
 
 import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
+import app.model.Exceptions.ScoreRateOutOfBoundsException;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -40,8 +41,9 @@ public class Menu {
     public float minimumAmount2Price;
     private long providerId;
     private String providerName;
-    @OneToMany
-    public List<Score> score;
+    private Boolean active;
+    @ElementCollection
+    public List<Integer> score;
 
 
     //Constructor
@@ -67,6 +69,7 @@ public class Menu {
         this.averageDeliveryTime = averageDeliveryTime;
         this.maximumAllowedSells = maximumAllowedSellsAmount;
         this.score = new ArrayList<>();
+        this.active = true;
 
         setMinimumAmounts(minimumAmount, minimumAmount2);
         setPrices(price, minimumAmountPrice, minimumAmount2Price);
@@ -96,6 +99,7 @@ public class Menu {
         this.minimumAmount = minimumAmount;
         this.minimumAmountPrice = minimumAmountPrice;
         this.score = new ArrayList<>();
+        this.active = true;
 
         setMinimumAmounts(minimumAmount, 0);
         setPrices(price, minimumAmountPrice, 0);
@@ -120,6 +124,7 @@ public class Menu {
         this.averageDeliveryTime = averageDeliveryTime;
         this.maximumAllowedSells = maximumAllowedSellsAmount;
         this.score =new ArrayList<>();
+        this.active = true;
 
         setMinimumAmounts(minimumAmount, 0);
         setPrices(price, minimumAmountPrice, 0);
@@ -173,4 +178,24 @@ public class Menu {
     }
 
     public long getProviderId(){ return this.providerId;}
+
+    public void addScore(int s){
+        int totalScore = 0;
+        long average = 0;
+        this.score.add(s);
+        if (this.score.size() >= 20){
+            for (Integer sc: this.score){
+                totalScore += sc;
+            }
+            average = totalScore / this.score.size();
+            if (average < 2){
+                this.active = false;
+            }
+        }
+    }
+
+    public Boolean isActive(){
+        return this.active;
+    }
+
 }
