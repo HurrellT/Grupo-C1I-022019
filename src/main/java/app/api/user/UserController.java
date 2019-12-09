@@ -152,6 +152,12 @@ public class UserController {
         return Long.toString(client.id);
     }
 
+    @GetMapping("/userById/{id}")
+    public User getUserById(@PathVariable("id") String id) {
+        long userId = Long.parseLong(id);
+        return userService.findUserById(userId);
+    }
+
     // UPDATING -- PUT REQUESTS
 
     @PutMapping("/client/{id}")
