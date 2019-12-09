@@ -148,8 +148,8 @@ public class UserController {
 
     @GetMapping("/userId/{email}")
     public String getUserId(@PathVariable("email") String email){
-        Client client = userService.findClientByEmail(email);
-        return Long.toString(client.id);
+        User user = userService.findUserByEmail(email);
+        return Long.toString(user.id);
     }
 
     @GetMapping("/userById/{id}")
