@@ -146,6 +146,12 @@ public class UserController {
         return userService.findProviderById(providerId).name;
     }
 
+    @GetMapping("/userId/{email}")
+    public String getUserId(@PathVariable("email") String email){
+        Client client = userService.findClientByEmail(email);
+        return Long.toString(client.id);
+    }
+
     // UPDATING -- PUT REQUESTS
 
     @PutMapping("/client/{id}")
