@@ -3,6 +3,7 @@ package app.api.purchase;
 import app.api.menu.MenuService;
 import app.api.user.UserService;
 import app.model.Exceptions.NoEnoughCreditException;
+import app.model.Exceptions.ScoreRateOutOfBoundsException;
 import app.model.Purchase.Purchase;
 import app.model.Purchase.PurchaseRequest;
 import app.model.Purchase.PurchaseScore;

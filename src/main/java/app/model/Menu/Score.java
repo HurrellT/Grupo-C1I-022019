@@ -14,9 +14,7 @@ public class Score {
     private long id;
     public int score;
 
-    public Score() {
-        this.score = 0;
-    }
+    public Score() {}
 
     public void rateWith(int scoreRate) throws ScoreRateOutOfBoundsException {
         if (scoreRate > 1 && scoreRate < 5)
@@ -25,4 +23,9 @@ public class Score {
             throw new ScoreRateOutOfBoundsException();
         }
     }
+
+    public int getScore(){
+        return this.score;
+    }
+
 }
