@@ -1,9 +1,7 @@
 package viandasYaTests;
 
-import static org.junit.Assert.assertNotNull;
-import static org.reflections.ReflectionUtils.getAllMethods;
-import static org.reflections.ReflectionUtils.withModifier;
-import static org.reflections.ReflectionUtils.withPrefix;
+import static org.junit.Assert.*;
+import static org.reflections.ReflectionUtils.*;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -14,6 +12,7 @@ import org.junit.Test;
 import org.reflections.Reflections;
 
 import com.google.common.base.Predicates;
+import org.springframework.web.bind.annotation.RestController;
 
 public class ArchTests {
 
@@ -35,6 +34,20 @@ public class ArchTests {
     private void assertAllMethodsAreTransactional(Set<Method> allMethods) {
         for (Method method : allMethods) {
             assertNotNull(method.getAnnotation(org.springframework.transaction.annotation.Transactional.class));
+        }
+    }
+
+    @Test
+    public void testAllControllerClasesHasCrossOriginAnnotation() {
+        Reflections reflections = new Reflections("app.api");
+        Set<Class<?>> allClasses = reflections.getTypesAnnotatedWith(org.springframework.web.bind.annotation.RestController.class);
+        this.assertAllClassesAreCrossOrigin(allClasses);
+    }
+
+    private void assertAllClassesAreCrossOrigin(Set<Class<?>> allClasses) {
+        for (Class aClass : allClasses) {
+            assertTrue(aClass.getName().contains("Controller"));
+            assertNotNull(aClass.getAnnotation(org.springframework.web.bind.annotation.RestController.class));
         }
     }
 
