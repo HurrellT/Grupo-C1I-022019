@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface PhoneNumberValidation {
 
-    String message() default "Numero de telefono no valido";
+    String message() default "validations.invalidPhoneNumber";
 
     Class<?>[] groups() default {};
 
