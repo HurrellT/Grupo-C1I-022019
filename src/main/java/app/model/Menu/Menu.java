@@ -21,7 +21,7 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotEmpty(message = "El nombre no debe estar vacio")
+    @NotEmpty(message = "validations.menuName")
     public String name;
     public String description;
     public MenuCategory category;
