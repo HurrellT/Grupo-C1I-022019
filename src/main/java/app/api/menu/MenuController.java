@@ -2,6 +2,7 @@ package app.api.menu;
 
 import app.api.user.UserService;
 import app.model.Exceptions.MenuAmountConstraintException;
+import app.aspects.Logger;
 import app.model.Menu.Menu;
 import app.model.User.Provider.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class MenuController {
 
     // CREATING -- POST REQUESTS
 
+    @Logger
     @PostMapping("/menu")
     public void addMenu(@Valid @RequestBody Menu menu) throws MenuAmountConstraintException {
         long providerId = menu.getProviderId();
@@ -42,17 +44,20 @@ public class MenuController {
 
     // GETTING -- GET REQUESTS
 
+    @Logger
     @RequestMapping(value = "/menu/{name}", method = RequestMethod.GET)
     public Menu findMenuNamed(@PathVariable("name") String name) {
         return menuService.findMenuNamed(name);
     }
 
+    @Logger
     @GetMapping("/menusp/{provider}")
     public List<Menu> getAllProviderMenus(@PathVariable("provider") String id){
         long providerId = Long.parseLong(id);
         return userService.findProviderById(providerId).getMenus();
     }
 
+    @Logger
     @GetMapping("/menusc/{category}")
     public List<Menu> getAllCategoryMenus(@PathVariable("category") String category){
         return menuService.getAllMenus()
@@ -61,6 +66,7 @@ public class MenuController {
                 .collect(Collectors.toList());
     }
 
+    @Logger
     @GetMapping("/menus")
     public List<Menu> getAllMenus() {
 

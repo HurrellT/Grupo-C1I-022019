@@ -2,6 +2,7 @@ package app.api.purchase;
 
 import app.api.menu.MenuService;
 import app.api.user.UserService;
+import app.aspects.Logger;
 import app.model.Exceptions.NoEnoughCreditException;
 import app.model.Exceptions.ScoreRateOutOfBoundsException;
 import app.model.Purchase.Purchase;
@@ -41,14 +42,17 @@ public class PurchaseController {
 
     // CREATING -- POST REQUESTS
 
+    @Logger
     @PostMapping("/purchase")
     public void addPurchase(@Valid @RequestBody Purchase purchase) { purchaseService.addPurchase(purchase); }
 
+    @Logger
     @PostMapping("/setScore")
     public void setScore(@Valid @RequestBody PurchaseScore purchaseScore){
         purchaseService.setScore(purchaseScore.id, purchaseScore.score);
     }
 
+    @Logger
     @PostMapping("/makePurchase/{id}")
     @Transactional
     public void makePurchase(@Valid @RequestBody List<PurchaseRequest> purchaseRequests,
@@ -96,6 +100,7 @@ public class PurchaseController {
         }
     }
 
+    @Logger
     @GetMapping("/ppurchases/{provider}")
     public List<Purchase> getAllProviderPurchases(@PathVariable("provider") String id){
         long providerId = Long.parseLong(id);
@@ -105,12 +110,14 @@ public class PurchaseController {
                 .collect(Collectors.toList());
     }
 
+    @Logger
     @GetMapping("/cpurchases/{client}")
     public List<Purchase> getAllClientPurchases(@PathVariable("client") String id){
         long clientId = Long.parseLong(id);
         return userService.findClientById(clientId).getPurchases();
     }
 
+    @Logger
     @GetMapping("/pendingScoredPurchases/{client}")
     public int getPendingScoredPurchases(@PathVariable("client") String id){
         int pendingScoredPurchases = 0;
@@ -124,6 +131,7 @@ public class PurchaseController {
         return pendingScoredPurchases;
     }
 
+    @Logger
     @GetMapping("/purchases")
     public List<Purchase> getAllPurchases() {
         return userService.getAllPurchases();
