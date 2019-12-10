@@ -4,8 +4,6 @@ import app.model.DataFormatter.DataFormatter;
 import app.model.Email.Email;
 import app.model.Email.Sender;
 import app.model.Exceptions.NonexistentMenuException;
-import app.model.Exceptions.ScoreRateOutOfBoundsException;
-import app.model.Menu.DeliveryType;
 import app.model.Menu.MenuItem;
 import app.model.User.Provider.Provider;
 

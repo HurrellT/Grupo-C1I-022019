@@ -24,14 +24,14 @@ public class Menu {
     @NotEmpty(message = "validations.menuName")
     public String name;
     public String description;
-    public MenuCategory category;
+    public String category;
     public int deliveryPrice;
     public LocalDate effectiveDateFrom;
     public LocalDate effectiveDateTo;
-    public DayNight dayNight;
+    public String dayNight;
     public LocalTime effectiveDeliveryHoursFrom;
     public LocalTime effectiveDeliveryHoursTo;
-    public DeliveryType deliveryType;
+    public String deliveryType;
     public LocalTime averageDeliveryTime;
     public float price;
     public int maximumAllowedSells;
@@ -47,12 +47,12 @@ public class Menu {
 
 
     //Constructor
-    public Menu(){}
+    public Menu(){ this.active = true; }
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, String category,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
-                DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
+                String dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
+                String deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, float minimumAmountPrice,
                 int minimumAmount2, float minimumAmount2Price) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
@@ -77,10 +77,10 @@ public class Menu {
 
     //Optional constructor
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, String category,
                 LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
-                DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
+                String dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
+                String deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, float minimumAmountPrice) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         this.name = menuName;
@@ -105,10 +105,10 @@ public class Menu {
         setPrices(price, minimumAmountPrice, 0);
     }
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, String category,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
-                DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
+                String dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
+                String deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, int minimumAmountPrice) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         this.name = menuName;
