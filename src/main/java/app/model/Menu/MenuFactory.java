@@ -5,8 +5,6 @@ import app.model.Exceptions.MenuPriceInfringement;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MenuFactory {
 
@@ -25,10 +23,10 @@ public class MenuFactory {
     public static Menu pizzaMenu() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         return new Menu(
-                "Pizza Menu", "Menu de pizzas", MenuCategory.PIZZA,
+                "Pizza Menu", "Menu de pizzas", "PIZZA",
                 10,effectiveDateFrom,effectiveDateTo,
-                DayNight.DAY,effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
-                DeliveryType.DELIVERY, averageDeliveryTime, 200,
+                "DAY",effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
+                "DELIVERY", averageDeliveryTime, 200,
                 100,10,190,
                 30,180);
     }
@@ -38,10 +36,10 @@ public class MenuFactory {
     public static Menu burgerMenu() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         return new Menu(
-                "Burguer Menu", "Menu de hamburguesas", MenuCategory.HAMBURGER,
-                effectiveDateFrom,effectiveDateTo, DayNight.DAY,
+                "Burguer Menu", "Menu de hamburguesas", "HAMBURGER",
+                effectiveDateFrom,effectiveDateTo, "DAY",
                 effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
-                DeliveryType.DELIVERY, averageDeliveryTime, 200,
+                "DELIVERY", averageDeliveryTime, 200,
                 100,10,190);
     }
 
@@ -50,10 +48,10 @@ public class MenuFactory {
     public static Menu sushiMenu() throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         return new Menu(
-                "Sushi Menu", "Menu de sushi", MenuCategory.SUSHI,
-                effectiveDateFrom,effectiveDateTo, DayNight.DAY,
+                "Sushi Menu", "Menu de sushi", "SUSHI",
+                effectiveDateFrom,effectiveDateTo, "DAY",
                 effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
-                DeliveryType.DELIVERY, averageDeliveryTime, 500,
+                "DELIVERY", averageDeliveryTime, 500,
                 100,10,190);
     }
 
@@ -62,10 +60,10 @@ public class MenuFactory {
     public static Menu pizzaMenuWithName(String menuName) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         return new Menu(
-                menuName, "Menu de pizzas", MenuCategory.PIZZA,
+                menuName, "Menu de pizzas", "PIZZA",
                 10, effectiveDateFrom, effectiveDateTo,
-                DayNight.DAY, effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo,
-                DeliveryType.DELIVERY, averageDeliveryTime, 200,
+                "DAY", effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo,
+                "DELIVERY", averageDeliveryTime, 200,
                 100,10,190,
                 30,180);
     }
@@ -90,9 +88,9 @@ public class MenuFactory {
         LocalTime effectiveDeliveryHoursTo = LocalTime.of(18,0);
         LocalTime averageDeliveryTime = LocalTime.of(13,0);
 
-        return new Menu("Test Menu", "Menu de prueba", MenuCategory.SUSHI,
-                10,effectiveDateFrom, effectiveDateTo, DayNight.NIGHT,
-                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.DELIVERY,
+        return new Menu("Test Menu", "Menu de prueba", "SUSHI",
+                10,effectiveDateFrom, effectiveDateTo, "NIGHT",
+                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, "DELIVERY",
                 averageDeliveryTime, 100, 10, 1, 90,
                 1,10);
     }
@@ -103,10 +101,10 @@ public class MenuFactory {
 
 
         return new Menu(
-                "Empanadas", "Menu de empanadas",MenuCategory.EMPANADAS,
-                10,effectiveDateFrom,effectiveDateTo,
-                DayNight.DAY,effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
-                DeliveryType.DELIVERY, averageDeliveryTime,
+                "Empanadas", "Menu de empanadas", "EMPANADAS",
+                10, effectiveDateFrom, effectiveDateTo,
+                "DAY", effectiveDeliveryHoursFrom,effectiveDeliveryHoursTo,
+                "DELIVERY", averageDeliveryTime,
                 100, 100, 1,
                 90,10,10);
     }
@@ -116,10 +114,10 @@ public class MenuFactory {
     public static Menu menuWithName(String menuName) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         return new Menu(
-                menuName, "Descripcion", MenuCategory.PIZZA,
+                menuName, "Descripcion", "PIZZA",
                 10, effectiveDateFrom, effectiveDateTo,
-                DayNight.DAY, effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo,
-                DeliveryType.DELIVERY, averageDeliveryTime, 200,
+                "DAY", effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo,
+                "DELIVERY", averageDeliveryTime, 200,
                 100, 1, 90);
     }
 

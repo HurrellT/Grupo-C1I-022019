@@ -1,9 +1,13 @@
 package app.api.user;
 
+import app.model.Exceptions.ResourceNotFoundException;
+import app.model.Purchase.Purchase;
 import app.model.User.Client.Client;
 import app.model.User.Provider.Provider;
 import app.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +19,12 @@ public class UserService {
     //Parameters
     @Autowired
     private final UserRepository userRepository;
+    private final ProviderRepository providerRepository;
 
     //Constructor
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ProviderRepository providerRepository) {
         this.userRepository = userRepository;
+        this.providerRepository = providerRepository;
     }
 
     //Methods
@@ -26,19 +32,30 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        return (List<User>) userRepository.findAll();
+    public List<User> getAllUsers(int page, int size) {
+        Page<User> resultPage = userRepository.findAll(PageRequest.of(page,size));
+        if (page > resultPage.getTotalPages()) {
+            throw new ResourceNotFoundException();
+        }
+
+        return resultPage.getContent();
     }
 
-    public List<User> getAllProviders() {
-        return this.getAllUsers()
-                .stream()
-                .filter(user -> (user.type).equals("provider"))
-                .collect(Collectors.toList());
+    public List<Provider> getAllProviders(Integer page, Integer size) {
+        Page<Provider> resultPage = providerRepository.findAll(PageRequest.of(page, size));
+        if (page > resultPage.getTotalPages()) {
+            throw new ResourceNotFoundException();
+        }
+
+        return resultPage.getContent();
+//        return this.getAllUsers(page,size)
+//                .stream()
+//                .filter()
+//                .collect(Collectors.toList());
     }
 
-    public List<User> getAllClients() {
-        return this.getAllUsers()
+    public List<User> getAllClients(Integer page, Integer size) {
+        return this.getAllUsers(page, size)
                 .stream()
                 .filter(user -> (user.type).equals("client"))
                 .collect(Collectors.toList());
@@ -58,6 +75,7 @@ public class UserService {
         foundUser.email = client.email;
         foundUser.phone = client.phone;
         foundUser.accountCredit = client.accountCredit;
+        foundUser.setPurchases(client.getPurchases());
 
         userRepository.save(foundUser);
     }
@@ -101,5 +119,34 @@ public class UserService {
 
     public Provider findProviderById(long id) {
         return userRepository.findProviderById(id);
+    }
+
+    public List<Purchase> getAllPurchases() {
+        return userRepository.findByType("client").getPurchases();
+    }
+
+    public void updateUserCredit(User user) {
+        userRepository.save(user);
+    }
+
+    public Integer getAllUsersSize() {
+        return Math.toIntExact(userRepository.findAll().spliterator().getExactSizeIfKnown());
+    }
+
+    public Client findClientByEmail(String email) {
+        return userRepository.findClientByEmail(email);
+    }
+
+    public boolean clientIsRegistered(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
+    public void convertAndUpdateClientToProvider(long id, Provider convertedUser) {
+        userRepository.deleteById(id);
+        userRepository.save(convertedUser);
     }
 }

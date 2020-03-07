@@ -5,7 +5,6 @@ import app.model.Exceptions.MenuAmountConstraintException;
 import app.model.Exceptions.NonexistentMenuException;
 import app.model.Menu.Menu;
 import app.model.User.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,7 +12,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 //@Table(name = "provider")
@@ -34,7 +33,7 @@ public class Provider extends User {
     public DayOfWeek officeDaysFrom;
     @NotNull
     public DayOfWeek officeDaysTo;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     public List<Menu> menus;
     public boolean delivery;
 
@@ -98,7 +97,9 @@ public class Provider extends User {
     public boolean hasDelivery(){return delivery;}
 
     public List<Menu> getMenus(){
-        return this.menus;
+        return this.menus.stream()
+                .filter(menu -> menu.isActive())
+                .collect(Collectors.toList());
     }
 
 }

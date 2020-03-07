@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface EmailValidation {
 
-    String message() default "Email no valido";
+    String message() default "validations.invalidEmail";
 
     Class<?>[] groups() default {};
 

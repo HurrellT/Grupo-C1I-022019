@@ -28,21 +28,19 @@ public class User {
     @Column(name = "type", insertable = false, updatable = false)
     public String type;
 
-    @NotEmpty(message = "Por favor, escriba su nombre")
+    @NotEmpty(message = "validations.name")
     public String name;
 
-    @NotEmpty(message = "Por favor, escriba su ciudad")
+    @NotEmpty(message = "validations.state")
     public String state;
 
-    @NotEmpty(message = "Por favor, escriba su direccion")
+    @NotEmpty(message = "validations.address")
     public String address;
 
     @EmailValidation
-    @NotEmpty(message = "Por favor, escriba un email valido")
     public String email;
 
     @PhoneNumberValidation
-    @NotEmpty(message = "Por favor, escriba un numero de telefono valido")
     public String phone;
 
     public double accountCredit;
@@ -107,13 +105,18 @@ public class User {
 
     public void addCredit(double cred){ this.accountCredit+= cred; }
 
-    public void subtractCredit(double cred){ this.accountCredit-= cred; }
+    public void subtractCredit(double cred){
+        if (this.accountCredit == 0) {
+            throw new NoEnoughCreditException();
+        }
+        else {
+            this.accountCredit-= cred;
+        }
+    }
 
     public double getAccountCredit() { return this.accountCredit; }
 
     public List<Menu> getMenus(){
         return new ArrayList<>();
     }
-
-    public void makePurchase(Purchase p) throws NoEnoughCreditException, NoItemsInTheOrderException { }
 }

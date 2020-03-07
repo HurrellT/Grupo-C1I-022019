@@ -2,8 +2,10 @@ package app.model.Menu;
 
 import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
+import app.model.Exceptions.ScoreRateOutOfBoundsException;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,16 +21,17 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty(message = "validations.menuName")
     public String name;
     public String description;
-    public MenuCategory category;
+    public String category;
     public int deliveryPrice;
     public LocalDate effectiveDateFrom;
     public LocalDate effectiveDateTo;
-    public DayNight dayNight;
+    public String dayNight;
     public LocalTime effectiveDeliveryHoursFrom;
     public LocalTime effectiveDeliveryHoursTo;
-    public DeliveryType deliveryType;
+    public String deliveryType;
     public LocalTime averageDeliveryTime;
     public float price;
     public int maximumAllowedSells;
@@ -38,17 +41,18 @@ public class Menu {
     public float minimumAmount2Price;
     private long providerId;
     private String providerName;
-    @OneToMany
-    public List<Score> score;
+    private Boolean active;
+    @ElementCollection
+    public List<Integer> score;
 
 
     //Constructor
-    public Menu(){}
+    public Menu(){ this.active = true; }
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, String category,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
-                DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
+                String dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
+                String deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, float minimumAmountPrice,
                 int minimumAmount2, float minimumAmount2Price) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
@@ -65,6 +69,7 @@ public class Menu {
         this.averageDeliveryTime = averageDeliveryTime;
         this.maximumAllowedSells = maximumAllowedSellsAmount;
         this.score = new ArrayList<>();
+        this.active = true;
 
         setMinimumAmounts(minimumAmount, minimumAmount2);
         setPrices(price, minimumAmountPrice, minimumAmount2Price);
@@ -72,10 +77,10 @@ public class Menu {
 
     //Optional constructor
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, String category,
                 LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
-                DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
+                String dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
+                String deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, float minimumAmountPrice) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         this.name = menuName;
@@ -94,15 +99,16 @@ public class Menu {
         this.minimumAmount = minimumAmount;
         this.minimumAmountPrice = minimumAmountPrice;
         this.score = new ArrayList<>();
+        this.active = true;
 
         setMinimumAmounts(minimumAmount, 0);
         setPrices(price, minimumAmountPrice, 0);
     }
 
-    public Menu(String menuName, String description, MenuCategory category,
+    public Menu(String menuName, String description, String category,
                 int deliveryPrice, LocalDate effectiveDateFrom, LocalDate effectiveDateTo,
-                DayNight dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
-                DeliveryType deliveryType, LocalTime averageDeliveryTime, float price,
+                String dayNight, LocalTime effectiveDeliveryHoursFrom, LocalTime effectiveDeliveryHoursTo,
+                String deliveryType, LocalTime averageDeliveryTime, float price,
                 int maximumAllowedSellsAmount, int minimumAmount, int minimumAmountPrice) throws MenuMinimumAmountInfringement, MenuPriceInfringement {
 
         this.name = menuName;
@@ -118,6 +124,7 @@ public class Menu {
         this.averageDeliveryTime = averageDeliveryTime;
         this.maximumAllowedSells = maximumAllowedSellsAmount;
         this.score =new ArrayList<>();
+        this.active = true;
 
         setMinimumAmounts(minimumAmount, 0);
         setPrices(price, minimumAmountPrice, 0);
@@ -171,4 +178,24 @@ public class Menu {
     }
 
     public long getProviderId(){ return this.providerId;}
+
+    public void addScore(int s){
+        int totalScore = 0;
+        long average = 0;
+        this.score.add(s);
+        if (this.score.size() >= 20){
+            for (Integer sc: this.score){
+                totalScore += sc;
+            }
+            average = totalScore / this.score.size();
+            if (average < 2){
+                this.active = false;
+            }
+        }
+    }
+
+    public Boolean isActive(){
+        return this.active;
+    }
+
 }

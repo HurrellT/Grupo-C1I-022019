@@ -1,4 +1,22 @@
 ---------------------------------------------------------------------
+TAG Grupo-C1I-022019-Entrega-3
+---------------------------------------------------------------------
+NEW FEATURES
+* Logging for all endpoints
+* New endpoints for getting users by email
+* Changed validation messages to keys to be handled by frontend
+* Added states to menus
+* Architecture tests for transactional and Rest controllers
+
+KNOWN ISSUES
+*
+
+NOTES
+*
+
+------------------------Previous Releases----------------------------
+
+---------------------------------------------------------------------
 TAG Grupo-C1I-022019-Entrega-2
 ---------------------------------------------------------------------
 NEW FEATURES
@@ -12,9 +30,6 @@ KNOWN ISSUES
 
 NOTES
 *
-
-
-------------------------Previous Releases----------------------------
 
 ---------------------------------------------------------------------
 TAG Grupo-C1I-022019-Entrega-1

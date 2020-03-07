@@ -13,8 +13,6 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static app.model.Menu.DeliveryType.DELIVERY;
-import static app.model.Menu.DeliveryType.PICK_UP;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -35,7 +33,7 @@ public class PurchasesTests {
 
         Provider pepePizas = ProviderFactory.pepePizzas();
         Menu empanadas = MenuFactory.menuWithName("empanadas");
-        Purchase order1 = new Purchase(pepePizas, DELIVERY);
+        Purchase order1 = new Purchase(pepePizas, "Delivery");
 
         pepePizas.addMenu(empanadas);
         order1.addMenu("empanadas", 6);
@@ -51,7 +49,7 @@ public class PurchasesTests {
         Provider pepePizas = ProviderFactory.pepePizzas();
         Menu piza = MenuFactory.menuWithName("piza");
         Menu milanesa = MenuFactory.menuWithName("milanesa");
-        Purchase order1 = new Purchase(pepePizas, DELIVERY);
+        Purchase order1 = new Purchase(pepePizas, "Delivery");
 
         pepePizas.addMenu(piza);
         pepePizas.addMenu(milanesa);
@@ -76,7 +74,7 @@ public class PurchasesTests {
 
         Provider pepePizas = ProviderFactory.pepePizzas();
         Menu piza = MenuFactory.menuWithName("piza");
-        Purchase order1 = new Purchase(pepePizas, PICK_UP);
+        Purchase order1 = new Purchase(pepePizas, "Pick up");
 
         pepePizas.addMenu(piza);
 
@@ -92,7 +90,7 @@ public class PurchasesTests {
         Menu pizza = MenuFactory.pizzaMenu();
         Menu empanada = MenuFactory.empanadas();
         Menu hamburguesa = MenuFactory.burgerMenu();
-        Purchase order1 = new Purchase(pepePizas, DELIVERY);
+        Purchase order1 = new Purchase(pepePizas, "Delivery");
 
         //Seteo los precios de los menús
         pizza.setPrice(200);
@@ -118,7 +116,7 @@ public class PurchasesTests {
         Provider pepePizas = ProviderFactory.pepePizzas();
         Menu piza = MenuFactory.pizzaMenu();
         Client fede = ClientFactory.federicoMartinez();
-        Purchase order1 = new Purchase(pepePizas, DELIVERY);
+        Purchase order1 = new Purchase(pepePizas, "Delivery");
 
         piza.setPrice(200);
         pepePizas.addMenu(piza);
@@ -133,7 +131,7 @@ public class PurchasesTests {
 
         Provider pepePizas = ProviderFactory.pepePizzas();
         Client fede = ClientFactory.federicoMartinez();
-        Purchase order1 = new Purchase(pepePizas, DELIVERY, LocalDate.ofYearDay(2019, 300), LocalTime.MIDNIGHT);
+        Purchase order1 = new Purchase(pepePizas, "Delivery", LocalDate.ofYearDay(2019, 300), LocalTime.MIDNIGHT);
 
         fede.makePurchase(order1);
 
@@ -146,7 +144,7 @@ public class PurchasesTests {
 
         Provider pepePizas = ProviderFactory.pepePizzas();
         Menu piza = MenuFactory.pizzaMenu();
-        Purchase order = new Purchase(pepePizas, DELIVERY);
+        Purchase order = new Purchase(pepePizas, "Delivery");
 
         piza.setPrice(200);
         pepePizas.addMenu(piza);
@@ -169,7 +167,7 @@ public class PurchasesTests {
         Client juan = ClientFactory.juan();
         Menu piza = MenuFactory.pizzaMenu();
         Menu hamburguesa = MenuFactory.burgerMenu();
-        Purchase order = new Purchase(pepePizas, DELIVERY);
+        Purchase order = new Purchase(pepePizas, "Delivery");
 
         juan.addCredit(400);
         piza.setPrice(200);

@@ -1,7 +1,6 @@
 package app;
 
 import app.api.menu.MenuRepository;
-import app.api.purchase.PurchaseRepository;
 import app.api.user.UserRepository;
 import app.api.user.UserService;
 import app.model.Exceptions.MenuAmountConstraintException;
@@ -21,8 +20,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import static app.model.Menu.DeliveryType.DELIVERY;
-
 @SpringBootApplication
 public class ViandasYaApplication {
 
@@ -39,8 +36,8 @@ class DBPreloader {
     private UserRepository userRepository;
     @Autowired
     private MenuRepository menuRepository;
-    @Autowired
-    private PurchaseRepository purchaseRepository;
+//    @Autowired
+//    private PurchaseRepository purchaseRepository;
     @Autowired
     private UserService userService;
 
@@ -49,6 +46,8 @@ class DBPreloader {
         //Users to Preload
         User tomasHurrell = ClientFactory.tomasHurrell();
         User federicoMartinez = ClientFactory.federicoMartinez();
+        User juan = ClientFactory.juan();
+        User josesito = ClientFactory.josesito();
         Provider pepePizzas = ProviderFactory.pepePizzas();
         Provider palermoSushi = ProviderFactory.palermoSushi();
 
@@ -61,10 +60,12 @@ class DBPreloader {
         menuRepository.save(pizza);
         menuRepository.save(sushi);
 
-        federicoMartinez.addCredit(500);
+        federicoMartinez.addCredit(11500);
 
         userRepository.save(federicoMartinez);
         userRepository.save(tomasHurrell);
+        userRepository.save(juan);
+        userRepository.save(josesito);
         userRepository.save(pepePizzas);
         userRepository.save(palermoSushi);
 
@@ -75,9 +76,9 @@ class DBPreloader {
         userService.updateProvider(pepePizzas.id, pepePizzas);
         userService.updateProvider(palermoSushi.id, palermoSushi);
 
-        /*//Purchases to preload
-        Purchase order1 = new Purchase(pepePizzas, DELIVERY);
-        Purchase order2 = new Purchase(palermoSushi, DELIVERY);
+        //Purchases to preload
+        Purchase order1 = new Purchase(pepePizzas, "Delivery");
+        Purchase order2 = new Purchase(palermoSushi, "Delivery");
 
         menuRepository.save(pizza);
         menuRepository.save(burger);
@@ -86,14 +87,15 @@ class DBPreloader {
         ((Provider) pepePizzas).addMenu(pizza);
         ((Provider) palermoSushi).addMenu(sushi);
 
-        purchaseRepository.save(order1);
+        /*purchaseRepository.save(order1);
         purchaseRepository.save(order2);
 
-        /*order1.addMenu("Pizza Menu", 1);
+        order1.addMenu("Pizza Menu", 1);
         order2.addMenu("Sushi Menu", 1);
 
         purchaseRepository.(order1);
         purchaseRepository.save(order2);*/
+
 
     }
 }

@@ -1,16 +1,14 @@
 package viandasYaTests.MenuTests;
 
-import org.junit.Test;
 import app.model.Exceptions.MenuMinimumAmountInfringement;
 import app.model.Exceptions.MenuPriceInfringement;
 import app.model.Menu.*;
+import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class MenuTests {
 
@@ -26,14 +24,14 @@ public class MenuTests {
 
         assertEquals("Pizza Menu", menu.name);
         assertEquals("Menu de pizzas", menu.description);
-        assertEquals(menu.category, MenuCategory.PIZZA);
+        assertEquals(menu.category, "PIZZA");
         assertEquals(10,menu.deliveryPrice);
         assertEquals(effectiveDateFrom, menu.effectiveDateFrom);
         assertEquals(effectiveDateTo, menu.effectiveDateTo);
-        assertEquals(DayNight.DAY, menu.dayNight);
+        assertEquals("DAY", menu.dayNight);
         assertEquals(effectiveDeliveryHoursFrom, menu.effectiveDeliveryHoursFrom);
         assertEquals(effectiveDeliveryHoursTo, menu.effectiveDeliveryHoursTo);
-        assertEquals(DeliveryType.DELIVERY, menu.deliveryType);
+        assertEquals("DELIVERY", menu.deliveryType);
         assertEquals(averageDeliveryTime, menu.averageDeliveryTime);
         assertEquals(200, menu.price, 0);
         assertEquals(10, menu.minimumAmount);
@@ -55,14 +53,14 @@ public class MenuTests {
 
         assertEquals("Burguer Menu", menu.name);
         assertEquals("Menu de hamburguesas", menu.description);
-        assertEquals(menu.category, MenuCategory.HAMBURGER);
+        assertEquals(menu.category, "HAMBURGER");
         assertEquals(0,menu.deliveryPrice); //TODO: Use optionals instead?
         assertEquals(effectiveDateFrom, menu.effectiveDateFrom);
         assertEquals(effectiveDateTo, menu.effectiveDateTo);
-        assertEquals(DayNight.DAY, menu.dayNight);
+        assertEquals("DAY", menu.dayNight);
         assertEquals(effectiveDeliveryHoursFrom, menu.effectiveDeliveryHoursFrom);
         assertEquals(effectiveDeliveryHoursTo, menu.effectiveDeliveryHoursTo);
-        assertEquals(DeliveryType.DELIVERY, menu.deliveryType);
+        assertEquals("DELIVERY", menu.deliveryType);
         assertEquals(averageDeliveryTime, menu.averageDeliveryTime);
         assertEquals(200, menu.price, 0);
         assertEquals(10, menu.minimumAmount);
@@ -80,21 +78,21 @@ public class MenuTests {
         LocalTime effectiveDeliveryHoursTo = LocalTime.of(18,0);
         LocalTime averageDeliveryTime = LocalTime.of(13,0);
 
-        Menu menu = new Menu("Test Menu", "Menu de prueba", MenuCategory.SUSHI,
-                10,effectiveDateFrom, effectiveDateTo, DayNight.NIGHT,
-                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.DELIVERY,
+        Menu menu = new Menu("Test Menu", "Menu de prueba", "SUSHI",
+                10,effectiveDateFrom, effectiveDateTo, "NIGHT",
+                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, "DELIVERY",
                 averageDeliveryTime, 100, 10, 1, 90);
 
         assertEquals("Test Menu", menu.name);
         assertEquals("Menu de prueba", menu.description);
-        assertEquals(menu.category, MenuCategory.SUSHI);
+        assertEquals(menu.category, "SUSHI");
         assertEquals(10,menu.deliveryPrice); //TODO: Use optionals instead?
         assertEquals(effectiveDateFrom, menu.effectiveDateFrom);
         assertEquals(effectiveDateTo, menu.effectiveDateTo);
-        assertEquals(DayNight.NIGHT, menu.dayNight);
+        assertEquals("NIGHT", menu.dayNight);
         assertEquals(effectiveDeliveryHoursFrom, menu.effectiveDeliveryHoursFrom);
         assertEquals(effectiveDeliveryHoursTo, menu.effectiveDeliveryHoursTo);
-        assertEquals(DeliveryType.DELIVERY, menu.deliveryType);
+        assertEquals("DELIVERY", menu.deliveryType);
         assertEquals(averageDeliveryTime, menu.averageDeliveryTime);
         assertEquals(100, menu.price, 0);
         assertEquals(1, menu.minimumAmount);
@@ -117,9 +115,9 @@ public class MenuTests {
         LocalTime effectiveDeliveryHoursTo = LocalTime.of(18,0);
         LocalTime averageDeliveryTime = LocalTime.of(13,0);
 
-        Menu menu = new Menu("Test Menu", "Menu de prueba", MenuCategory.SUSHI,
-                10,effectiveDateFrom, effectiveDateTo, DayNight.NIGHT,
-                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, DeliveryType.DELIVERY,
+        Menu menu = new Menu("Test Menu", "Menu de prueba", "SUSHI",
+                10,effectiveDateFrom, effectiveDateTo, "NIGHT",
+                effectiveDeliveryHoursFrom, effectiveDeliveryHoursTo, "DELIVERY",
                 averageDeliveryTime, 100, 10, 1, 90,
                 10,100);
     }

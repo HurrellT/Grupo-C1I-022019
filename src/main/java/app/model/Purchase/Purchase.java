@@ -1,10 +1,9 @@
 package app.model.Purchase;
 
 import app.model.DataFormatter.DataFormatter;
-import app.model.Email.Controller;
 import app.model.Email.Email;
+import app.model.Email.Sender;
 import app.model.Exceptions.NonexistentMenuException;
-import app.model.Menu.DeliveryType;
 import app.model.Menu.MenuItem;
 import app.model.User.Provider.Provider;
 
@@ -12,7 +11,9 @@ import javax.persistence.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 @Entity
 @Table(name = "purchase")
@@ -22,34 +23,40 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
 
-    @ManyToOne
+    @Transient
     public Provider provider;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<MenuItem> order;
-    public DeliveryType deliveryType;
+    public String deliveryType;
     public LocalDate deliveryDate;
+    public LocalDate orderDate;
     public LocalTime deliveryTime;
     public double totalAmount;
+    public int score;
+    public String showScore;
 
     //Constructor
     public Purchase(){}
 
-    public Purchase(Provider p, DeliveryType deliveryType){
+    public Purchase(Provider p, String deliveryType){
         this.provider = p;
         this.order = new ArrayList<>();
         this.deliveryType = deliveryType;
         this.deliveryDate = LocalDate.now();
         this.deliveryTime = LocalTime.now();
         this.totalAmount = 0;
+        this.showScore = "";
     }
 
-    public Purchase(Provider p, DeliveryType deliveryType, LocalDate deliveryDate, LocalTime deliveryTime){
+    public Purchase(Provider p, String deliveryType, LocalDate deliveryDate, LocalTime deliveryTime){
         this.provider = p;
         this.order = new ArrayList<>();
         this.deliveryType = deliveryType;
         this.deliveryDate = deliveryDate;
+        this.orderDate = LocalDate.now();
         this.deliveryTime = deliveryTime;
         this.totalAmount = 0;
+        this.showScore = "";
     }
 
     public void addMenu(String menuName, Integer quantity) throws NonexistentMenuException {
@@ -96,9 +103,22 @@ public class Purchase {
 
     public List<MenuItem> getOrder(){ return this.order; }
 
+    public void setScore(int score){
+        this.score = score;
+        for (MenuItem mi: this.order){
+            mi.setMenuScore(score);
+        }
+    }
+
+    public int getScore(){
+        return this.score;
+    }
+
     public void sendMails(String clientAddress, String clientMessage, DataFormatter formatter){
 
-        Controller controller = new Controller();
+        //Controller controller = new Controller();
+        Sender clientSender;
+        Sender providerSender;
         Email clientMail = new Email();
         Email providerMail = new Email();
         ResourceBundle messages = formatter.getResourceBundle();
@@ -117,8 +137,10 @@ public class Purchase {
         providerMail.setFileName("ViandasYa.png");
         providerMail.setFilePath("ViandasYa.png");
 
-        controller.sendMail(clientMail);
-        controller.sendMail(providerMail);
+        clientSender = new Sender("Client send", clientMail);
+        providerSender = new Sender("Provider send", providerMail);
+        clientSender.start();
+        providerSender.start();
 
     }
 

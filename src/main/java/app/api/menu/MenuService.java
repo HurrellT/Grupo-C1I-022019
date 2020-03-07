@@ -25,6 +25,8 @@ public class MenuService {
 
     public Menu findMenuNamed(String name){ return  menuRepository.findByName(name); }
 
+    public Menu findById(long id){ return menuRepository.findById(id).get(); }
+
     public List<Menu> getAllMenus() {
         return (List<Menu>) menuRepository.findAll();
     }
